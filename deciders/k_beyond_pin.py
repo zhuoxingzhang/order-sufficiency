@@ -10,7 +10,7 @@ by ksat over 6 entities and 4 values, then 9 entities with at most 4 changed.
 Scope of the conjecture of the paper (Section 8), per task: key_via_ind (a relation has a key
 besides its primary key under Sigma+), pullback (an IND of Sigma+ references a key K of S and a
 further attribute of S, both inside M*(S), through a pointer outside M*(R): frozen reference data
-fix a function of a mutable pointer, as in Example 4.9), and injective (some IND has a pointer that
+fix a function of a mutable pointer, as in Example A.5), and injective (some IND has a pointer that
 contains the primary key of its own relation, as in an example of the appendix).
 Usage: python -I k_beyond_pin.py <k_beyond.jsonl> <k_beyond_recheck.json> <procs> <out.json>"""
 import sys, os, json, time

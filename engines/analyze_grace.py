@@ -1,4 +1,4 @@
-"""Summarize the grace-period runs (Figure 8b): anomalous trials per cell with a Wilson 95% interval,
+"""Summarize the grace-period runs (Figure 7): anomalous trials per cell with a Wilson 95% interval,
 and the check of Proposition 5.9 that no anomalous read spans at most the pause between the commits.
 
 usage: python -I analyze_grace.py results/grace.jsonl > results/grace.md

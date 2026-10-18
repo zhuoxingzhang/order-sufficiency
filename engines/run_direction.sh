@@ -1,5 +1,5 @@
 #!/bin/bash
-# Citus direction runs of Figure 8, in the uniform configuration (no slow worker).
+# Citus direction runs of Figure 7, in the uniform configuration (no slow worker).
 # First grid: insert or delete, writer ordered / reversed / atomic, reader c2p / p2c, pause 0, 1
 # or 10 ms between the two reads.  Second grid: ordered commits with 1 or 10 ms between the two
 # commits.  N runs per configuration; the trap stops the cluster.

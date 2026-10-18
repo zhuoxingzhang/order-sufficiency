@@ -1,5 +1,5 @@
 #!/bin/bash
-# Rounds sweep of Figure 7: an insertion of a path of k rows whose every hop changes nodes (x7bench.py,
+# Rounds sweep of Figure 6f: an insertion of a path of k rows whose every hop changes nodes (x7bench.py,
 # workload chain), so that leveled commits need k rounds, against one 2PC at its best.  Three blocks,
 # one client, k = 2, 3, 4, 5, 6, 8.  Citus without and with relays that add 0.5 ms in each direction,
 # then Vitess.  Methods as in Figure 6, without the outbox.

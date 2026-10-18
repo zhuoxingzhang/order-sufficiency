@@ -1,4 +1,4 @@
-"""Grace-period runs behind Figure 8b: does a pause between two ordered commits protect readers
+"""Grace-period runs behind Figure 7: does a pause between two ordered commits protect readers
 whose reads finish within the pause (Proposition 5.9)?
 
 Claim.  Let the writer send the second commit only DELTA after the first commit has returned.  A

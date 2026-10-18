@@ -1,4 +1,4 @@
-"""Summarize the rounds sweep of Figure 7: per path length k (= rounds of leveled commits), the median latency of
+"""Summarize the rounds sweep of Figure 6f: per path length k (= rounds of leveled commits), the median latency of
 every method relative to the fastest one 2PC of the same block, as a geometric mean over the blocks with
 its range, plus the absolute medians.
 

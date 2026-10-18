@@ -3,9 +3,9 @@
 Schemas.  One random generator composes four features that the final class K excludes or
 restricts (gen() below): composite pointers into composite primary keys; pointers that meet
 PK(R); attributes that two INDs of R share, so that one pointer and copy lead into two relations
-(the mechanism of Example 4.9 when one of them is frozen); and copies of copies.  Only primary-key
+(the mechanism of Example A.5 when one of them is frozen); and copies of copies.  Only primary-key
 FDs, acyclic INDs, at most 4 relations of at most 4 attributes, at most 8 non-key attributes;
-distinct schemas only, every Fz >= PK.  The named examples of the paper (Example 4.9, the diamond
+distinct schemas only, every Fz >= PK.  The named examples of the paper (Example A.5, the diamond
 and the crossing pair of the appendix) run as well.  Each schema is classified by
 deciders.parse_K (final class K) and by its features.
 
@@ -219,7 +219,7 @@ class Theory:
         """key_via_ind: a relation has a key besides its primary key under Sigma+.
         pullback_shared: an IND of Sigma+ whose right side lies in M* and contains a key of S pulls
         an FD back onto a mutable pointer, and the pulled attribute or the pointer occurs in
-        another IND of Sigma (the mechanism of Example 4.9; an approximation of the paper's
+        another IND of Sigma (the mechanism of Example A.5; an approximation of the paper's
         'pull no FD back from frozen reference data')."""
         key_via_ind = any(len(ks) > 1 for ks in self.keys.values())
         M = self.frozen_closure(Fz)
@@ -245,7 +245,7 @@ class Theory:
 
 # ---------------------------------------------------------------------------- generator
 NAMED = {
-    # Example 4.9: R[A,D] <= T[P,Q] and R[A,D] <= S[C,E]
+    # Example A.5: R[A,D] <= T[P,Q] and R[A,D] <= S[C,E]
     'example_4_4': {'rels': {'T': ['P', 'Q'], 'S': ['C', 'E'], 'R': ['K', 'A', 'D']},
                     'pk': {'T': ['P'], 'S': ['C'], 'R': ['K']}, 'fds': [],
                     'inds': [('R', ['A', 'D'], 'T', ['P', 'Q']), ('R', ['A', 'D'], 'S', ['C', 'E'])]},

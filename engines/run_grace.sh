@@ -1,5 +1,5 @@
 #!/bin/bash
-# Citus grace-period runs of Figure 8b, in the uniform configuration (no slow worker).
+# Citus grace-period runs of Figure 7, in the uniform configuration (no slow worker).
 # Grid: insert or delete, pause between the two commits 0, 1, 2, 5, 10 or 20 ms, pause between
 # the two reads 0, 1, 2, 5, 10 or 20 ms, reader in the direction that write order does not protect.
 # N runs per configuration; the trap stops the cluster.
