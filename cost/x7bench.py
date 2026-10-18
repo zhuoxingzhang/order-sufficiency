@@ -52,6 +52,9 @@ Leveled commits (Section 5.3):
       multi-row statement (Vitess: one shard per node; Citus: work/shardmap_citus.bin, since a Citus
       statement over several shards of one worker makes even a single-node transaction use 2PC)
   Los, Es  Lo and E with the set statements of Ls
+  Ps  ordered two-phase commit (Citus, X7_ROUTE=direct): Ls on the shard tables, every transaction
+      prepared at the end of its first message, then COMMIT PREPARED level by level
+  Lt  Ps without PREPARE (the control for the cost of the prepares)
 
 Entry points: X7_ROUTE=direct makes every method on Citus enter at the workers; leveled commits and
 b send each single-node transaction to the worker that holds its rows, one 2PC goes to the worker of
@@ -275,8 +278,16 @@ class VitessPar:
 
 ENGINES = {'citus': Citus, 'vitess': Vitess}
 PAR = {'citus': CitusPar, 'vitess': VitessPar}
-LEVELED = ('L', 'E', 'Lo', 'Ls', 'Los', 'Es')
-FOLDED = ('Ls', 'Los', 'Es')          # children folded into one set statement per shard
+LEVELED = ('L', 'E', 'Lo', 'Ls', 'Los', 'Es', 'Ps', 'Lt')
+FOLDED = ('Ls', 'Los', 'Es', 'Ps', 'Lt')  # children folded into one set statement per shard
+# Ordered 2PC (Citus, X7_ROUTE=direct only): as Ls, but every single-node transaction writes the
+# shard tables by name and ends its first message with PREPARE TRANSACTION, so that all of them are
+# prepared (durably) before any commits; then COMMIT PREPARED level by level.  Citus refuses PREPARE
+# TRANSACTION after a statement on a distributed table name ("cannot use 2PC in transactions
+# involving multiple servers"), hence the shard tables (probe_prepare.sh).  Lt is the same without
+# PREPARE, the control that isolates the cost of the prepares.
+PREPARED = ('Ps',)
+SHARDTAB = ('Ps', 'Lt')
 OUTBOX = ('Lo', 'Los')                # every first-round transaction also writes an outbox row
 EAGER = ('E', 'Es')                   # the first round commits in its first message
 ONE_MESSAGE = ('h', 'hA')
@@ -575,6 +586,27 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
             # one set statement per shard (a router statement), so that every single-node
             # transaction keeps one connection and commits without 2PC (x7_probe_2pc.py)
             shard_of = open(f'{WORK}/shardmap_citus.bin', 'rb').read()
+        if method in SHARDTAB:
+            assert engine == 'citus' and direct and wl != 'chain', 'Ps and Lt need Citus with X7_ROUTE=direct'
+            db.x("SELECT logicalrelid::text, shard_name(logicalrelid, shardid) FROM pg_dist_shard "
+                 "WHERE logicalrelid IN ('parent'::regclass, 'child'::regclass) ORDER BY shardminvalue::int")
+            shard_names = {'parent': [], 'child': []}
+            for rel, name in db.cur.fetchall():
+                shard_names[rel].append(name)
+            assert len(shard_names['parent']) == len(shard_names['child']), 'parent and child not colocated'
+            par.run([(i, [('SET citus.override_table_visibility TO off', None)]) for i in range(E.N)])
+
+            def on_shards(body):
+                """Rewrite every statement onto the shard table of its rows (one shard per statement)."""
+                out = []
+                for sql, args in body:
+                    if args is None:
+                        out.append((sql, args))
+                        continue
+                    rel = 'parent' if ' parent ' in sql else 'child'
+                    key = args[1] if sql.startswith('UPDATE child') else args[0]
+                    out.append((sql.replace(f' {rel} ', f' {shard_names[rel][shard_of[key]]} ', 1), args))
+                return out
     except Exception as e:  # noqa
         raise SetupError(repr(e)[:300]) from e
     out.put({'wid': wid, 'ready': True})
@@ -587,12 +619,14 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
     consec = 0
     now = time.time
     pc = time.perf_counter_ns
+    opn = 0
     while now() < t_stop.value:
         try:
             stmts = W.next_op(batched=(method in ('A', 'hA')))
         except IndexError:
             exhausted = True
             break
+        opn += 1
         t0 = pc()
         a_here = att_here = 0
         tc = td = 0
@@ -686,17 +720,26 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                             obs.append((nd, okey))
                         if method in EAGER and li == 0:
                             body.append(('COMMIT', None))
+                        if method in SHARDTAB:
+                            body = on_shards(body)
+                        if method in PREPARED:
+                            body = body + [(f"PREPARE TRANSACTION 'y4_{wid}_{opn}_{conn[li, nd]}'", None)]
                         jobs.append((conn[li, nd], body))
                 errs = par.run(jobs)                          # execute everything, in parallel
                 if not errs:
                     for li, lvl in enumerate(levels):         # then commit level by level
                         if method in EAGER and li == 0:
                             continue
-                        errs = par.run([(conn[li, nd], [('COMMIT', None)]) for nd, _ in lvl])
+                        fin = (lambda c: f"COMMIT PREPARED 'y4_{wid}_{opn}_{c}'") if method in PREPARED \
+                            else (lambda c: 'COMMIT')
+                        errs = par.run([(conn[li, nd], [(fin(conn[li, nd]), None)]) for nd, _ in lvl])
                         if errs:
                             raise RuntimeError(f'commit of level {li} failed: {errs}')
                     break
                 par.run([(nd, [('ROLLBACK', None)]) for nd, _ in jobs])
+                if method in PREPARED:                        # undo the transactions already prepared
+                    for c, _ in jobs:
+                        par.run([(c, [(f"ROLLBACK PREPARED 'y4_{wid}_{opn}_{c}'", None)])])
                 a_here += 1
                 for e in errs.values():
                     key = type(e).__name__ + ':' + str(e)[:80]

@@ -12,6 +12,7 @@ It contains the code, the inputs and the results behind every figure and number 
 | Section 6.3, Figure 6 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
 | Section 6.3, Figure 7 | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
+| Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
 | Section 6.3, Figure 8 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
 | Section 6.3, Figure 8, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4 | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
@@ -162,6 +163,17 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 Every hop changes nodes, so leveled commits need k rounds, whereas one two-phase commit keeps its prepare and commit rounds; a node with several transactions of one update gets one connection per transaction.
 Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 6 except the outbox.
 `depth_analyze.py` divides the median latency of each method by that of the fastest two-phase commit of the same block and reports the geometric mean over the blocks with its range (`results/depth.md`).
+
+### Ordered two-phase commit (Section 6.3)
+
+`run_ordered2pc.sh` compares an ordered two-phase commit with leveled commits on Citus, with the templates, sizes, blocks and windows of Figure 6 and the one 2PC baselines rerun in the same blocks.
+
+- `Ps@d` prepares every single-node transaction of leveled commits at the end of the message that executes it, so that all of them are prepared before any commits, and then commits the prepared transactions level by level with `COMMIT PREPARED`.
+- Citus refuses `PREPARE TRANSACTION` after a statement on a distributed table name, so `Ps@d` writes the shard tables by name (`probe_prepare.sh` checks this).
+  `Lt@d` is the same on the shard tables without `PREPARE`, so the paired ratio `Ps@d / Lt@d` isolates the cost of the prepares; `Ls@d` are the leveled commits of Figure 6.
+- `analyze_ordered2pc.py` reports every method relative to the fastest one 2PC of the same block and the paired ratios (`results/ordered2pc.md`).
+  With one client, the prepares raise the median latency by 6% to 26%; with 64 clients they raise it by 34% to 102% and cut the throughput by a fifth to a half.
+- The stored run was stopped from outside during its last part (one client behind 1 ms proxies, 53 of 252 runs), and `Lt@d` ran out of keys in a few cells (deletions at 128 rows, and insertions and deletions at 32 rows with 64 clients); the analysis lists the missing pairs.
 
 ## Deciders and design (Sections 6.4 and 6.5, Figure 9, appendix)
 
