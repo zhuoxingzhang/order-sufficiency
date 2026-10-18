@@ -1,4 +1,4 @@
-"""Summarize the direction runs (Figure 7): anomalous trials per cell with a Wilson 95% interval.
+"""Summarize the direction runs (Figure 8): anomalous trials per cell with a Wilson 95% interval.
 
 usage: python -I analyze_direction.py results/direction.jsonl > results/direction.md
 """

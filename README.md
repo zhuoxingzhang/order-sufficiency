@@ -6,13 +6,15 @@ It contains the code, the inputs and the results behind every figure and number 
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
 | Section 6.2, Figure 4 | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
-| Section 6.2, read-path audit | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
+| Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
+| Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
 | Section 6.3, Figure 5 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Figure 6 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
+| Section 6.3, Figure 7 | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
-| Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
+| Section 6.3, Figure 8 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
 | Section 6.4 | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.5, Figure 8 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
+| Section 6.5, Figure 9 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
 | Appendix, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
 
 Every directory holds the results of the paper, so each analysis script runs without a database:
@@ -22,6 +24,7 @@ cd corpus && python -I summarize.py
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
 cd engines && python -I analyze_direction.py results/direction.jsonl && python -I analyze_direction.py results/direction_gap.jsonl
 cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
+cd cost && python -I depth_analyze.py results/depth_citus.jsonl results/depth_rtt_citus.jsonl results/depth_vitess.jsonl
 ```
 
 ## Setup
@@ -74,6 +77,21 @@ python -I readpath_probe.py <sentry>/src/sentry out/sentry_models.json out/readp
 python -I readpath_tolerance.py <sentry>/src/sentry out/readpath_probe.json readpath_extra.json out/readpath_sites.json readpath_override.json
 ```
 
+### Read paths of the GitLab cascading deletions (Section 6.2)
+
+The same question for the 17 cascading deletions of GitLab (C01-C17 of `gitlab_classify.py`): a reader that loads a child and then the parent it references reads against the required order, which removes the children first.
+
+- `gitlab_readpath_probe.py` takes the 249 loose foreign keys of these parents that cross databases (from `../deciders/data/gitlab_schema.json`), finds the `belongs_to` association of each child model for the key, and lists the places in `app`, `ee/app`, `lib` and `ee/lib` that call it, with a first label: tolerant (T), failure (E), unguarded (U) (`out/gitlab_readpath_probe.json`, file and line only).
+- `gitlab_readpath_sample.py` draws 6 sites per template (seed 9; 56 sites, `out/gitlab_readpath_sample.json`) and prints them with their context; `gitlab_readpath_review.json` holds the verdict by hand on each.
+- `gitlab_readpath_audit.md` gives the verdict for every template with its evidence (file and line at commit 9d4cbde6): 11 templates have a reader that reads against the required order, and for 6 none was found.
+  Of the 37 sampled sites that read from a child to its parent across databases, 26 tolerate a missing parent and 11 raise an error.
+
+```bash
+cd corpus
+python -I gitlab_readpath_probe.py <gitlab> ../deciders/data/gitlab_schema.json out/gitlab_readpath_probe.json
+python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 sample.txt out/gitlab_readpath_sample.json
+```
+
 ## Engines (Section 6.3, Figure 5)
 
 The engine runs test whether one distributed transaction exposes orphans and inconsistent copies to readers.
@@ -88,7 +106,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
   `analyze.py` reports the pooled rate per cell; the interval in Figure 5 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
 
-### Read direction (Section 6.3, Figure 7)
+### Read direction (Section 6.3, Figure 8)
 
 `run_direction.sh` runs `direction.py` on the Citus cluster above in its uniform configuration (no slow worker), 2,000 runs per configuration.
 
@@ -98,7 +116,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
 - A run counts as anomalous if some iteration sees the child but not the parent.
   `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
-  Figure 7 shows the deletion runs of the first grid; insertions give the same picture with `c2p` and `p2c` swapped.
+  Figure 8 shows the deletion runs of the first grid; insertions give the same picture with `c2p` and `p2c` swapped.
 
 ## Cost of write order (Section 6.3, Figure 6, fault and fence runs)
 
@@ -126,7 +144,14 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - Fence runs (`x7_fence.py`): 4 clients add children to groups (5 ms think time) while 2 clients merge groups, over 16 active groups for 12 s, with and without a lock on the merged group.
 - Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and one commit per row commit without two-phase commit.
 
-## Deciders and design (Sections 6.4 and 6.5, Figure 8, appendix)
+### Number of rounds (Section 6.3, Figure 7)
+
+`run_depth.sh` runs the `chain` workload of `x7bench.py`: an insertion of a path of k = 2, 3, 4, 5, 6 or 8 rows, row i referencing row i - 1, with consecutive rows on different nodes.
+Every hop changes nodes, so leveled commits need k rounds, whereas one two-phase commit keeps its prepare and commit rounds; a node with several transactions of one update gets one connection per transaction.
+Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 6 except the outbox.
+`depth_analyze.py` divides the median latency of each method by that of the fastest two-phase commit of the same block and reports the geometric mean over the blocks with its range (`results/depth.md`).
+
+## Deciders and design (Sections 6.4 and 6.5, Figure 9, appendix)
 
 `deciders.py` implements the tests of order-sufficiency: `dec_fd` (Theorem 3.6), `dec_unary` (Theorem 4.2), `dec_A` (Theorem 4.4) and `dec_K` (Theorem 4.7).
 `m2.py` solves MIN-FREEZE (Theorem 5.1; "M2" in the code) by a minimum cut on bipartite conflict graphs and by a 2-approximation otherwise.
@@ -138,7 +163,7 @@ cd deciders && PROCS=64 sh run_all.sh
 
 - Step 1 compares the deciders with an exhaustive search over small updates (`selfcheck.py`, reference semantics in `ref_order2.py`) and builds witnesses for rejected schemas (`k_witness.py`).
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
-- Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 8).
+- Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 9).
 - Step 5 runs the checks of the appendix beyond the exact classes; it needs pycosat.
 - `data/gitlab_schema.json` holds the tables, keys, foreign keys, sharding keys and loose foreign keys of GitLab commit 9d4cbde6; `gitlab_extract.py` rebuilds it from that commit (usage in `run_all.sh`).
 - The large per-task result files are stored gzipped.
@@ -146,4 +171,4 @@ cd deciders && PROCS=64 sh run_all.sh
 ## License
 
 The code is released under the MIT License (see `LICENSE`).
-`deciders/data/gitlab_schema.json` contains schema facts extracted from GitLab, and `corpus/out` contains model names and code locations of Sentry; both remain subject to the licenses of these projects.
+`deciders/data/gitlab_schema.json` contains schema facts extracted from GitLab, and `corpus/out` contains model names and code locations of Sentry and GitLab (file and line only, no source text); both remain subject to the licenses of these projects.

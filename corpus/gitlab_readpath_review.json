@@ -1,0 +1,229 @@
+{
+ "about": "Verdicts by hand on the 56 sites of out/gitlab_readpath_sample.json (gitlab_readpath_sample.py, 6 per template, seed 9), keyed by their position there. T = a cross-database read from the child to the parent that tolerates a missing parent; E = such a read that raises when the parent is gone; FP = not such a read (another model with the same association name, a writer path, generic code that never reaches this edge, or a reader that read the parent first).",
+ "verdicts": {
+  "0": [
+   "T",
+   "feedback.issue guarded by present?"
+  ],
+  "1": [
+   "T",
+   "block runs only if feedback.issue.present?"
+  ],
+  "2": [
+   "T",
+   "can_read_issue? checks feedback.issue.present?"
+  ],
+  "3": [
+   "E",
+   "issue_link.issue.iid without a check (issue links listed from the vulnerability)"
+  ],
+  "4": [
+   "T",
+   "Ability.allowed? with a nil issue denies"
+  ],
+  "5": [
+   "E",
+   "issue = issue_link.issue; issue.title in the vulnerability webhook data"
+  ],
+  "6": [
+   "E",
+   "merge_request.modified_paths after merge_request? (checks the id only)"
+  ],
+  "7": [
+   "T",
+   "assigns a nil merge request to the environment"
+  ],
+  "8": [
+   "E",
+   "merge_request.diff_head_sha without a check"
+  ],
+  "9": [
+   "E",
+   "merge_request.source_project_id without a check"
+  ],
+  "10": [
+   "T",
+   "can_read_merge_request? checks present?"
+  ],
+  "11": [
+   "FP",
+   "hash of webhook data, not the association"
+  ],
+  "12": [
+   "FP",
+   "event.namespace of a sync event (main to main)"
+  ],
+  "13": [
+   "T",
+   "validation returns if namespace.nil?"
+  ],
+  "14": [
+   "T",
+   "permission check with a nil namespace denies"
+  ],
+  "15": [
+   "T",
+   "nil namespace passed to event tracking"
+  ],
+  "16": [
+   "T",
+   "configuration.namespace&.name"
+  ],
+  "17": [
+   "T",
+   "nil namespace in a worker context"
+  ],
+  "18": [
+   "FP",
+   "source is the source of a membership, not an SBOM source"
+  ],
+  "19": [
+   "FP",
+   "member.source"
+  ],
+  "20": [
+   "FP",
+   "member_source"
+  ],
+  "21": [
+   "FP",
+   "member_source"
+  ],
+  "22": [
+   "FP",
+   "model.source of a membership"
+  ],
+  "23": [
+   "FP",
+   "generic resource"
+  ],
+  "24": [
+   "T",
+   "can? with a nil build denies"
+  ],
+  "25": [
+   "T",
+   "returns unless can? on the build"
+  ],
+  "26": [
+   "FP",
+   "build is a parameter, not the association"
+  ],
+  "27": [
+   "E",
+   "delegate :name, to: :build without allow_nil"
+  ],
+  "28": [
+   "E",
+   "build.job_artifacts without a check"
+  ],
+  "29": [
+   "FP",
+   "before_save of a new scan, written by its build"
+  ],
+  "30": [
+   "T",
+   "can? on a nil head pipeline denies"
+  ],
+  "31": [
+   "T",
+   "validation checks pipeline.present?"
+  ],
+  "32": [
+   "T",
+   "vulnerability_statistic&.pipeline returns nil"
+  ],
+  "33": [
+   "FP",
+   "job.pipeline within the ci database"
+  ],
+  "34": [
+   "T",
+   "safe navigation along merge_train_car&.pipeline&.sha"
+  ],
+  "35": [
+   "FP",
+   "job.pipeline within the ci database"
+  ],
+  "36": [
+   "E",
+   "project.repository in a pipeline schedule"
+  ],
+  "37": [
+   "E",
+   "pipeline.project.full_path in a worker that loads the pipeline by id"
+  ],
+  "38": [
+   "FP",
+   "project-scoped page: the parent is read first"
+  ],
+  "39": [
+   "T",
+   "validation checks project.present?"
+  ],
+  "40": [
+   "FP",
+   "trigger loaded within its project"
+  ],
+  "41": [
+   "E",
+   "pipeline.project, then project.id"
+  ],
+  "42": [
+   "T",
+   "callback only if tag.present?"
+  ],
+  "43": [
+   "T",
+   "runs only if tag.present?"
+  ],
+  "44": [
+   "FP",
+   "mailer preview, development only"
+  ],
+  "45": [
+   "FP",
+   "local user found by e-mail"
+  ],
+  "46": [
+   "E",
+   "user.id of the pipeline user without a check"
+  ],
+  "47": [
+   "T",
+   "partial rendered only if @build.user"
+  ],
+  "48": [
+   "T",
+   "returns false unless build.user"
+  ],
+  "49": [
+   "T",
+   "pipeline.user || deleted author"
+  ],
+  "50": [
+   "T",
+   "note.noteable.is_a? on nil is false"
+  ],
+  "51": [
+   "T",
+   "noteable.is_a? on nil is false"
+  ],
+  "52": [
+   "FP",
+   "issues only"
+  ],
+  "53": [
+   "T",
+   "note.noteable.try(:iid)"
+  ],
+  "54": [
+   "FP",
+   "compliance violations only"
+  ],
+  "55": [
+   "FP",
+   "merge requests only"
+  ]
+ }
+}

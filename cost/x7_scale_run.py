@@ -19,7 +19,8 @@ def cells(ks):
     out = []
     for wl in os.environ.get('X7_WLS', 'ins,del,rep').split(','):
         for k in ks:
-            k = (3 if wl == 'rep' else 2) if k in (2, 3) else k
+            if wl in ('ins', 'del', 'rep'):
+                k = (3 if wl == 'rep' else 2) if k in (2, 3) else k
             out.append((wl, k))
     return out
 

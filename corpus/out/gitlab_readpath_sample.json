@@ -1,0 +1,732 @@
+[
+ {
+  "file": "ee/app/serializers/vulnerabilities/feedback_entity.rb",
+  "line": 28,
+  "how": "var",
+  "label": "T",
+  "child": "vulnerability_feedback",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "ee/app/serializers/vulnerabilities/feedback_entity.rb",
+  "line": 29,
+  "how": "var",
+  "label": "E",
+  "child": "vulnerability_feedback",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "ee/app/serializers/vulnerabilities/feedback_entity.rb",
+  "line": 33,
+  "how": "var",
+  "label": "U",
+  "child": "vulnerability_feedback",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "ee/app/serializers/vulnerabilities/issue_link_entity.rb",
+  "line": 12,
+  "how": "var",
+  "label": "U",
+  "child": "vulnerability_issue_links",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "ee/lib/api/entities/vulnerability_issue_link.rb",
+  "line": 9,
+  "how": "var",
+  "label": "U",
+  "child": "vulnerability_issue_links",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "ee/lib/gitlab/data_builder/vulnerability.rb",
+  "line": 63,
+  "how": "var",
+  "label": "E",
+  "child": "vulnerability_issue_links",
+  "col": "issue_id",
+  "assoc": [
+   "issue"
+  ],
+  "parent": "issues",
+  "n_sites": 9
+ },
+ {
+  "file": "app/models/ci/pipeline.rb",
+  "line": 1721,
+  "how": "own",
+  "label": "E",
+  "child": "p_ci_pipelines",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "app/services/environments/create_for_job_service.rb",
+  "line": 34,
+  "how": "var",
+  "label": "U",
+  "child": "p_ci_pipelines",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "ee/app/models/ee/ci/pipeline.rb",
+  "line": 261,
+  "how": "own",
+  "label": "T",
+  "child": "p_ci_pipelines",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "ee/app/models/ee/ci/pipeline.rb",
+  "line": 328,
+  "how": "own",
+  "label": "T",
+  "child": "p_ci_pipelines",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "ee/app/serializers/vulnerabilities/feedback_entity.rb",
+  "line": 41,
+  "how": "var",
+  "label": "U",
+  "child": "vulnerability_feedback",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "lib/gitlab/observability/pipeline_converter_base.rb",
+  "line": 183,
+  "how": "var",
+  "label": "E",
+  "child": "p_ci_pipelines",
+  "col": "merge_request_id",
+  "assoc": [
+   "merge_request"
+  ],
+  "parent": "merge_requests",
+  "n_sites": 55
+ },
+ {
+  "file": "app/models/ci/namespace_mirror.rb",
+  "line": 60,
+  "how": "own",
+  "label": "E",
+  "child": "ci_namespace_mirrors",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "ee/app/models/govern/policy.rb",
+  "line": 89,
+  "how": "own",
+  "label": "T",
+  "child": "govern_policies",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "ee/app/services/security/categories/update_service.rb",
+  "line": 49,
+  "how": "var",
+  "label": "U",
+  "child": "security_categories",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "ee/app/services/security/security_orchestration_policies/persist_policy_service.rb",
+  "line": 257,
+  "how": "var",
+  "label": "U",
+  "child": "security_scan_profile_configurations",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "ee/app/views/groups/settings/_delete_button_with_security_policies.html.haml",
+  "line": 13,
+  "how": "var",
+  "label": "T",
+  "child": "security_scan_profile_configurations",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "ee/app/workers/security/scan_result_policies/audit_warn_mode_group_protected_branches_overrides_worker.rb",
+  "line": 30,
+  "how": "var",
+  "label": "U",
+  "child": "security_scan_profile_configurations",
+  "col": "namespace_id",
+  "assoc": [
+   "namespace"
+  ],
+  "parent": "namespaces",
+  "n_sites": 38
+ },
+ {
+  "file": "app/events/members/base_event.rb",
+  "line": 15,
+  "how": "var",
+  "label": "U",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "app/helpers/invites_helper.rb",
+  "line": 38,
+  "how": "var",
+  "label": "T",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "app/mailers/emails/members.rb",
+  "line": 36,
+  "how": "var",
+  "label": "T",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "app/mailers/members/access_granted_mailer.rb",
+  "line": 38,
+  "how": "var",
+  "label": "U",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "app/services/system_hooks_service.rb",
+  "line": 31,
+  "how": "var",
+  "label": "U",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "lib/api/helpers.rb",
+  "line": 667,
+  "how": "var",
+  "label": "T",
+  "child": "sbom_sources",
+  "col": "organization_id",
+  "assoc": [
+   "organization"
+  ],
+  "parent": "organizations",
+  "n_sites": 11
+ },
+ {
+  "file": "app/helpers/projects/ml/experiments_helper.rb",
+  "line": 91,
+  "how": "var",
+  "label": "T",
+  "child": "ml_candidates",
+  "col": "ci_build_id",
+  "assoc": [
+   "ci_build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "app/presenters/ml/candidate_details_presenter.rb",
+  "line": 53,
+  "how": "var",
+  "label": "T",
+  "child": "ml_candidates",
+  "col": "ci_build_id",
+  "assoc": [
+   "ci_build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "ee/app/models/requirements_management/test_report.rb",
+  "line": 46,
+  "how": "own",
+  "label": "T",
+  "child": "requirements_management_test_reports",
+  "col": "build_id",
+  "assoc": [
+   "build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "ee/app/models/security/scan.rb",
+  "line": 63,
+  "how": "delegate",
+  "label": "U",
+  "child": "security_scans",
+  "col": "build_id",
+  "assoc": [
+   "build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "ee/app/models/security/scan.rb",
+  "line": 207,
+  "how": "own",
+  "label": "E",
+  "child": "security_scans",
+  "col": "build_id",
+  "assoc": [
+   "build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "ee/app/models/security/scan.rb",
+  "line": 220,
+  "how": "own",
+  "label": "T",
+  "child": "security_scans",
+  "col": "build_id",
+  "assoc": [
+   "build"
+  ],
+  "parent": "p_ci_builds",
+  "n_sites": 26
+ },
+ {
+  "file": "app/views/shared/_merge_request_pipeline_status.html.haml",
+  "line": 3,
+  "how": "var",
+  "label": "E",
+  "child": "merge_requests",
+  "col": "head_pipeline_id",
+  "assoc": [
+   "head_pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "ee/app/models/dependencies/dependency_list_export.rb",
+  "line": 122,
+  "how": "own",
+  "label": "T",
+  "child": "dependency_list_exports",
+  "col": "pipeline_id",
+  "assoc": [
+   "pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "ee/app/models/ee/project.rb",
+  "line": 977,
+  "how": "var",
+  "label": "U",
+  "child": "vulnerability_statistics",
+  "col": "latest_pipeline_id",
+  "assoc": [
+   "pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "ee/app/services/ci/test_balancing/initialize_service.rb",
+  "line": 36,
+  "how": "var",
+  "label": "U",
+  "child": "job_environments",
+  "col": "ci_pipeline_id",
+  "assoc": [
+   "pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "ee/app/services/merge_requests/merge_strategies/from_train_ref.rb",
+  "line": 22,
+  "how": "var",
+  "label": "T",
+  "child": "merge_trains",
+  "col": "pipeline_id",
+  "assoc": [
+   "pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "ee/lib/gitlab/ci/job_telemetry/span_emitter.rb",
+  "line": 65,
+  "how": "var",
+  "label": "T",
+  "child": "job_environments",
+  "col": "ci_pipeline_id",
+  "assoc": [
+   "pipeline"
+  ],
+  "parent": "p_ci_pipelines",
+  "n_sites": 58
+ },
+ {
+  "file": "app/models/ci/pipeline_schedule.rb",
+  "line": 164,
+  "how": "own",
+  "label": "E",
+  "child": "ci_pipeline_schedules",
+  "col": "project_id",
+  "assoc": [
+   "project"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "app/workers/ci/unlock_pipelines_in_queue_worker.rb",
+  "line": 26,
+  "how": "var",
+  "label": "E",
+  "child": "p_ci_pipelines",
+  "col": "project_id",
+  "assoc": [
+   "project",
+   "project_mirror"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "ee/app/helpers/vulnerabilities_helper.rb",
+  "line": 151,
+  "how": "var",
+  "label": "T",
+  "child": "vulnerability_occurrences",
+  "col": "project_id",
+  "assoc": [
+   "project"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "ee/app/models/dependencies/dependency_list_export.rb",
+  "line": 122,
+  "how": "own",
+  "label": "T",
+  "child": "dependency_list_exports",
+  "col": "project_id",
+  "assoc": [
+   "project"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "ee/app/services/ai/flow_triggers/destroy_service.rb",
+  "line": 15,
+  "how": "var",
+  "label": "U",
+  "child": "ci_triggers",
+  "col": "project_id",
+  "assoc": [
+   "project"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "ee/app/services/sbom/create_vulnerabilities_service.rb",
+  "line": 142,
+  "how": "var",
+  "label": "U",
+  "child": "p_ci_pipelines",
+  "col": "project_id",
+  "assoc": [
+   "project",
+   "project_mirror"
+  ],
+  "parent": "projects",
+  "n_sites": 647
+ },
+ {
+  "file": "ee/app/models/dast/profile_tag.rb",
+  "line": 12,
+  "how": "own",
+  "label": "T",
+  "child": "dast_profiles_tags",
+  "col": "tag_id",
+  "assoc": [
+   "tag"
+  ],
+  "parent": "tags",
+  "n_sites": 2
+ },
+ {
+  "file": "ee/app/models/dast/profile_tag.rb",
+  "line": 19,
+  "how": "own",
+  "label": "E",
+  "child": "dast_profiles_tags",
+  "col": "tag_id",
+  "assoc": [
+   "tag"
+  ],
+  "parent": "tags",
+  "n_sites": 2
+ },
+ {
+  "file": "app/mailers/previews/notify_preview.rb",
+  "line": 271,
+  "how": "var",
+  "label": "E",
+  "child": "p_ci_pipelines",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "app/models/ci/pipeline.rb",
+  "line": 990,
+  "how": "own",
+  "label": "T",
+  "child": "p_ci_pipelines",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "app/models/ci/pipeline.rb",
+  "line": 1978,
+  "how": "own",
+  "label": "E",
+  "child": "p_ci_pipelines",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "app/views/projects/jobs/_user.html.haml",
+  "line": 7,
+  "how": "var",
+  "label": "E",
+  "child": "p_ci_builds",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "ee/app/services/ci/minutes/track_live_consumption_service.rb",
+  "line": 120,
+  "how": "var",
+  "label": "E",
+  "child": "p_ci_builds",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "ee/lib/security/security_orchestration_policies/pipeline_auditor.rb",
+  "line": 114,
+  "how": "var",
+  "label": "T",
+  "child": "p_ci_pipelines",
+  "col": "user_id",
+  "assoc": [
+   "user"
+  ],
+  "parent": "users",
+  "n_sites": 130
+ },
+ {
+  "file": "app/helpers/notes_helper.rb",
+  "line": 115,
+  "how": "var",
+  "label": "T",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ },
+ {
+  "file": "app/models/note.rb",
+  "line": 426,
+  "how": "own",
+  "label": "E",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ },
+ {
+  "file": "app/models/notes/note_metadata.rb",
+  "line": 33,
+  "how": "var",
+  "label": "T",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ },
+ {
+  "file": "app/views/search/results/_note.html.haml",
+  "line": 6,
+  "how": "var",
+  "label": "T",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ },
+ {
+  "file": "ee/app/models/ee/note.rb",
+  "line": 118,
+  "how": "own",
+  "label": "E",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ },
+ {
+  "file": "ee/app/services/ai/duo_workflows/code_review/mention/assistant_flow_handler.rb",
+  "line": 52,
+  "how": "var",
+  "label": "T",
+  "child": "notes",
+  "col": "noteable_id",
+  "assoc": [
+   "noteable"
+  ],
+  "parent": "vulnerabilities",
+  "n_sites": 166
+ }
+]

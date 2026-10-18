@@ -6,6 +6,9 @@ Workloads (k = number of entities = statements per business operation):
   del  delete m = k-1 children and their parent        required order: every child before the parent
   rep  insert new parent P', repoint m = k-2 children to P', delete old parent P
                                                         required order: P' before children before P
+  chain  insert a path of k rows, row i referencing row i - 1, consecutive rows on different nodes
+         (rounds sweep, Figure 7): every hop changes nodes, so leveled commits need k rounds;
+         a node with several transactions of one update gets one connection per transaction
 
 One distributed transaction:
   a   one distributed transaction (Citus 2PC / Vitess TwoPC), statements one by one; Vitess issues
@@ -189,7 +192,7 @@ class CitusPar:
         import psycopg2
         import psycopg2.extensions as ext
         self.err, self.ext = psycopg2.Error, ext
-        self.dsns = dsns or [worker_dsn(i) if direct else CITUS_DSN for i in range(n)]
+        self.dsns = dsns or [worker_dsn(i % Citus.N) if direct else CITUS_DSN for i in range(n)]
         self.cs = [psycopg2.connect(d, async_=1) for d in self.dsns]
         self.wait(range(n))
         self.cur = [c.cursor() for c in self.cs]
@@ -384,6 +387,8 @@ def prec_edges(wl, n):
         return [(0, i) for i in range(1, n)]
     if wl == 'del':
         return [(i, last) for i in range(last)]
+    if wl == 'chain':
+        return [(i, i + 1) for i in range(last)]
     return [(0, i) for i in range(1, last)] + [(i, last) for i in range(1, last)]
 
 
@@ -467,6 +472,14 @@ class Workload:
                 return [(INS_P, (p,)), ('INSERT INTO child (cid, pid) VALUES ' + ', '.join(['(%s, %s)'] * len(cs)),
                                         tuple(x for c in cs for x in (c, p)))]
             return [(INS_P, (p,))] + [(INS_C, (c, p)) for c in cs]
+        if self.wl == 'chain':
+            s = self.t % self.N
+            self.t += 1
+            ks = [self.pools.take((s + i) % self.N) for i in range(self.k)]
+            if batched:
+                return [(INS_P, (ks[0],)), ('INSERT INTO child (cid, pid) VALUES ' + ', '.join(['(%s, %s)'] * (self.k - 1)),
+                                            tuple(x for i in range(1, self.k) for x in (ks[i], ks[i - 1])))]
+            return [(INS_P, (ks[0],))] + [(INS_C, (ks[i], ks[i - 1])) for i in range(1, self.k)]
         if self.wl == 'del':
             if self.ci >= len(self.chains):
                 raise IndexError('prepopulated chains exhausted')
@@ -547,10 +560,11 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                     db.bulk(*W.prepared)
         rnd = random.Random(seed * 1000 + wid)
         direct = ROUTE == 'direct' and engine == 'citus'
+        S = -(-k // E.N) if wl == 'chain' else 1    # connections per node
         if direct:
-            par = CitusPar(E.N, direct=True)       # every method enters at the workers
+            par = CitusPar(E.N * S, direct=True)       # every method enters at the workers
         else:
-            par = PAR[engine](E.N) if method in LEVELED else None
+            par = PAR[engine](E.N * S) if method in LEVELED else None
         if method in OUTBOX and engine == 'citus':
             # outbox cleanup deletes rows of several shards of one worker: one connection per worker
             db.x("SET citus.multi_shard_modify_mode TO 'sequential'")
@@ -653,6 +667,11 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                             raise
         elif method in LEVELED:
             levels = plan(stmts, node_of, wl)
+            slot, conn = {}, {}
+            for li, lvl in enumerate(levels):         # one connection per transaction of a node
+                for nd, _ in lvl:
+                    conn[li, nd] = nd + E.N * slot.get(nd, 0)
+                    slot[nd] = slot.get(nd, 0) + 1
             payload = json.dumps(stmts) if method in OUTBOX else None
             while True:
                 att_here += 1
@@ -667,13 +686,13 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                             obs.append((nd, okey))
                         if method in EAGER and li == 0:
                             body.append(('COMMIT', None))
-                        jobs.append((nd, body))
+                        jobs.append((conn[li, nd], body))
                 errs = par.run(jobs)                          # execute everything, in parallel
                 if not errs:
                     for li, lvl in enumerate(levels):         # then commit level by level
                         if method in EAGER and li == 0:
                             continue
-                        errs = par.run([(nd, [('COMMIT', None)]) for nd, _ in lvl])
+                        errs = par.run([(conn[li, nd], [('COMMIT', None)]) for nd, _ in lvl])
                         if errs:
                             raise RuntimeError(f'commit of level {li} failed: {errs}')
                     break

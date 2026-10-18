@@ -1,4 +1,4 @@
-"""Direction runs behind Figure 7: does the required write order protect a reader in both read directions?
+"""Direction runs behind Figure 8: does the required write order protect a reader in both read directions?
 
 A parent row and a child row that references it live on different Citus workers.  The writer
 inserts both rows or deletes both, in one of three ways:
