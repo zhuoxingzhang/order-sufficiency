@@ -165,6 +165,7 @@ cd deciders && PROCS=64 sh run_all.sh
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
 - Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 9).
 - Step 5 runs the checks of the appendix beyond the exact classes; it needs pycosat.
+- Step 6 checks Proposition 4.9 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
 - `data/gitlab_schema.json` holds the tables, keys, foreign keys, sharding keys and loose foreign keys of GitLab commit 9d4cbde6; `gitlab_extract.py` rebuilds it from that commit (usage in `run_all.sh`).
 - The large per-task result files are stored gzipped.
 
