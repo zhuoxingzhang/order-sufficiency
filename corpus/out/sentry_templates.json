@@ -1,0 +1,1466 @@
+{
+ "templates": [
+  {
+   "id": "R01",
+   "mech": "R",
+   "dir": "control->cell->control",
+   "what": "Create Organization (provisioning)",
+   "writes": "control OrganizationSlugReservation; cell Organization, owner OrganizationMember and OrganizationMemberTeam; control OrganizationMapping",
+   "constraint": "Reservation.organization_id and Mapping both reference Organization (insert); member references User",
+   "dep": "ind",
+   "cls": "order",
+   "order": "Organization before Reservation and Mapping",
+   "impl": "writes Reservation first (claims the slug through a unique index in the single control database), deletes it on failure",
+   "tier": "L",
+   "locs": [
+    "services/organization/provisioning.py:48",
+    "services/organization/provisioning.py:147",
+    "hybridcloud/services/control_organization_provisioning/impl.py:131",
+    "hybridcloud/services/cell_organization_provisioning/impl.py:127",
+    "models/organization.py:275"
+   ],
+   "op": "insert",
+   "agree": "reversed"
+  },
+  {
+   "id": "R02",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Modify Organization name, status or one of 9 flags",
+   "writes": "cell Organization; control OrganizationMapping",
+   "constraint": "Mapping[organization_id, name, status, flags] ⊆ Organization[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order (modify-modify 2-cycle)",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/organization.py:275",
+    "hybridcloud/services/organization_mapping/serial.py:12"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R03",
+   "mech": "R",
+   "dir": "cell->control->cell->control",
+   "what": "Modify Organization slug",
+   "writes": "control temporary-alias Reservation; cell Organization.slug; control PRIMARY Reservation.slug and Mapping.slug",
+   "constraint": "PRIMARY Reservation.slug and Mapping.slug are both copies of Organization.slug; global uniqueness enforced by a unique index in the single control database",
+   "dep": "copyout",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "temporary alias claims the slug first, then the cell is modified, finally the control copies",
+   "tier": "L",
+   "locs": [
+    "services/organization/provisioning.py:80",
+    "services/organization/provisioning.py:195",
+    "services/organization/provisioning.py:257",
+    "hybridcloud/services/control_organization_provisioning/impl.py:179",
+    "hybridcloud/services/cell_organization_provisioning/impl.py:224",
+    "core/endpoints/organization_details.py:761"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R04",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete Organization",
+   "writes": "cell Organization; control OrganizationMapping, organization-level NotificationSetting*, 19 child tables cascaded via HCFK",
+   "constraint": "19 HCFKs (all CASCADE) and Mapping reference Organization",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "models/organization.py:288"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R05",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Create OrganizationMember (invite, join)",
+   "writes": "cell OrganizationMember; control OrganizationMemberMapping",
+   "constraint": "Mapping is a copy of Member (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "Member before Mapping",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/organizationmember.py:663",
+    "hybridcloud/services/organizationmember_mapping/impl.py:24"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R06",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Modify OrganizationMember role, user_id, email, invite_status or inviter_id (change role, accept invitation, approve request)",
+   "writes": "cell OrganizationMember; control OrganizationMemberMapping",
+   "constraint": "Mapping[organizationmember_id, role, user_id, email, …] ⊆ Member[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/organizationmember.py:663",
+    "hybridcloud/services/organizationmember_mapping/impl.py:24"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R07",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete OrganizationMember",
+   "writes": "cell OrganizationMember; control OrganizationMemberMapping, the user's Identity rows on this organization's integrations",
+   "constraint": "Mapping and Identity depend on the membership",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "A",
+   "locs": [
+    "models/organizationmember.py:649",
+    "hybridcloud/services/organizationmember_mapping/impl.py:103"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R08",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Create ProjectKey",
+   "writes": "cell ProjectKey; control ProjectKeyMapping",
+   "constraint": "Mapping[project_key_id, public_key] ⊆ ProjectKey[id, public_key] (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "ProjectKey before Mapping",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/projectkey.py:209",
+    "hybridcloud/services/replica/impl.py:295"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R09",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete ProjectKey",
+   "writes": "cell ProjectKey; control ProjectKeyMapping",
+   "constraint": "as above (delete)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "Mapping before ProjectKey",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "A",
+   "locs": [
+    "models/projectkey.py:198",
+    "hybridcloud/services/replica/impl.py:315"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R10",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Create OrganizationAvatar",
+   "writes": "cell OrganizationAvatar; control OrganizationAvatarReplica",
+   "constraint": "Replica[organization_id, avatar_type, avatar_ident] ⊆ Avatar[organization_id, avatar_type, ident] (insert)",
+   "dep": "copyout",
+   "cls": "order",
+   "order": "Avatar before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/avatars/organization_avatar.py:45",
+    "hybridcloud/services/replica/impl.py:320"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R11",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Replace OrganizationAvatar (ident regenerated)",
+   "writes": "cell OrganizationAvatar; control OrganizationAvatarReplica",
+   "constraint": "as above, copied columns mutable",
+   "dep": "copyout",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/avatars/organization_avatar.py:45",
+    "models/avatars/base.py:163",
+    "hybridcloud/services/replica/impl.py:320"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R12",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete OrganizationAvatar",
+   "writes": "cell OrganizationAvatar; control OrganizationAvatarReplica",
+   "constraint": "as above (delete)",
+   "dep": "copyout",
+   "cls": "order",
+   "order": "Replica before Avatar",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "models/avatars/organization_avatar.py:55",
+    "hybridcloud/services/replica/impl.py:332"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R13",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete Team",
+   "writes": "cell Team; control NotificationSettingOption, NotificationSettingProvider (cascade on team_id)",
+   "constraint": "2 HCFKs reference Team",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "models/team.py:112",
+    "notifications/models/notificationsettingoption.py:15",
+    "notifications/models/notificationsettingprovider.py:15"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R14",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete Project",
+   "writes": "cell Project; control project-level NotificationSetting*, UserOption(project_id) cascaded, OrgAuthToken.project_last_used_id set null",
+   "constraint": "2 HCFKs and notification settings reference Project",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "deletes control notification settings synchronously first, then Project; HCFK child rows handled asynchronously",
+   "tier": "L",
+   "locs": [
+    "models/project.py:892",
+    "users/models/user_option.py:198",
+    "models/orgauthtoken.py:55"
+   ],
+   "op": "delete",
+   "agree": "mixed"
+  },
+  {
+   "id": "R15",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Delete a team's ExternalActor",
+   "writes": "cell ExternalActor; control NotificationSettingProvider(team, provider)",
+   "constraint": "one-way: team notification setting for the provider => team is linked to the provider",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "setting deleted first",
+   "impl": "deletes control setting synchronously first, then ExternalActor",
+   "tier": "L",
+   "locs": [
+    "integrations/models/external_actor.py:72",
+    "integrations/models/external_actor.py:84"
+   ],
+   "op": "delete",
+   "agree": "same"
+  },
+  {
+   "id": "R16",
+   "mech": "R",
+   "dir": "cell->control",
+   "what": "Audited operation in a cell writes an audit log entry",
+   "writes": "cell audited business rows; control AuditLogEntry",
+   "constraint": "AuditLogEntry.organization_id references Organization (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "business rows before log entry",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "audit_log/services/log/impl.py:107",
+    "audit_log/services/log/impl.py:112",
+    "receivers/outbox/cell.py:184"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R17",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Modify User email or is_active",
+   "writes": "control User; OrganizationMember.user_email, user_is_active in every cell",
+   "constraint": "Member[user_id, user_email, user_is_active] ⊆ User[id, email, is_active], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "users/models/user.py:669",
+    "organizations/services/organization/impl.py:643",
+    "models/organizationmember.py:237",
+    "users/api/endpoints/user_emails.py:186"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R18",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete User",
+   "writes": "control User; 71 HCFK columns across all cells (30 CASCADE, 41 SET_NULL)",
+   "constraint": "71 HCFKs reference User",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "users/models/user.py:229",
+    "users/models/user.py:392"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R19",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Create AuthProvider",
+   "writes": "control AuthProvider; cell AuthProviderReplica",
+   "constraint": "Replica is a copy of AuthProvider (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "AuthProvider before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/authprovider.py:48",
+    "hybridcloud/services/replica/impl.py:220"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R20",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Modify AuthProvider config, default_role, default_global_access, scim_enabled or allow_unlinked",
+   "writes": "control AuthProvider; cell AuthProviderReplica",
+   "constraint": "Replica[auth_provider_id, config, …] ⊆ AuthProvider[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/authprovider.py:48",
+    "hybridcloud/services/replica/impl.py:220"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R21",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete AuthProvider",
+   "writes": "control AuthProvider; cell AuthProviderReplica and AuthIdentityReplica (HCFK cascade)",
+   "constraint": "Replica and 2 HCFKs reference AuthProvider",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "models/authprovider.py:58",
+    "hybridcloud/services/replica/impl.py:284",
+    "models/authidentityreplica.py:22"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R22",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Create AuthIdentity (link SSO identity)",
+   "writes": "control AuthIdentity; cell AuthIdentityReplica",
+   "constraint": "Replica is a copy of AuthIdentity (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "AuthIdentity before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/authidentity.py:42",
+    "hybridcloud/services/replica/impl.py:244"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R23",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Modify AuthIdentity data, last_verified or user (every SSO login, periodic verification, user merge)",
+   "writes": "control AuthIdentity; cell AuthIdentityReplica",
+   "constraint": "Replica[auth_identity_id, data, last_verified, …] ⊆ AuthIdentity[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "S",
+   "locs": [
+    "models/authidentity.py:42",
+    "hybridcloud/services/replica/impl.py:244",
+    "auth/services/access/impl.py:88"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R24",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete AuthIdentity",
+   "writes": "control AuthIdentity; cell AuthIdentityReplica (HCFK cascade)",
+   "constraint": "HCFK references AuthIdentity",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "A",
+   "locs": [
+    "models/authidentityreplica.py:18"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R25",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Create ApiKey",
+   "writes": "control ApiKey; cell ApiKeyReplica",
+   "constraint": "Replica is a copy of ApiKey (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "ApiKey before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/apikey.py:57",
+    "hybridcloud/services/replica/impl.py:261"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R26",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Modify ApiKey label, scope_list, allowed_origins or status",
+   "writes": "control ApiKey; cell ApiKeyReplica",
+   "constraint": "Replica[apikey_id, label, status, …] ⊆ ApiKey[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/apikey.py:57",
+    "api/endpoints/organization_api_key_details.py:74",
+    "api/authentication.py:300"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R27",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete ApiKey",
+   "writes": "control ApiKey; cell ApiKeyReplica (HCFK cascade)",
+   "constraint": "HCFK references ApiKey",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "hybridcloud/models/apikeyreplica.py:23",
+    "api/endpoints/organization_api_key_details.py:106"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R28",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Create ApiToken",
+   "writes": "control ApiToken; cell ApiTokenReplica",
+   "constraint": "Replica is a copy of ApiToken (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "ApiToken before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "A",
+   "locs": [
+    "models/apitoken.py:331",
+    "hybridcloud/services/replica/impl.py:158"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R29",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Refresh ApiToken (token, hashed_token, expires_at) or modify scope",
+   "writes": "control ApiToken; cell ApiTokenReplica",
+   "constraint": "Replica[apitoken_id, token, hashed_token, expires_at, …] ⊆ ApiToken[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "S",
+   "locs": [
+    "models/apitoken.py:481",
+    "web/frontend/oauth_token.py:442",
+    "api/authentication.py:485"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R30",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete ApiToken",
+   "writes": "control ApiToken; cell ApiTokenReplica",
+   "constraint": "Replica references ApiToken (delete)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "A",
+   "locs": [
+    "models/apitoken.py:341",
+    "hybridcloud/services/replica/impl.py:188"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R31",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Create OrgAuthToken",
+   "writes": "control OrgAuthToken; cell OrgAuthTokenReplica",
+   "constraint": "Replica is a copy of OrgAuthToken (insert)",
+   "dep": "kcopy",
+   "cls": "order",
+   "order": "OrgAuthToken before Replica",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "models/orgauthtoken.py:121",
+    "hybridcloud/services/replica/impl.py:198"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "R32",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Rename or deactivate OrgAuthToken (name, date_deactivated)",
+   "writes": "control OrgAuthToken; cell OrgAuthTokenReplica",
+   "constraint": "Replica[orgauthtoken_id, name, date_deactivated, …] ⊆ OrgAuthToken[id, …], copied columns mutable",
+   "dep": "kcopy",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "api/endpoints/organization_auth_token_details.py:58",
+    "api/endpoints/organization_auth_token_details.py:85",
+    "api/authentication.py:716"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R33",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete OrgAuthToken",
+   "writes": "control OrgAuthToken; cell OrgAuthTokenReplica (HCFK cascade)",
+   "constraint": "HCFK references OrgAuthToken",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "hybridcloud/models/orgauthtokenreplica.py:21"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R34",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Modify SentryApp webhook_url or events",
+   "writes": "control SentryApp; ServiceHook.url, events in the cell of each installation",
+   "constraint": "ServiceHook copies SentryApp webhook_url, events via SentryAppInstallation (two-hop path copy), copied columns mutable",
+   "dep": "copyout",
+   "cls": "atomic",
+   "order": "no valid order",
+   "impl": "two implementations: one outbox message per installation, or synchronous RPC from a control task",
+   "tier": "L",
+   "locs": [
+    "sentry_apps/logic.py:220",
+    "receivers/outbox/control.py:111",
+    "sentry_apps/tasks/sentry_apps.py:916",
+    "sentry_apps/tasks/sentry_apps.py:941",
+    "utils/sentry_apps/service_hook_manager.py:6"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "R35",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete SentryApp",
+   "writes": "control SentryApp; cell Action disabled, AlertRuleTriggerAction and NotificationAction cascaded",
+   "constraint": "2 HCFKs and soft references in Action.config",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "sentry_apps/models/sentry_app.py:240",
+    "sentry_apps/models/sentry_app.py:256",
+    "receivers/outbox/control.py:63"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R36",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete SentryAppInstallation",
+   "writes": "control SentryAppInstallation; cell Action disabled, ServiceHook cascaded",
+   "constraint": "HCFK and soft reference in Action.config",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "sentry_apps/models/sentry_app_installation.py:129",
+    "sentry_apps/models/sentry_app_installation.py:160",
+    "receivers/outbox/control.py:84",
+    "sentry_apps/models/servicehook.py:64"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R37",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete Integration",
+   "writes": "control Integration; cell Action, AlertRuleTriggerAction, ExternalActor, ExternalIssue, NotificationAction cascaded",
+   "constraint": "5 HCFKs reference Integration",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "integrations/models/integration.py:80",
+    "integrations/models/integration.py:91"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R38",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete OrganizationIntegration",
+   "writes": "control OrganizationIntegration; cell Repository unlinked, ProjectCodeOwners, RepositoryProjectPathConfig, ProjectRepository, ProjectOption deleted",
+   "constraint": "HCFK and soft repository references",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "deletion task unlinks cell rows synchronously, then deletes the parent; HCFK child rows asynchronously",
+   "tier": "L",
+   "locs": [
+    "deletions/defaults/organizationintegration.py:23",
+    "integrations/models/repository_project_path_config.py:20"
+   ],
+   "op": "delete",
+   "agree": "mixed"
+  },
+  {
+   "id": "R39",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete ApiApplication",
+   "writes": "control ApiApplication; cell ApiTokenReplica, ServiceHook cascaded",
+   "constraint": "2 HCFKs reference ApiApplication",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "parent deleted first; child rows deleted or set null asynchronously via tombstones (reverse of the required order)",
+   "tier": "L",
+   "locs": [
+    "models/apiapplication.py:120"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R40",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Disable SCIM",
+   "writes": "control AuthProvider; cell member flags idp:provisioned, idp:role-restricted and Team.idp_provisioned cleared",
+   "constraint": "one-way: idp flag => organization has SCIM enabled",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "clear flags first, then disable",
+   "impl": "disables in the control silo first, then clears flags via outbox (a code comment acknowledges the ordering risk)",
+   "tier": "L",
+   "locs": [
+    "models/authprovider.py:156",
+    "models/authprovider.py:168",
+    "receivers/outbox/control.py:152",
+    "organizations/services/organization/impl.py:628"
+   ],
+   "op": "modify",
+   "agree": "reversed"
+  },
+  {
+   "id": "R41",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Delete a conflicting SSO identity",
+   "writes": "control AuthIdentity; cell member sso:invalid=1, sso:linked=0",
+   "constraint": "one-way: sso:linked => AuthIdentity exists (validity comes from the external IdP, not from the database)",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "modify flags first, then delete identity",
+   "impl": "deletes identity first, then modifies flags via outbox",
+   "tier": "A",
+   "locs": [
+    "auth/helper.py:513",
+    "models/authprovider.py:204",
+    "receivers/outbox/control.py:157"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "R42",
+   "mech": "R",
+   "dir": "control->cell",
+   "what": "Integration added to organization (integration_added signal)",
+   "writes": "control OrganizationIntegration; cell FeatureAdoption, OrganizationOnboardingTask",
+   "constraint": "onboarding records depend on the integration having been added (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "integration before onboarding records",
+   "impl": "source commits first; target written asynchronously via outbox",
+   "tier": "L",
+   "locs": [
+    "integrations/models/integration.py:106",
+    "integrations/models/integration.py:135",
+    "receivers/onboarding.py:532",
+    "receivers/features.py:723"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D01",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Register and join the only organization (single-organization mode)",
+   "writes": "control User; cell OrganizationMember",
+   "constraint": "Member.user_id references User (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "User before Member",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "api/endpoints/auth_register.py:86"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D02",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "First SSO login creates a new user",
+   "writes": "control User, AuthIdentity; cell OrganizationMember (sso:linked), unapproved requesting member deleted first",
+   "constraint": "Member references User; one-way sso:linked => AuthIdentity exists",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "control silo before cell",
+   "impl": "same order",
+   "tier": "A",
+   "locs": [
+    "auth/helper.py:913",
+    "auth/helper.py:283",
+    "api/invite_helper.py:166"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D03",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Link SSO identity",
+   "writes": "control AuthIdentity created or reattached, conflicting identity deleted; cell member sso:linked=1 or new member created",
+   "constraint": "one-way sso:linked => AuthIdentity exists",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "identity before flag",
+   "impl": "same order",
+   "tier": "A",
+   "locs": [
+    "auth/helper.py:419",
+    "auth/helper.py:208"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D04",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "SSO login with an existing identity",
+   "writes": "control AuthIdentity data, last_verified modified; cell member sso flags reset or member rejoins",
+   "constraint": "one-way sso:linked => AuthIdentity exists; the identity exists throughout",
+   "dep": "nodep",
+   "cls": "none",
+   "order": "any",
+   "impl": "-",
+   "tier": "S",
+   "locs": [
+    "auth/helper.py:215"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "D05",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Accept invitation",
+   "writes": "cell member user_id written; control AuditLogEntry; member_joined signal writes cell FeatureAdoption",
+   "constraint": "audit log entry and onboarding record reference the existing organization and member (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "member before log entry",
+   "impl": "same order",
+   "tier": "A",
+   "locs": [
+    "api/invite_helper.py:227",
+    "api/endpoints/accept_organization_invite.py:46"
+   ],
+   "op": "modify",
+   "agree": "same"
+  },
+  {
+   "id": "D06",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Delete own account",
+   "writes": "cell memberships deleted, solely owned organizations scheduled for deletion; control audit entry, User deleted or deactivated",
+   "constraint": "memberships and organization ownership reference User",
+   "dep": "ind",
+   "cls": "order",
+   "order": "children before parent",
+   "impl": "same order (memberships deleted before user)",
+   "tier": "L",
+   "locs": [
+    "users/api/endpoints/user_details.py:386"
+   ],
+   "op": "delete",
+   "agree": "same"
+  },
+  {
+   "id": "D07",
+   "mech": "D",
+   "dir": "cell->control",
+   "what": "SCIM deactivates member",
+   "writes": "cell member deleted; control audit entry; User.is_staff, is_superuser and UserPermission revoked in the SaaS superuser organization",
+   "constraint": "derived: privilege <=> membership in the corresponding privileged team (strict reading)",
+   "dep": "derived",
+   "cls": "atomic",
+   "order": "no valid order (under the one-way reading, revoking privileges before deleting the member suffices)",
+   "impl": "deletes member first, then revokes privileges",
+   "tier": "L",
+   "locs": [
+    "core/endpoints/scim/members.py:199"
+   ],
+   "op": "delete",
+   "agree": "n/a"
+  },
+  {
+   "id": "D08",
+   "mech": "D",
+   "dir": "cell->control",
+   "what": "Remove member",
+   "writes": "cell member and the invitations it issued deleted; control UserOption rows of the user on this organization's projects deleted, audit entry",
+   "constraint": "one-way: project-level UserOption => user is a member of the organization",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "options deleted first",
+   "impl": "deletes member first, deletes options after commit",
+   "tier": "A",
+   "locs": [
+    "core/endpoints/organization_member_details.py:474"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "D09",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Periodic SSO identity verification",
+   "writes": "cell member sso flags; control AuthIdentity.last_verified",
+   "constraint": "one-way sso:linked => AuthIdentity exists is unaffected",
+   "dep": "nodep",
+   "cls": "none",
+   "order": "any",
+   "impl": "-",
+   "tier": "S",
+   "locs": [
+    "tasks/auth/check_auth.py:97"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "D10",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Enable SSO",
+   "writes": "cell Organization.require_2fa turned off; control AuthProvider, AuthIdentity; cell member sso:linked; sso_enabled signal",
+   "constraint": "denial constraint: an organization cannot both require 2FA and enable SSO; member flag depends one-way on the identity",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "turn off 2FA first, then create AuthProvider",
+   "impl": "same order (turns off 2FA first)",
+   "tier": "L",
+   "locs": [
+    "auth/helper.py:1275",
+    "auth/helper.py:1387"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D11",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Modify SSO settings",
+   "writes": "control AuthProvider scim, allow_unlinked, config; cell Organization.default_role",
+   "constraint": "no constraint links the two sides",
+   "dep": "nodep",
+   "cls": "none",
+   "order": "any",
+   "impl": "-",
+   "tier": "L",
+   "locs": [
+    "web/frontend/organization_auth_settings.py:141"
+   ],
+   "op": "modify",
+   "agree": "n/a"
+  },
+  {
+   "id": "D12",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Disable SSO",
+   "writes": "control AuthProvider and its AuthIdentity rows deleted, User.is_managed reset; cell sso:linked, sso:invalid cleared for all members",
+   "constraint": "one-way sso:linked => AuthIdentity exists",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "clear flags first, then delete identities",
+   "impl": "deletes in the control silo first, then a cell task clears the flags",
+   "tier": "L",
+   "locs": [
+    "web/frontend/organization_auth_settings.py:120",
+    "tasks/auth/auth.py:71"
+   ],
+   "op": "delete",
+   "agree": "reversed"
+  },
+  {
+   "id": "D13",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Partner SSO provisioning",
+   "writes": "control AuthProvider, AuditLogEntry; cell FeatureAdoption (sso_enabled)",
+   "constraint": "onboarding record depends on SSO having been provisioned (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "control silo before cell",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "auth/services/auth/impl.py:42"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D14",
+   "mech": "D",
+   "dir": "cell->control",
+   "what": "SCIM privileged-team membership change",
+   "writes": "cell OrganizationMemberTeam inserted or deleted; control User.is_staff, is_superuser and UserPermission (task)",
+   "constraint": "derived: privilege <=> membership in the corresponding privileged team (strict reading)",
+   "dep": "derived",
+   "cls": "atomic",
+   "order": "no valid order (under the one-way reading, granting after adding the membership and revoking before removing it suffices)",
+   "impl": "revocation goes first (fail-secure)",
+   "tier": "L",
+   "locs": [
+    "core/endpoints/scim/teams.py:641",
+    "core/endpoints/scim/teams.py:681",
+    "tasks/scim/privilege_sync.py:141"
+   ],
+   "op": "insert/delete",
+   "agree": "n/a"
+  },
+  {
+   "id": "D15",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Link GitHub identity",
+   "writes": "control Identity; cell ExternalActor (in every organization with the GitHub integration installed)",
+   "constraint": "ExternalActor mirrors the GitHub login of the identity (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "identity before ExternalActor",
+   "impl": "same order",
+   "tier": "A",
+   "locs": [
+    "identity/github/provider.py:125",
+    "identity/github/provider.py:132"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D16",
+   "mech": "D",
+   "dir": "cell->control",
+   "what": "Link team to a messaging channel",
+   "writes": "cell ExternalActor; control NotificationSettingProvider(team)",
+   "constraint": "one-way: team notification setting => team is linked to the provider",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "ExternalActor before setting",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "integrations/messaging/linkage.py:384"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D17",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Install SentryApp",
+   "writes": "control SentryAppInstallation; cell ServiceHook (copies url, events)",
+   "constraint": "ServiceHook references the installation and copies fields of its app (insert)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "installation before ServiceHook",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "sentry_apps/installations.py:128",
+    "sentry_apps/installations.py:154"
+   ],
+   "op": "insert",
+   "agree": "same"
+  },
+  {
+   "id": "D18",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Bitbucket uninstall",
+   "writes": "control Integration disabled; cell Repository disabled",
+   "constraint": "one-way: repository active => integration active",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "disable repositories first",
+   "impl": "disables integration first",
+   "tier": "L",
+   "locs": [
+    "integrations/bitbucket/uninstalled.py:34"
+   ],
+   "op": "modify",
+   "agree": "reversed"
+  },
+  {
+   "id": "D19",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "GitHub installation deleted",
+   "writes": "control Integration disabled; cell Repository disabled",
+   "constraint": "one-way: repository active => integration active",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "disable repositories first",
+   "impl": "disables integration first",
+   "tier": "L",
+   "locs": [
+    "integrations/github/webhook.py:609"
+   ],
+   "op": "modify",
+   "agree": "reversed"
+  },
+  {
+   "id": "D20",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Cursor installation removed",
+   "writes": "control Integration disabled; cell Repository disabled",
+   "constraint": "one-way: repository active => integration active",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "disable repositories first",
+   "impl": "disables integration first",
+   "tier": "L",
+   "locs": [
+    "integrations/cursor_origin/handlers.py:107"
+   ],
+   "op": "modify",
+   "agree": "reversed"
+  },
+  {
+   "id": "D21",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Cursor installation restored",
+   "writes": "control Integration enabled; cell repositories restored by sync",
+   "constraint": "one-way: repository active => integration active",
+   "dep": "oneway",
+   "cls": "order",
+   "order": "enable integration first",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "integrations/cursor_origin/handlers.py:136"
+   ],
+   "op": "modify",
+   "agree": "same"
+  },
+  {
+   "id": "D22",
+   "mech": "D",
+   "dir": "cell->control",
+   "what": "Create or link external issue",
+   "writes": "cell ExternalIssue, GroupLink; control OrganizationIntegration.config defaults, UserOption",
+   "constraint": "no constraint links the two sides",
+   "dep": "nodep",
+   "cls": "none",
+   "order": "any",
+   "impl": "-",
+   "tier": "A",
+   "locs": [
+    "issues/endpoints/group_integration_details.py:362",
+    "integrations/mixins/issues.py:219"
+   ],
+   "op": "insert",
+   "agree": "n/a"
+  },
+  {
+   "id": "D23",
+   "mech": "D",
+   "dir": "control->cell",
+   "what": "Merge users",
+   "writes": "cell memberships merged; control tokens, member mappings, identities, options reattached to the target user",
+   "constraint": "pointers reattached to an existing key (IND with frozen right-hand side)",
+   "dep": "ind",
+   "cls": "order",
+   "order": "reattach first, then delete the source user",
+   "impl": "same order",
+   "tier": "L",
+   "locs": [
+    "users/models/user.py:409",
+    "users/models/user.py:432",
+    "auth_v2/endpoints/auth_merge_user_accounts.py:113",
+    "organizations/services/organization/impl.py:531"
+   ],
+   "op": "modify",
+   "agree": "same"
+  }
+ ],
+ "excluded": [
+  [
+   "remote writes that touch one silo only",
+   "USER_IP_EVENT (UserIP), ORGAUTHTOKEN_UPDATE_USED (OrgAuthToken.date_last_used), ISSUE_COMMENT_UPDATE (email reply writes a cell comment), unsubscribe, Slack default organization, identity token refresh, GCP connection check, SCM repository sync and migration tasks, ServiceHook project settings, Teams uninstall, SSO unlink email",
+   [
+    "receivers/outbox/cell.py:190",
+    "receivers/outbox/cell.py:196",
+    "receivers/outbox/control.py:173",
+    "api/endpoints/organization_unsubscribe.py:111",
+    "integrations/source_code_management/sync_repos.py:463"
+   ]
+  ],
+  [
+   "cache invalidation only",
+   "SENTRY_APP_UPDATE, SENTRY_APP_INSTALLATION_UPDATE, cache clearing in USER_UPDATE, non-delete messages of INTEGRATION_UPDATE and API_APPLICATION_UPDATE",
+   [
+    "receivers/outbox/control.py:35",
+    "receivers/outbox/control.py:49",
+    "receivers/outbox/control.py:100"
+   ]
+  ],
+  [
+   "asynchronous tasks inside a cell",
+   "GROUP_ACTION_LOG_EVENT, SEER_RUN_CREATE, SENTRY_APP_NORMALIZE_ACTIONS",
+   [
+    "receivers/outbox/cell.py:65",
+    "receivers/outbox/cell.py:230",
+    "receivers/outbox/cell.py:373"
+   ]
+  ],
+  [
+   "no cross-silo data modification",
+   "ProjectKey update (ProjectKeyMapping copies only public_key); Identity delete (no cross-silo child tables); update messages of OrganizationIntegration and Team (empty handlers)",
+   [
+    "models/projectkey.py:194",
+    "users/models/identity.py:225",
+    "integrations/models/organization_integration.py:47"
+   ]
+  ],
+  [
+   "migration, relocation, backup and CLI tooling",
+   "SCM_INTEGRATION_CONFIG_BACKFILL, relocation, backup, createuser, merge_users commands",
+   [
+    "receivers/outbox/cell.py:124",
+    "relocation/tasks/process.py:1479",
+    "runner/commands/createuser.py:186"
+   ]
+  ],
+  [
+   "deprecated, or producer not in the open-source code",
+   "DISABLE_AUTH_PROVIDER, ORGANIZATION_MAPPING_CUSTOMER_ID_UPDATE, POST_ORGANIZATION_PROVISION, SUBSCRIPTION_UPDATE, PARTNER_ACCOUNT_UPDATE, SEND_VERCEL_INVOICE, FTC_CONSENT",
+   [
+    "receivers/outbox/cell.py:209",
+    "receivers/outbox/cell.py:223"
+   ]
+  ]
+ ],
+ "copies": [
+  [
+   "OrganizationMapping",
+   "Mapping[organization_id, slug, name, status, 9 flags, date_created] ⊆ Organization[id, …]",
+   "slug, name, status, flags",
+   "K",
+   "also has unique key slug",
+   "hybridcloud/services/organization_mapping/serial.py:12"
+  ],
+  [
+   "OrganizationMemberMapping",
+   "Mapping[organizationmember_id, organization_id, role, user_id, email, inviter_id, invite_status] ⊆ Member[id, …]",
+   "role, user_id, email, invite_status",
+   "K",
+   "copied columns user_id, inviter_id also carry FKs to User (implied by transitivity)",
+   "hybridcloud/services/organizationmember_mapping/impl.py:31"
+  ],
+  [
+   "ProjectKeyMapping",
+   "Mapping[project_key_id, public_key] ⊆ ProjectKey[id, public_key]",
+   "-",
+   "K",
+   "public_key immutable, IND stable",
+   "hybridcloud/services/replica/impl.py:295"
+  ],
+  [
+   "ApiKeyReplica",
+   "Replica[apikey_id, organization_id, label, key, status, allowed_origins, scope_list] ⊆ ApiKey[id, …]",
+   "label, status, allowed_origins, scope_list",
+   "K",
+   "replica table deliberately has no unique constraint on key (\"to simplify replication\")",
+   "hybridcloud/services/replica/impl.py:261"
+  ],
+  [
+   "ApiTokenReplica",
+   "Replica[apitoken_id, user_id, application_id, organization, token, hashed_token, expires_at, scope_list, …] ⊆ ApiToken[id, …]",
+   "token, hashed_token, expires_at, scope_list",
+   "K",
+   "application_is_active is a value derived via ApiApplication, not in K",
+   "hybridcloud/services/replica/impl.py:158"
+  ],
+  [
+   "OrgAuthTokenReplica",
+   "Replica[orgauthtoken_id, organization, token_hashed, name, scope_list, created_by_id, date_deactivated] ⊆ OrgAuthToken[id, …]",
+   "name, date_deactivated, created_by_id",
+   "K",
+   "",
+   "hybridcloud/services/replica/impl.py:198"
+  ],
+  [
+   "AuthProviderReplica",
+   "Replica[auth_provider_id, organization_id, provider, config, default_role, default_global_access, scim_enabled, allow_unlinked] ⊆ AuthProvider[id, …]",
+   "config, default_role, default_global_access, scim_enabled, allow_unlinked",
+   "K",
+   "",
+   "hybridcloud/services/replica/impl.py:220"
+  ],
+  [
+   "AuthIdentityReplica",
+   "Replica[auth_identity_id, user_id, auth_provider_id, ident, data, last_verified] ⊆ AuthIdentity[id, …]",
+   "data, last_verified, user_id",
+   "K",
+   "",
+   "hybridcloud/services/replica/impl.py:244"
+  ],
+  [
+   "OrganizationMember user cache columns",
+   "Member[user_id, user_email, user_is_active] ⊆ User[id, email, is_active]",
+   "email, is_active",
+   "K",
+   "",
+   "models/organizationmember.py:237"
+  ],
+  [
+   "OrganizationAvatarReplica",
+   "Replica[organization_id, avatar_type, avatar_ident] ⊆ OrganizationAvatar[organization_id, avatar_type, ident]",
+   "avatar_type, ident",
+   "out:nonpk",
+   "references the non-primary unique key organization_id",
+   "hybridcloud/services/replica/impl.py:320"
+  ],
+  [
+   "ServiceHook app fields",
+   "ServiceHook[installation_id, url, events] copies SentryApp[webhook_url, events] via SentryAppInstallation.sentry_app",
+   "webhook_url, events",
+   "out:path",
+   "two-hop path copy, not a single IND",
+   "utils/sentry_apps/service_hook_manager.py:6"
+  ],
+  [
+   "OrganizationSlugReservation (PRIMARY)",
+   "Reservation[organization_id, slug] ⊆ Organization[id, slug], PRIMARY rows only",
+   "slug",
+   "out:cond",
+   "conditional IND",
+   "services/organization/provisioning.py:195"
+  ],
+  [
+   "ExternalActor (GitHub identity mirror)",
+   "ExternalActor.external_name = \"@\" + GitHub login",
+   "login",
+   "out:derived",
+   "functional copy, maintained best-effort only",
+   "identity/github/provider.py:132"
+  ]
+ ],
+ "derived": [
+  [
+   "OrganizationMember.flags sso:linked, sso:invalid",
+   "one-way: linked => AuthIdentity exists; validity comes from the external IdP",
+   "auth/services/access/service.py:41"
+  ],
+  [
+   "OrganizationMember.flags idp:provisioned, Team.idp_provisioned",
+   "one-way: idp flag => SCIM enabled",
+   "organizations/services/organization/impl.py:628"
+  ],
+  [
+   "User.is_staff, is_superuser, UserPermission",
+   "derived: privilege <=> membership in the privileged team (SaaS superuser organization only)",
+   "tasks/scim/privilege_sync.py:24"
+  ],
+  [
+   "Repository.status",
+   "one-way: repository active => integration active",
+   "integrations/bitbucket/uninstalled.py:52"
+  ],
+  [
+   "ApiTokenReplica.application_is_active",
+   "derived from ApiApplication.status",
+   "hybridcloud/services/replica/impl.py:174"
+  ]
+ ],
+ "locator_tables": [
+  "TraceItemAttributeContext",
+  "InsightsStarredSegment",
+  "ProjectArtifactBundle",
+  "ProguardArtifactRelease",
+  "GroupHistory",
+  "GroupInbox",
+  "GroupOwner",
+  "OrganizationOnboardingTask",
+  "ProjectRedirect",
+  "PromptsActivity",
+  "ReleaseCommit",
+  "ReleaseEnvironment",
+  "ReleaseFile",
+  "ProjectTransactionThresholdOverride",
+  "ProjectTransactionThreshold",
+  "Monitor",
+  "ReplayDeletionJobModel",
+  "SeerAutofixIssueData",
+  "ServiceHook"
+ ]
+}

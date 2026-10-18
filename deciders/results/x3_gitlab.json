@@ -1,0 +1,214 @@
+{
+ "source": "structure",
+ "relations": 1127,
+ "attributes": 11629,
+ "fds": 7731,
+ "inds": 2349,
+ "unary_inds": 2294,
+ "pieces": [
+  {
+   "piece": "FD",
+   "fz": "pk",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 0,
+   "member": true,
+   "t_member_ms": 0.0,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 7192
+   },
+   "examples": [
+    "FD abuse_report_upload_states:abuse_report_upload_id->id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_started_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verified_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->organization_id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_state",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_count",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_checksum"
+   ],
+   "t_decide_ms": 82.27919461205602
+  },
+  {
+   "piece": "FD",
+   "fz": "ptr",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 0,
+   "member": true,
+   "t_member_ms": 0.0,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 3945
+   },
+   "examples": [
+    "FD activation_metrics:user_id,namespace_id,metric->id",
+    "FD activation_metrics:user_id,namespace_id,metric->created_at",
+    "FD activation_metrics:user_id,namespace_id,metric->updated_at",
+    "FD admin_roles:organization_id,name->id",
+    "FD admin_roles:organization_id,name->description",
+    "FD admin_roles:organization_id,name->permissions",
+    "FD admin_roles:organization_id,name->created_at",
+    "FD admin_roles:organization_id,name->updated_at"
+   ],
+   "t_decide_ms": 288.21318782866
+  },
+  {
+   "piece": "U",
+   "fz": "pk",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 2294,
+   "member": true,
+   "t_member_ms": 0.0,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 7192
+   },
+   "examples": [
+    "FD abuse_report_upload_states:abuse_report_upload_id->id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_started_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verified_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->organization_id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_state",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_count",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_checksum"
+   ],
+   "t_decide_ms": 175.75972247868776
+  },
+  {
+   "piece": "U",
+   "fz": "ptr",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 2294,
+   "member": true,
+   "t_member_ms": 0.0,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 3945
+   },
+   "examples": [
+    "FD activation_metrics:user_id,namespace_id,metric->id",
+    "FD activation_metrics:user_id,namespace_id,metric->created_at",
+    "FD activation_metrics:user_id,namespace_id,metric->updated_at",
+    "FD admin_roles:organization_id,name->id",
+    "FD admin_roles:organization_id,name->description",
+    "FD admin_roles:organization_id,name->permissions",
+    "FD admin_roles:organization_id,name->created_at",
+    "FD admin_roles:organization_id,name->updated_at"
+   ],
+   "t_decide_ms": 371.7096955515444
+  },
+  {
+   "piece": "A",
+   "fz": "pk",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 2222,
+   "member": true,
+   "t_member_ms": 341.71569952741265,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 7192
+   },
+   "examples": [
+    "FD abuse_report_upload_states:abuse_report_upload_id->id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_started_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verified_at",
+    "FD abuse_report_upload_states:abuse_report_upload_id->organization_id",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_state",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_retry_count",
+    "FD abuse_report_upload_states:abuse_report_upload_id->verification_checksum"
+   ],
+   "t_decide_ms": 85.10730508714914
+  },
+  {
+   "piece": "A",
+   "fz": "ptr",
+   "relations": 1127,
+   "fds": 7731,
+   "inds": 2222,
+   "member": true,
+   "t_member_ms": 341.71569952741265,
+   "order_sufficient": false,
+   "unstable": {
+    "FD": 3945
+   },
+   "examples": [
+    "FD activation_metrics:user_id,namespace_id,metric->id",
+    "FD activation_metrics:user_id,namespace_id,metric->created_at",
+    "FD activation_metrics:user_id,namespace_id,metric->updated_at",
+    "FD admin_roles:organization_id,name->id",
+    "FD admin_roles:organization_id,name->description",
+    "FD admin_roles:organization_id,name->permissions",
+    "FD admin_roles:organization_id,name->created_at",
+    "FD admin_roles:organization_id,name->updated_at"
+   ],
+   "t_decide_ms": 303.77350375056267
+  },
+  {
+   "piece": "K",
+   "fz": "pk",
+   "relations": 245,
+   "fds": 0,
+   "inds": 179,
+   "member": true,
+   "t_member_ms": 1.1200136505067348,
+   "order_sufficient": false,
+   "unstable": {
+    "IND": 179
+   },
+   "examples": [
+    "IND abuse_events[user_id,organization_id]<=users",
+    "IND abuse_report_events[user_id,organization_id]<=users",
+    "IND abuse_reports[assignee_id,organization_id]<=users",
+    "IND agent_project_authorizations[agent_id,project_id]<=cluster_agents",
+    "IND agent_user_access_project_authorizations[agent_id,project_id]<=cluster_agents",
+    "IND ai_catalog_item_versions[created_by_id,organization_id]<=users",
+    "IND ai_catalog_mcp_servers[created_by_id,organization_id]<=users",
+    "IND ai_catalog_mcp_servers_users[user_id,organization_id]<=users"
+   ],
+   "t_decide_ms": 1.2759193778038025
+  },
+  {
+   "piece": "K",
+   "fz": "ptr",
+   "relations": 245,
+   "fds": 0,
+   "inds": 179,
+   "member": true,
+   "t_member_ms": 1.1200136505067348,
+   "order_sufficient": true,
+   "unstable": {},
+   "examples": [],
+   "t_decide_ms": 1.439032144844532
+  }
+ ],
+ "inds_in_cycles": 30,
+ "a_dropped": {
+  "rhs not a key": 42,
+  "rhs not minimal": 0,
+  "second key of target": 0
+ },
+ "unique_keys": 767,
+ "keys_with_mutable_column_pk": 737,
+ "tables_with_such_keys_pk": 645,
+ "keys_with_mutable_column_ptr": 414,
+ "tables_with_such_keys_ptr": 362,
+ "k_fragment": {
+  "copies_inferred": 862,
+  "copy_attributes": 597,
+  "chains_excluded": 344,
+  "excluded_target_not_pk": 29,
+  "excluded_copy_in_pk": 7,
+  "excluded_pointer_in_pk": 24,
+  "k_inds": 179,
+  "k_relations": 245,
+  "in_final_class": true,
+  "class_reason": ""
+ }
+}

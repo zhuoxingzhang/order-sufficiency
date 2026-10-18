@@ -1,0 +1,1 @@
+m2 selftest: 20000 graphs (12626 bipartite, 7374 not), failures 0, worst 2-approx ratio 1.800

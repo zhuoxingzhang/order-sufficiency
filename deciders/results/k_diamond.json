@@ -1,0 +1,41 @@
+{
+ "final_definition_accepts": false,
+ "final_reason": "copy IND whose pointer contains or lies within PK(R)",
+ "earlier_definition_accepts": true,
+ "condition_3_holds": false,
+ "unstable": [
+  "IND R[A,D]<=S"
+ ],
+ "search": [
+  {
+   "entities": 3,
+   "domain": 2,
+   "non_executable_found": false,
+   "complete": true
+  },
+  {
+   "entities": 4,
+   "domain": 2,
+   "non_executable_found": false,
+   "complete": true
+  },
+  {
+   "entities": 5,
+   "domain": 2,
+   "non_executable_found": false,
+   "complete": true
+  },
+  {
+   "entities": 3,
+   "domain": 3,
+   "non_executable_found": false,
+   "complete": true
+  },
+  {
+   "entities": 4,
+   "domain": 3,
+   "non_executable_found": false,
+   "complete": true
+  }
+ ]
+}

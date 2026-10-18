@@ -1,0 +1,1101 @@
+{
+ "schemas": 1465,
+ "tasks": 80177,
+ "groups": {
+  "in_K": {
+   "schemas": 743,
+   "tasks": 33445,
+   "cond": 21094,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 12351,
+   "sat_found": 0,
+   "constructed": 12351,
+   "disagree": 0,
+   "disagree_noncomm": 0,
+   "disagree_pullback_shared": 0,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 0,
+   "disagree_neither": 0,
+   "ref_cond_differs": 0,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "outside_K": {
+   "schemas": 719,
+   "tasks": 46556,
+   "cond": 24209,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 21282,
+   "sat_found": 1426,
+   "constructed": 0,
+   "disagree": 1065,
+   "disagree_noncomm": 956,
+   "disagree_pullback_shared": 75,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 1037,
+   "disagree_neither": 10,
+   "ref_cond_differs": 63,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "composite": {
+   "schemas": 302,
+   "tasks": 21504,
+   "cond": 10866,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 9624,
+   "sat_found": 655,
+   "constructed": 0,
+   "disagree": 1014,
+   "disagree_noncomm": 927,
+   "disagree_pullback_shared": 68,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 994,
+   "disagree_neither": 8,
+   "ref_cond_differs": 17,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "pk_overlap": {
+   "schemas": 664,
+   "tasks": 41116,
+   "cond": 21744,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 18333,
+   "sat_found": 1055,
+   "constructed": 0,
+   "disagree": 1039,
+   "disagree_noncomm": 937,
+   "disagree_pullback_shared": 57,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 1037,
+   "disagree_neither": 2,
+   "ref_cond_differs": 58,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "shared": {
+   "schemas": 206,
+   "tasks": 14288,
+   "cond": 7233,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 6763,
+   "sat_found": 669,
+   "constructed": 0,
+   "disagree": 292,
+   "disagree_noncomm": 211,
+   "disagree_pullback_shared": 75,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 270,
+   "disagree_neither": 4,
+   "ref_cond_differs": 63,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "chain": {
+   "schemas": 201,
+   "tasks": 17880,
+   "cond": 8946,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 8619,
+   "sat_found": 681,
+   "constructed": 0,
+   "disagree": 315,
+   "disagree_noncomm": 250,
+   "disagree_pullback_shared": 46,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 302,
+   "disagree_neither": 8,
+   "ref_cond_differs": 30,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  },
+  "none_of_the_four": {
+   "schemas": 0,
+   "tasks": 0,
+   "cond": 0,
+   "cond_violated": 0,
+   "cond_noncomm": 0,
+   "not_cond_cycle": 0,
+   "sat_found": 0,
+   "constructed": 0,
+   "disagree": 0,
+   "disagree_noncomm": 0,
+   "disagree_pullback_shared": 0,
+   "disagree_key_via_ind": 0,
+   "disagree_injective_pointer": 0,
+   "disagree_neither": 0,
+   "ref_cond_differs": 0,
+   "ref_says_ok_cond_not": 0,
+   "cap_hit": 0,
+   "work_cut_tasks": 0,
+   "dec_K_differs": 0
+  }
+ },
+ "named": {
+  "example_4_4": {
+   "tasks": 16,
+   "cond": 9,
+   "cycle": 3,
+   "disagree": 4,
+   "disagree_noncomm": 4
+  },
+  "diamond": {
+   "tasks": 32,
+   "cond": 24,
+   "cycle": 8,
+   "disagree": 0,
+   "disagree_noncomm": 0
+  },
+  "crossing": {
+   "tasks": 128,
+   "cond": 45,
+   "cycle": 47,
+   "disagree": 36,
+   "disagree_noncomm": 36
+  }
+ },
+ "minimal_disagreements": [
+  {
+   "sid": "seed:700955",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "l1",
+      "a1",
+      "p1"
+     ],
+     "R2": [
+      "k2",
+      "l2",
+      "a2",
+      "p2"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0"
+     ],
+     "R1": [
+      "k1",
+      "l1"
+     ],
+     "R2": [
+      "k2",
+      "l2"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "a1"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "k2",
+       "a2"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p2",
+       "k2",
+       "a2"
+      ],
+      "R1",
+      [
+       "k1",
+       "l1",
+       "a1"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": true,
+    "pk_overlap": true,
+    "shared": true,
+    "chain": true
+   },
+   "fz": {
+    "R0": [
+     "a0",
+     "k0"
+    ],
+    "R1": [
+     "k1",
+     "l1"
+    ],
+    "R2": [
+     "a2",
+     "k2",
+     "l2"
+    ]
+   },
+   "bad": [
+    "R2[p2,k2,a2]<=R1[k1,l1,a1]"
+   ],
+   "noncomm": [
+    "sat",
+    5,
+    5
+   ],
+   "noncomm_witness": [
+    [
+     "R1",
+     [
+      0,
+      0,
+      2,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1
+     ]
+    ],
+    [
+     "R2",
+     [
+      0,
+      2,
+      2,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2
+     ]
+    ],
+    [
+     "R0",
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    [
+     "R0",
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    [
+     "R1",
+     [
+      2,
+      0,
+      2,
+      0
+     ],
+     [
+      2,
+      0,
+      2,
+      0
+     ]
+    ]
+   ],
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  },
+  {
+   "sid": "seed:700955",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "l1",
+      "a1",
+      "p1"
+     ],
+     "R2": [
+      "k2",
+      "l2",
+      "a2",
+      "p2"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0"
+     ],
+     "R1": [
+      "k1",
+      "l1"
+     ],
+     "R2": [
+      "k2",
+      "l2"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "a1"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "k2",
+       "a2"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p2",
+       "k2",
+       "a2"
+      ],
+      "R1",
+      [
+       "k1",
+       "l1",
+       "a1"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": true,
+    "pk_overlap": true,
+    "shared": true,
+    "chain": true
+   },
+   "fz": {
+    "R0": [
+     "a0",
+     "k0"
+    ],
+    "R1": [
+     "k1",
+     "l1"
+    ],
+    "R2": [
+     "k2",
+     "l2"
+    ]
+   },
+   "bad": [
+    "R2[p2,k2,a2]<=R1[k1,l1,a1]"
+   ],
+   "noncomm": [
+    "sat",
+    5,
+    5
+   ],
+   "noncomm_witness": [
+    [
+     "R1",
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      2,
+      1
+     ]
+    ],
+    [
+     "R2",
+     [
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      2
+     ]
+    ],
+    [
+     "R0",
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    [
+     "R0",
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    [
+     "R1",
+     [
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      2,
+      0,
+      0,
+      0
+     ]
+    ]
+   ],
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  },
+  {
+   "sid": "seed:702643",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "l0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "p1",
+      "p2",
+      "d3"
+     ],
+     "R2": [
+      "k2",
+      "p4",
+      "d5",
+      "d6"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0",
+      "l0"
+     ],
+     "R1": [
+      "k1"
+     ],
+     "R2": [
+      "k2"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "p2",
+       "d3"
+      ],
+      "R0",
+      [
+       "k0",
+       "l0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p4",
+       "d5",
+       "d6"
+      ],
+      "R1",
+      [
+       "k1",
+       "p1",
+       "d3"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": true,
+    "pk_overlap": false,
+    "shared": false,
+    "chain": true
+   },
+   "fz": {
+    "R0": [
+     "a0",
+     "k0",
+     "l0"
+    ],
+    "R1": [
+     "k1",
+     "p2"
+    ],
+    "R2": [
+     "d5",
+     "k2",
+     "p4"
+    ]
+   },
+   "bad": [
+    "R2[p4,d5,d6]<=R1[k1,p1,d3]"
+   ],
+   "noncomm": null,
+   "noncomm_witness": null,
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  },
+  {
+   "sid": "seed:702964",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "l0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "a1",
+      "p1",
+      "p2"
+     ],
+     "R2": [
+      "k2",
+      "a2",
+      "p3",
+      "d4"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0",
+      "l0"
+     ],
+     "R1": [
+      "k1"
+     ],
+     "R2": [
+      "k2"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "p2",
+       "a1"
+      ],
+      "R0",
+      [
+       "k0",
+       "l0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p3",
+       "a2",
+       "d4"
+      ],
+      "R1",
+      [
+       "k1",
+       "p2",
+       "a1"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": true,
+    "pk_overlap": false,
+    "shared": false,
+    "chain": true
+   },
+   "fz": {
+    "R0": [
+     "a0",
+     "k0",
+     "l0"
+    ],
+    "R1": [
+     "k1",
+     "p1"
+    ],
+    "R2": [
+     "a2",
+     "k2",
+     "p3"
+    ]
+   },
+   "bad": [
+    "R2[p3,a2,d4]<=R1[k1,p2,a1]"
+   ],
+   "noncomm": null,
+   "noncomm_witness": null,
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  },
+  {
+   "sid": "seed:702972",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "a1",
+      "p1"
+     ],
+     "R2": [
+      "k2",
+      "p2",
+      "d3",
+      "p4"
+     ],
+     "R3": [
+      "k3",
+      "p5",
+      "d6"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0"
+     ],
+     "R1": [
+      "k1"
+     ],
+     "R2": [
+      "k2"
+     ],
+     "R3": [
+      "k3"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "a1"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p2",
+       "d3"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p4",
+       "d3"
+      ],
+      "R1",
+      [
+       "k1",
+       "p1"
+      ]
+     ],
+     [
+      "R3",
+      [
+       "p5",
+       "d6"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": false,
+    "pk_overlap": false,
+    "shared": true,
+    "chain": false
+   },
+   "fz": {
+    "R0": [
+     "k0"
+    ],
+    "R1": [
+     "a1",
+     "k1",
+     "p1"
+    ],
+    "R2": [
+     "d3",
+     "k2",
+     "p4"
+    ],
+    "R3": [
+     "d6",
+     "k3",
+     "p5"
+    ]
+   },
+   "bad": [
+    "R2[p2,d3]<=R0[k0,a0]"
+   ],
+   "noncomm": [
+    "sat",
+    5,
+    5
+   ],
+   "noncomm_witness": [
+    [
+     "R0",
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    [
+     "R2",
+     [
+      2,
+      1,
+      1,
+      2
+     ],
+     [
+      2,
+      0,
+      1,
+      2
+     ]
+    ],
+    [
+     "R0",
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    [
+     "R1",
+     [
+      2,
+      1,
+      1
+     ],
+     [
+      2,
+      1,
+      1
+     ]
+    ]
+   ],
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  },
+  {
+   "sid": "seed:702972",
+   "sch": {
+    "rels": {
+     "R0": [
+      "k0",
+      "a0"
+     ],
+     "R1": [
+      "k1",
+      "a1",
+      "p1"
+     ],
+     "R2": [
+      "k2",
+      "p2",
+      "d3",
+      "p4"
+     ],
+     "R3": [
+      "k3",
+      "p5",
+      "d6"
+     ]
+    },
+    "pk": {
+     "R0": [
+      "k0"
+     ],
+     "R1": [
+      "k1"
+     ],
+     "R2": [
+      "k2"
+     ],
+     "R3": [
+      "k3"
+     ]
+    },
+    "fds": [],
+    "inds": [
+     [
+      "R1",
+      [
+       "p1",
+       "a1"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p2",
+       "d3"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ],
+     [
+      "R2",
+      [
+       "p4",
+       "d3"
+      ],
+      "R1",
+      [
+       "k1",
+       "p1"
+      ]
+     ],
+     [
+      "R3",
+      [
+       "p5",
+       "d6"
+      ],
+      "R0",
+      [
+       "k0",
+       "a0"
+      ]
+     ]
+    ]
+   },
+   "features": {
+    "composite": false,
+    "pk_overlap": false,
+    "shared": true,
+    "chain": false
+   },
+   "fz": {
+    "R0": [
+     "k0"
+    ],
+    "R1": [
+     "a1",
+     "k1",
+     "p1"
+    ],
+    "R2": [
+     "k2",
+     "p4"
+    ],
+    "R3": [
+     "d6",
+     "k3",
+     "p5"
+    ]
+   },
+   "bad": [
+    "R2[p2,d3]<=R0[k0,a0]"
+   ],
+   "noncomm": [
+    "sat",
+    5,
+    5
+   ],
+   "noncomm_witness": [
+    [
+     "R0",
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    [
+     "R2",
+     [
+      2,
+      1,
+      1,
+      0
+     ],
+     [
+      2,
+      0,
+      1,
+      0
+     ]
+    ],
+    [
+     "R0",
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    [
+     "R1",
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ]
+    ]
+   ],
+   "flags": {
+    "key_via_ind": false,
+    "pullback_shared": false,
+    "injective_pointer": false
+   }
+  }
+ ],
+ "seconds": 644.6
+}

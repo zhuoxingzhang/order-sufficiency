@@ -1,0 +1,35 @@
+{
+ "source": "structure",
+ "lower": {
+  "tables": 1127,
+  "tables_with_violable_fd": 0,
+  "violable_fds": 0,
+  "nonkey_fds": 671,
+  "none_feasible": 0,
+  "templates": 8129,
+  "atomic_pk": 0,
+  "atomic_chosen": 0,
+  "tables_with_declared_key": 996,
+  "declared_infeasible": 0,
+  "atomic_pk_in_declared": 0,
+  "atomic_declared": 0,
+  "atomic_chosen_in_declared": 0
+ },
+ "lower_violable": {},
+ "upper": {
+  "tables": 1127,
+  "tables_with_violable_fd": 0,
+  "violable_fds": 0,
+  "nonkey_fds": 671,
+  "none_feasible": 0,
+  "templates": 687,
+  "atomic_pk": 0,
+  "atomic_chosen": 0,
+  "tables_with_declared_key": 996,
+  "declared_infeasible": 0,
+  "atomic_pk_in_declared": 0,
+  "atomic_declared": 0,
+  "atomic_chosen_in_declared": 0
+ },
+ "upper_violable": {}
+}
