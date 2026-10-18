@@ -26,20 +26,20 @@
    "issue = issue_link.issue; issue.title in the vulnerability webhook data"
   ],
   "6": [
-   "E",
-   "merge_request.modified_paths after merge_request? (checks the id only)"
+   "T",
+   "guarded by merge_request?, which checks merge_request.present? (app/models/ci/pipeline.rb:1774)"
   ],
   "7": [
    "T",
    "assigns a nil merge request to the environment"
   ],
   "8": [
-   "E",
-   "merge_request.diff_head_sha without a check"
+   "T",
+   "merged_result_pipeline? calls merge_request?, which checks merge_request.present? (app/models/ci/pipeline.rb:1774)"
   ],
   "9": [
-   "E",
-   "merge_request.source_project_id without a check"
+   "T",
+   "guarded by merge_request?, which checks merge_request.present? (app/models/ci/pipeline.rb:1774)"
   ],
   "10": [
    "T",
@@ -58,20 +58,20 @@
    "validation returns if namespace.nil?"
   ],
   "14": [
-   "T",
-   "permission check with a nil namespace denies"
+   "FP",
+   "the mutation loads the namespace from its argument first (ee/app/graphql/mutations/security/categories/update.rb:34)"
   ],
   "15": [
-   "T",
-   "nil namespace passed to event tracking"
+   "FP",
+   "policy_configuration is a security_orchestration_policy_configurations row, in the same database as namespaces"
   ],
   "16": [
-   "T",
-   "configuration.namespace&.name"
+   "FP",
+   "configuration is a security_orchestration_policy_configurations row, in the same database as namespaces"
   ],
   "17": [
-   "T",
-   "nil namespace in a worker context"
+   "FP",
+   "configuration is a security_orchestration_policy_configurations row, in the same database as namespaces"
   ],
   "18": [
    "FP",
@@ -155,7 +155,7 @@
   ],
   "38": [
    "FP",
-   "project-scoped page: the parent is read first"
+   "the project is loaded from the URL before the vulnerability (parent first)"
   ],
   "39": [
    "T",
@@ -170,16 +170,16 @@
    "pipeline.project, then project.id"
   ],
   "42": [
-   "T",
-   "callback only if tag.present?"
+   "FP",
+   "before_validation runs when a profile tag is written with a tag loaded from the parameters"
   ],
   "43": [
-   "T",
-   "runs only if tag.present?"
+   "FP",
+   "before_validation runs when a profile tag is written (write path)"
   ],
   "44": [
-   "FP",
-   "mailer preview, development only"
+   "T",
+   "pipeline.user.try(:email) tolerates a missing user"
   ],
   "45": [
    "FP",
@@ -191,7 +191,7 @@
   ],
   "47": [
    "T",
-   "partial rendered only if @build.user"
+   "the partial is rendered only if @build.user (app/views/projects/artifacts/_header.html.haml:19)"
   ],
   "48": [
    "T",

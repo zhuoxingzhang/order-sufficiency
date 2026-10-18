@@ -99,8 +99,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "transform_auth receives a loaded user; the int case is the proxy user of a SentryApp in control",
   "text": "user = user_service.get_user(user_id=user.id)"
  },
  {
@@ -125,8 +125,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the claims of the agent JWT",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -138,8 +138,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the X-Viewer-Context header",
   "text": "user = user_service.get_user(user_id=vc.user_id)"
  },
  {
@@ -190,8 +190,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "Identity and User are both in the control silo",
   "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
  },
  {
@@ -203,8 +203,8 @@
   "src": "probe",
   "auto": "E",
   "why": "assert",
-  "label": "E",
-  "note": "note author -> user, assert user is not None in comment sync",
+  "label": "FP",
+  "note": "user_id comes from request.user.id (issues/endpoints/bases/group.py:127), not from the note",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -229,8 +229,8 @@
   "src": "probe",
   "auto": "U",
   "why": "no guard within window",
-  "label": "T",
-  "note": "commit_author_for_user accepts None",
+  "label": "FP",
+  "note": "identifier from the Seer feedback actor",
   "text": "user = user_service.get_user(user_id=int(identifier))"
  },
  {
@@ -268,8 +268,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "reads RepositoryProjectPathConfig.integration_id, a plain column that is not the edge",
   "text": "integration = integration_service.get_integration(integration_id=code_mapping.integration_id)"
  },
  {
@@ -294,8 +294,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "integration_id is a task argument from the push webhook, which loaded the integration first",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -307,8 +307,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "integration_id from the signed link parameters",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -346,8 +346,8 @@
   "src": "probe",
   "auto": "B",
   "why": "",
-  "label": "B",
-  "note": "",
+  "label": "FP",
+  "note": "integration from the Jira webhook, then its organization integrations",
   "text": "result = integration_service.organization_contexts(integration_id=integration.id)"
  },
  {
@@ -476,8 +476,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "the integrations are loaded first; the children are filtered by their ids",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -489,8 +489,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "integration_id is the RPC argument; the children are filtered by it",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -502,8 +502,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "integration_id from the rule action data",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -516,7 +516,7 @@
   "auto": "E",
   "why": "raise on missing",
   "label": "T",
-  "note": "raise NotFound (404)",
+  "note": "NotFound answers 404, which the audit counts as tolerant",
   "text": "organization = organization_service.get(id=self.organization_id)"
  },
  {
@@ -632,8 +632,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "Identity and User are both in the control silo",
   "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
  },
  {
@@ -645,8 +645,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user_id comes from request.user.id at issues/endpoints/bases/group.py:127, not from the note",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -684,8 +684,8 @@
   "src": "probe",
   "auto": "U",
   "why": "no assignment",
-  "label": "T",
-  "note": "returns Optional user",
+  "label": "FP",
+  "note": "assignee id from Activity.data, not the user_id column",
   "text": "return user_service.get_user(user_id=assignee_id)"
  },
  {
@@ -736,8 +736,8 @@
   "src": "probe",
   "auto": "U",
   "why": "no assignment",
-  "label": "T",
-  "note": "user_missing outcome",
+  "label": "FP",
+  "note": "user id from the Seer prediction",
   "text": "if user_service.get_user(user_id=top_user_id) is None:"
  },
  {
@@ -814,8 +814,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "organization id from the claims of the agent JWT",
   "text": "org_context = organization_service.get_organization_by_id("
  },
  {
@@ -944,8 +944,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the stored condition data, not from a child row; OrganizationMember is only filtered by it",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -983,8 +983,8 @@
   "src": "probe",
   "auto": "U",
   "why": "no assignment",
-  "label": "T",
-  "note": "user_missing outcome",
+  "label": "FP",
+  "note": "user id from the Seer prediction",
   "text": "if user_service.get_user(user_id=top_user_id) is None:"
  },
  {
@@ -1126,8 +1126,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "transform_auth receives a loaded user; the int case is the proxy user of a SentryApp in control",
   "text": "user = user_service.get_user(user_id=user.id)"
  },
  {
@@ -1152,8 +1152,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the claims of the agent JWT",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -1165,8 +1165,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the X-Viewer-Context header",
   "text": "user = user_service.get_user(user_id=vc.user_id)"
  },
  {
@@ -1360,8 +1360,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the rule data",
   "text": "user = user_service.get_user(user_id=target_identifer)"
  },
  {
@@ -1373,8 +1373,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "actor_id is the user who sent the request",
   "text": "user = user_service.get_user(user_id=sending_user_id)"
  },
  {
@@ -1413,7 +1413,7 @@
   "auto": "E",
   "why": "raise on missing",
   "label": "E",
-  "note": "raise Actor.InvalidActor",
+  "note": "Actor.resolve is reached from stored assignee and owner columns (models/group.py:1323); raises InvalidActor",
   "text": "user = user_service.get_user(user_id=self.id)"
  },
  {
@@ -1425,8 +1425,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "user id from the stored condition data, not from a child row; OrganizationMember is only filtered by it",
   "text": "user = user_service.get_user(user_id=user_id)"
  },
  {
@@ -1529,8 +1529,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "organization id from the claims of the agent JWT",
   "text": "org_context = organization_service.get_organization_by_id("
  },
  {
@@ -1750,8 +1750,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "organization id from the claims of the agent JWT",
   "text": "org_context = organization_service.get_organization_by_id("
  },
  {
@@ -1763,8 +1763,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "organization id from the agent token of the request",
   "text": "org_context = organization_service.get_organization_by_id("
  },
  {
@@ -1815,8 +1815,8 @@
   "src": "probe",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "",
+  "label": "FP",
+  "note": "integration from the request data, then re-read by its id",
   "text": "integration = integration_service.get_integration("
  },
  {
@@ -1998,8 +1998,8 @@
   "src": "hand",
   "auto": "E",
   "why": "raise on missing",
-  "label": "E",
-  "note": "raise SentryAppSentryError(MISSING_SENTRY_APP) when an alert fires",
+  "label": "FP",
+  "note": "sentry_app_id is a task argument set from the app that the handler loaded (legacy_webhook/service.py:98)",
   "text": "sentry_app = app_service.get_sentry_app_by_id(id=sentry_app_id)"
  },
  {
@@ -2026,8 +2026,8 @@
   "src": "hand",
   "auto": "U",
   "why": "batch result indexed directly",
-  "label": "T",
-  "note": "ValidationError when the rule is saved",
+  "label": "FP",
+  "note": "self_validate checks rule input on save (write path)",
   "text": "installations = app_service.get_many(filter=dict(uuids=[sentry_app_installation_uuid]))"
  },
  {
@@ -2124,8 +2124,8 @@
   "src": "hand",
   "auto": "T",
   "why": "",
-  "label": "T",
-  "note": "missing key -> default loader config",
+  "label": "FP",
+  "note": "the cell reads ProjectKey by the public key in the URL; the mapping is read by the router (template R09 stays exposed)",
   "text": "key = ProjectKey.objects.get_from_cache(public_key=public_key)"
  }
 ]

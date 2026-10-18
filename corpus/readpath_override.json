@@ -1,4 +1,8 @@
 {
+ "api/authentication.py:200": [
+  "FP",
+  "transform_auth receives a loaded user; the int case is the proxy user of a SentryApp in control"
+ ],
  "api/authentication.py:542": [
   "T",
   "token replica -> user; a missing user skips the is_active check (fail-open candidate, downstream not traced)"
@@ -7,29 +11,101 @@
   "T",
   "token -> scoping organization; a missing organization skips the org-scope check (fail-open candidate, downstream not traced)"
  ],
+ "api/authentication.py:663": [
+  "FP",
+  "user id from the claims of the agent JWT"
+ ],
+ "api/authentication.py:671": [
+  "FP",
+  "organization id from the claims of the agent JWT"
+ ],
+ "api/authentication.py:954": [
+  "FP",
+  "user id from the X-Viewer-Context header"
+ ],
+ "api/serializers/models/apiauthorization.py:28": [
+  "T",
+  "serialize_organization returns Optional"
+ ],
+ "api/serializers/models/organization_member/base.py:39": [
+  "T",
+  "dict .get"
+ ],
+ "api/validators/project_codeowners.py:48": [
+  "FP",
+  "reads RepositoryProjectPathConfig.integration_id, a plain column that is not the edge"
+ ],
+ "core/endpoints/project_index.py:57": [
+  "FP",
+  "organization id from the agent token of the request"
+ ],
  "integrations/api/bases/external_actor.py:179": [
   "FP",
   "user id from request input"
  ],
- "integrations/jira_server/integration.py:645": [
+ "integrations/api/serializers/models/integration.py:240": [
+  "T",
+  "dict .get"
+ ],
+ "integrations/base.py:421": [
+  "T",
+  "NotFound answers 404, which the audit counts as tolerant"
+ ],
+ "integrations/github/integration.py:549": [
   "E",
-  "note author -> user, assert user is not None in comment sync"
+  "assert organization context"
  ],
- "integrations/utils/scm_actors.py:50": [
-  "T",
-  "returns Optional user"
+ "integrations/github/tasks/query_commit_author_public_emails.py:64": [
+  "FP",
+  "integration_id is a task argument from the push webhook, which loaded the integration first"
  ],
- "seer/autofix/commit_author.py:208": [
-  "T",
-  "commit_author_for_user accepts None"
+ "integrations/github/webhook.py:1200": [
+  "FP",
+  "Identity and User are both in the control silo"
+ ],
+ "integrations/github/webhook.py:761": [
+  "FP",
+  "Identity -> User, both in control"
+ ],
+ "integrations/gitlab/integration.py:334": [
+  "E",
+  "assert organization context"
+ ],
+ "integrations/jira/utils/api.py:175": [
+  "FP",
+  "integration from the Jira webhook, then its organization integrations"
+ ],
+ "integrations/jira_server/integration.py:645": [
+  "FP",
+  "user_id comes from request.user.id (issues/endpoints/bases/group.py:127), not from the note"
+ ],
+ "integrations/messaging/linkage.py:364": [
+  "FP",
+  "integration_id from the signed link parameters"
  ],
  "integrations/models/external_issue.py:97": [
   "E",
   "assert integration in get_installation"
  ],
+ "integrations/msteams/webhook.py:597": [
+  "FP",
+  "integration from the request data, then re-read by its id"
+ ],
+ "integrations/slack/utils/notifications.py:300": [
+  "T",
+  "comment: integration removed, but rule is still active"
+ ],
  "integrations/tasks/sync_status_inbound.py:223": [
   "FP",
   "integration id from inbound webhook"
+ ],
+ "integrations/utils/scm_actors.py:50": [
+  "T",
+  "returns Optional user"
+ ],
+ "integrations/vsts/issues.py:451": [
+  "FP",
+  "user_id comes from request.user.id at issues/endpoints/bases/group.py:127, not from the note"
  ],
  "integrations/vsts/issues.py:465": [
   "FP",
@@ -51,73 +127,69 @@
   "FP",
   "integration id from URL"
  ],
- "integrations/base.py:421": [
-  "T",
-  "raise NotFound (404)"
+ "issues/endpoints/group_integrations.py:71": [
+  "FP",
+  "the integrations are loaded first; the children are filtered by their ids"
  ],
- "integrations/api/serializers/models/integration.py:240": [
-  "T",
-  "dict .get"
+ "issues/services/issue/impl.py:35": [
+  "FP",
+  "integration_id is the RPC argument; the children are filtered by it"
  ],
- "integrations/github/integration.py:549": [
-  "E",
-  "assert organization context"
- ],
- "integrations/gitlab/integration.py:334": [
-  "E",
-  "assert organization context"
- ],
- "tasks/seer/investigation.py:467": [
-  "T",
-  "user may be None"
+ "notifications/api/serializers/notification_action_request.py:164": [
+  "FP",
+  "integration id from request input"
  ],
  "notifications/notification_action/activity_registry/sentry_app.py:118": [
   "T",
   "walrus guard"
  ],
- "notifications/notifications/activity/assigned.py:19": [
+ "notifications/notification_action/issue_alert_registry/handlers/opsgenie_issue_alert_handler.py:30": [
   "T",
-  "returns Optional user"
+  "empty label"
+ ],
+ "notifications/notification_action/issue_alert_registry/handlers/pagerduty_issue_alert_handler.py:30": [
+  "T",
+  "empty label"
+ ],
+ "notifications/notification_action/issue_alert_registry/handlers/sentry_app_issue_alert_handler.py:95": [
+  "E",
+  "raise SentryAppError when an alert fires"
+ ],
+ "notifications/notifications/activity/assigned.py:19": [
+  "FP",
+  "assignee id from Activity.data, not the user_id column"
  ],
  "notifications/notifications/activity/base.py:101": [
   "T",
   "returns Optional user"
  ],
- "seer/smart_assignment/completion.py:76": [
-  "T",
-  "user_missing outcome"
- ],
- "sentry_apps/tasks/sentry_apps.py:544": [
+ "rules/actions/integrations/create_ticket/utils.py:152": [
   "FP",
-  "user id from task argument"
+  "integration_id from the rule action data"
  ],
- "sentry_apps/tasks/sentry_apps.py:754": [
-  "FP",
-  "user id from task argument"
- ],
- "api/serializers/models/apiauthorization.py:28": [
-  "T",
-  "serialize_organization returns Optional"
- ],
- "utils/committers.py:238": [
-  "T",
-  "comment: user_id set does not guarantee the user exists"
- ],
- "tasks/auth/auth.py:117": [
-  "FP",
-  "actor id from task argument"
- ],
- "types/actor.py:269": [
+ "rules/actions/sentry_apps/notify_event.py:156": [
   "E",
-  "raise Actor.InvalidActor"
+  "raise ValidationError while rendering the rule label"
  ],
- "api/serializers/models/organization_member/base.py:39": [
+ "rules/actions/sentry_apps/notify_event.py:55": [
   "T",
-  "dict .get"
+  "if result"
  ],
- "notifications/api/serializers/notification_action_request.py:164": [
+ "rules/actions/sentry_apps/notify_event.py:98": [
   "FP",
-  "integration id from request input"
+  "self_validate checks rule input on save (write path)"
+ ],
+ "rules/filters/assigned_to.py:33": [
+  "FP",
+  "user id from the rule data"
+ ],
+ "seer/autofix/commit_author.py:208": [
+  "FP",
+  "identifier from the Seer feedback actor"
+ ],
+ "seer/smart_assignment/completion.py:76": [
+  "FP",
+  "user id from the Seer prediction"
  ],
  "sentry_apps/api/bases/sentryapps.py:250": [
   "E",
@@ -139,44 +211,44 @@
   "T",
   "returns Optional app"
  ],
- "integrations/slack/utils/notifications.py:300": [
-  "T",
-  "comment: integration removed, but rule is still active"
- ],
- "notifications/notification_action/issue_alert_registry/handlers/opsgenie_issue_alert_handler.py:30": [
-  "T",
-  "empty label"
- ],
- "notifications/notification_action/issue_alert_registry/handlers/pagerduty_issue_alert_handler.py:30": [
-  "T",
-  "empty label"
- ],
  "sentry_apps/tasks/sentry_apps.py:233": [
-  "E",
-  "raise SentryAppSentryError(MISSING_SENTRY_APP) when an alert fires"
+  "FP",
+  "sentry_app_id is a task argument set from the app that the handler loaded (legacy_webhook/service.py:98)"
  ],
- "rules/actions/sentry_apps/notify_event.py:55": [
+ "sentry_apps/tasks/sentry_apps.py:544": [
+  "FP",
+  "user id from task argument"
+ ],
+ "sentry_apps/tasks/sentry_apps.py:754": [
+  "FP",
+  "user id from task argument"
+ ],
+ "tasks/auth/auth.py:117": [
+  "FP",
+  "actor id from task argument"
+ ],
+ "tasks/auth/auth.py:50": [
+  "FP",
+  "actor_id is the user who sent the request"
+ ],
+ "tasks/seer/investigation.py:467": [
   "T",
-  "if result"
+  "user may be None"
  ],
- "rules/actions/sentry_apps/notify_event.py:98": [
+ "types/actor.py:269": [
+  "E",
+  "Actor.resolve is reached from stored assignee and owner columns (models/group.py:1323); raises InvalidActor"
+ ],
+ "utils/committers.py:238": [
   "T",
-  "ValidationError when the rule is saved"
- ],
- "rules/actions/sentry_apps/notify_event.py:156": [
-  "E",
-  "raise ValidationError while rendering the rule label"
- ],
- "notifications/notification_action/issue_alert_registry/handlers/sentry_app_issue_alert_handler.py:95": [
-  "E",
-  "raise SentryAppError when an alert fires"
+  "comment: user_id set does not guarantee the user exists"
  ],
  "web/frontend/js_sdk_loader.py:311": [
-  "T",
-  "missing key -> default loader config"
- ],
- "integrations/github/webhook.py:761": [
   "FP",
-  "Identity -> User, both in control"
+  "the cell reads ProjectKey by the public key in the URL; the mapping is read by the router (template R09 stays exposed)"
+ ],
+ "workflow_engine/handlers/condition/assigned_to_handler.py:189": [
+  "FP",
+  "user id from the stored condition data, not from a child row; OrganizationMember is only filtered by it"
  ]
 }

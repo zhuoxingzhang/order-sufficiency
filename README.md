@@ -66,10 +66,10 @@ The audit asks, for each of the 48 Sentry templates that need only order, whethe
 
 - `readpath_probe.py` lists, for every hybrid-cloud foreign key of the deletion templates, the calls of the parent's RPC service whose arguments use the child's foreign-key column within four lines, in non-test files that name the child model (`out/readpath_probe.json`).
 - `readpath_tolerance.py` labels how each site handles a missing parent: tolerant (T), batch fetch (B), failure (E), unguarded (U).
-  The hand verdicts on all E and U sites, and on the sites that are no cross-silo child-to-parent read (FP), are in `readpath_override.json`; sites found by hand for edges without hits are in `readpath_extra.json`.
+  The hand verdicts on all E and U sites, on the sites that are no cross-silo child-to-parent read (FP), and on every other site whose first label did not hold are in `readpath_override.json`; sites found by hand for edges without hits are in `readpath_extra.json`.
   The result is `out/readpath_sites.json`.
-- `readpath_audit.md` gives the verdict for every template with its evidence (file and line in `src/sentry`): 15 templates have a reader that reads against the write order (11 deletions and 4 modifications), 32 have none, and one (D10) was not audited.
-  Of the 113 genuine sites, 103 tolerate a missing parent and 10 fail.
+- `readpath_audit.md` gives the verdict for every template with its evidence (file and line in `src/sentry`): 16 templates have a reader that reads against the write order (11 deletions, 4 modifications and the insertion D10, whose reader fails closed), and 32 have none.
+  Of the 88 sites that read from a child to its parent across silos, 80 tolerate a missing parent and 8 fail.
 
 ```bash
 cd corpus
@@ -83,8 +83,8 @@ The same question for the 17 cascading deletions of GitLab (C01-C17 of `gitlab_c
 
 - `gitlab_readpath_probe.py` takes the 249 loose foreign keys of these parents that cross databases (from `../deciders/data/gitlab_schema.json`), finds the `belongs_to` association of each child model for the key, and lists the places in `app`, `ee/app`, `lib` and `ee/lib` that call it, with a first label: tolerant (T), failure (E), unguarded (U) (`out/gitlab_readpath_probe.json`, file and line only).
 - `gitlab_readpath_sample.py` draws 6 sites per template (seed 9; 56 sites, `out/gitlab_readpath_sample.json`) and prints them with their context; `gitlab_readpath_review.json` holds the verdict by hand on each.
-- `gitlab_readpath_audit.md` gives the verdict for every template with its evidence (file and line at commit 9d4cbde6): 11 templates have a reader that reads against the required order, and for 6 none was found.
-  Of the 37 sampled sites that read from a child to its parent across databases, 26 tolerate a missing parent and 11 raise an error.
+- `gitlab_readpath_audit.md` gives the verdict for each of the 28 order-only templates with its evidence (file and line at commit 9d4cbde6): 13 have a reader that reads against the required order (11 of the 17 cascading deletions and the exemptions G01 and G11), and for 15 none was found.
+  Of the 32 sampled sites that read from a child to its parent across databases, 24 tolerate a missing parent and 8 raise an error.
 
 ```bash
 cd corpus
