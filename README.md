@@ -6,11 +6,13 @@ It contains the code, the inputs and the results behind every figure and number 
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
 | Section 6.2, Figure 4 | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
+| Section 6.2, read-path audit | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.3, Figure 5 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Figure 6 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
+| Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
 | Section 6.4 | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.5, Figure 7 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
+| Section 6.5, Figure 8 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
 | Appendix, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
 
 Every directory holds the results of the paper, so each analysis script runs without a database:
@@ -18,6 +20,7 @@ Every directory holds the results of the paper, so each analysis script runs wit
 ```bash
 cd corpus && python -I summarize.py
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
+cd engines && python -I analyze_direction.py results/direction.jsonl && python -I analyze_direction.py results/direction_gap.jsonl
 cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
 ```
 
@@ -53,6 +56,24 @@ python -I summarize.py
 
 A template needs only order if some write order keeps the constraints between its rows satisfied, atomic visibility if no order does, and serializability if a constraint relies on a read from another database; it is unconstrained if no constraint relates its rows.
 
+### Read paths of the order-only templates (Section 6.2)
+
+Write order protects a reader only if it reads first what the update writes last.
+The audit asks, for each of the 48 Sentry templates that need only order, whether some reader reads the two sides in the other direction, and what that reader does when it meets a child whose parent is gone.
+
+- `readpath_probe.py` lists, for every hybrid-cloud foreign key of the deletion templates, the calls of the parent's RPC service whose arguments use the child's foreign-key column within four lines, in non-test files that name the child model (`out/readpath_probe.json`).
+- `readpath_tolerance.py` labels how each site handles a missing parent: tolerant (T), batch fetch (B), failure (E), unguarded (U).
+  The hand verdicts on all E and U sites, and on the sites that are no cross-silo child-to-parent read (FP), are in `readpath_override.json`; sites found by hand for edges without hits are in `readpath_extra.json`.
+  The result is `out/readpath_sites.json`.
+- `readpath_audit.md` gives the verdict for every template with its evidence (file and line in `src/sentry`): 15 templates have a reader that reads against the write order (11 deletions and 4 modifications), 32 have none, and one (D10) was not audited.
+  Of the 113 genuine sites, 103 tolerate a missing parent and 10 fail.
+
+```bash
+cd corpus
+python -I readpath_probe.py <sentry>/src/sentry out/sentry_models.json out/readpath_probe.json
+python -I readpath_tolerance.py <sentry>/src/sentry out/readpath_probe.json readpath_extra.json out/readpath_sites.json readpath_override.json
+```
+
 ## Engines (Section 6.3, Figure 5)
 
 The engine runs test whether one distributed transaction exposes orphans and inconsistent copies to readers.
@@ -66,6 +87,18 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   Copy readers read the source and the copy in one statement (Citus) or one scatter query (Vitess).
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
   `analyze.py` reports the pooled rate per cell; the interval in Figure 5 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
+
+### Read direction (Section 6.3, Figure 7)
+
+`run_direction.sh` runs `direction.py` on the Citus cluster above in its uniform configuration (no slow worker), 2,000 runs per configuration.
+
+- A parent row and a child row that references it lie on different workers (64 key pairs).
+  The writer inserts both rows or deletes both: `ordered` (two autocommits in the required order: parent first for insertions, child first for deletions), `reversed` (the opposite order), `atomic` (one transaction over both workers, statements in the required order), or `ordered_g1` and `ordered_g10` (ordered, with 1 or 10 ms between the two commits).
+- The reader starts 0-2 ms before the writer and polls with two single-row reads per iteration, pausing 0, 1 or 10 ms between them: `c2p` reads the child and then the parent, `p2c` the parent and then the child.
+  It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
+- A run counts as anomalous if some iteration sees the child but not the parent.
+  `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
+  Figure 7 shows the deletion runs of the first grid; insertions give the same picture with `c2p` and `p2c` swapped.
 
 ## Cost of write order (Section 6.3, Figure 6, fault and fence runs)
 
@@ -93,7 +126,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - Fence runs (`x7_fence.py`): 4 clients add children to groups (5 ms think time) while 2 clients merge groups, over 16 active groups for 12 s, with and without a lock on the merged group.
 - Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and one commit per row commit without two-phase commit.
 
-## Deciders and design (Sections 6.4 and 6.5, Figure 7, appendix)
+## Deciders and design (Sections 6.4 and 6.5, Figure 8, appendix)
 
 `deciders.py` implements the tests of order-sufficiency: `dec_fd` (Theorem 3.6), `dec_unary` (Theorem 4.2), `dec_A` (Theorem 4.4) and `dec_K` (Theorem 4.7).
 `m2.py` solves MIN-FREEZE (Theorem 5.1; "M2" in the code) by a minimum cut on bipartite conflict graphs and by a 2-approximation otherwise.
@@ -105,7 +138,7 @@ cd deciders && PROCS=64 sh run_all.sh
 
 - Step 1 compares the deciders with an exhaustive search over small updates (`selfcheck.py`, reference semantics in `ref_order2.py`) and builds witnesses for rejected schemas (`k_witness.py`).
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
-- Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 7).
+- Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 8).
 - Step 5 runs the checks of the appendix beyond the exact classes; it needs pycosat.
 - `data/gitlab_schema.json` holds the tables, keys, foreign keys, sharding keys and loose foreign keys of GitLab commit 9d4cbde6; `gitlab_extract.py` rebuilds it from that commit (usage in `run_all.sh`).
 - The large per-task result files are stored gzipped.

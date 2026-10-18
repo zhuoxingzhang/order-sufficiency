@@ -1,0 +1,12 @@
+[
+ {"template": "R35", "parent": "SentryApp", "child": "Action", "col": "config.sentry_app_id", "file": "sentry_apps/tasks/sentry_apps.py", "line": 233},
+ {"template": "R36", "parent": "SentryAppInstallation", "child": "Action", "col": "config.sentryAppInstallationUuid", "file": "rules/actions/sentry_apps/notify_event.py", "line": 55},
+ {"template": "R36", "parent": "SentryAppInstallation", "child": "Action", "col": "config.sentryAppInstallationUuid", "file": "rules/actions/sentry_apps/notify_event.py", "line": 98},
+ {"template": "R36", "parent": "SentryAppInstallation", "child": "Action", "col": "config.sentryAppInstallationUuid", "file": "rules/actions/sentry_apps/notify_event.py", "line": 156},
+ {"template": "R36", "parent": "SentryAppInstallation", "child": "Action", "col": "config.sentryAppInstallationUuid", "file": "notifications/notification_action/issue_alert_registry/handlers/sentry_app_issue_alert_handler.py", "line": 95},
+ {"template": "R38", "parent": "OrganizationIntegration", "child": "RepositoryProjectPathConfig", "col": "organization_integration_id", "file": "integrations/utils/stacktrace_link.py", "line": 41},
+ {"template": "R38", "parent": "OrganizationIntegration", "child": "RepositoryProjectPathConfig", "col": "organization_integration_id", "file": "integrations/utils/source_context.py", "line": 66},
+ {"template": "R38", "parent": "OrganizationIntegration", "child": "RepositoryProjectPathConfig", "col": "integration_id", "file": "integrations/api/endpoints/organization_code_mapping_codeowners.py", "line": 22},
+ {"template": "R39", "parent": "ApiApplication", "child": "ApiTokenReplica", "col": "application_id", "file": "issues/action_log/base.py", "line": 93},
+ {"template": "R09", "parent": "ProjectKey", "child": "ProjectKeyMapping", "col": "public_key", "file": "web/frontend/js_sdk_loader.py", "line": 311}
+]

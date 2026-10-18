@@ -1,0 +1,1731 @@
+{
+ "templates": {
+  "R04": "Organization",
+  "R13": "Team",
+  "R14": "Project",
+  "R18": "User",
+  "D06": "User",
+  "R21": "AuthProvider",
+  "R24": "AuthIdentity",
+  "R27": "ApiKey",
+  "R30": "ApiToken",
+  "R33": "OrgAuthToken",
+  "R35": "SentryApp",
+  "R36": "SentryAppInstallation",
+  "R37": "Integration",
+  "R38": "OrganizationIntegration",
+  "R39": "ApiApplication"
+ },
+ "edges": [
+  {
+   "parent": "User",
+   "child": "ExportedData",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 3,
+   "hits": [
+    {
+     "file": "api/serializers/models/exporteddata.py",
+     "line": 13,
+     "text": "for u in user_service.serialize_many("
+    },
+    {
+     "file": "data_export/models.py",
+     "line": 112,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "data_export/models.py",
+     "line": 176,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "DataAccessGrant",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "DiscoverSavedQuery",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/discoversavedquery.py",
+     "line": 121,
+     "text": "service_serialized = user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "DiscoverSavedQueryStarred",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "DiscoverSavedQueryLastVisited",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ExploreSavedQueryLastVisited",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ExploreSavedQuery",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/serializers/models/discoversavedquery.py",
+     "line": 121,
+     "text": "service_serialized = user_service.serialize_many("
+    },
+    {
+     "file": "api/serializers/models/exploresavedquery.py",
+     "line": 126,
+     "text": "service_serialized = user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "ExploreSavedQueryStarred",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "TraceItemAttributeContext",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "TraceItemAttributeContext",
+   "col": "updated_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "TraceItemAttributeValueContext",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "TraceItemAttributeValueContext",
+   "col": "updated_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ExploreSavedFormula",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ExploreSavedFormula",
+   "col": "updated_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "FlagAuditLogModel",
+   "col": "organization_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "FlagWebHookSigningSecretModel",
+   "col": "created_by",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "ApiKey",
+   "child": "ApiKeyReplica",
+   "col": "apikey_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "ApiApplication",
+   "child": "ApiTokenReplica",
+   "col": "application_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ApiTokenReplica",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 5,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 198,
+     "text": "user = user_service.get_user(user_id=user)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 200,
+     "text": "user = user_service.get_user(user_id=user.id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 542,
+     "text": "user = user_service.get_user(user_id=token.user_id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 663,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 954,
+     "text": "user = user_service.get_user(user_id=vc.user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "ApiToken",
+   "child": "ApiTokenReplica",
+   "col": "apitoken_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiTokenReplica",
+   "col": "scoping_organization_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 580,
+     "text": "organization_context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "OrgAuthToken",
+   "child": "OrgAuthTokenReplica",
+   "col": "orgauthtoken_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "OrgAuthTokenReplica",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "AlertRule",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Integration",
+   "child": "AlertRuleTriggerAction",
+   "col": "integration_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "SentryApp",
+   "child": "AlertRuleTriggerAction",
+   "col": "sentry_app_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InsightsStarredSegment",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ExternalActor",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 8,
+   "hits": [
+    {
+     "file": "integrations/api/bases/external_actor.py",
+     "line": 179,
+     "text": "or (user := user_service.get_user(user_id=user_id)) is None"
+    },
+    {
+     "file": "integrations/github/webhook.py",
+     "line": 761,
+     "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
+    },
+    {
+     "file": "integrations/github/webhook.py",
+     "line": 1200,
+     "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
+    },
+    {
+     "file": "integrations/jira_server/integration.py",
+     "line": 645,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "integrations/utils/scm_actors.py",
+     "line": 50,
+     "text": "return user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "seer/autofix/commit_author.py",
+     "line": 208,
+     "text": "user = user_service.get_user(user_id=int(identifier))"
+    },
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 197,
+     "text": "user = user_service.get_user(user_id=seer_run.user_id)"
+    },
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 235,
+     "text": "user = user_service.get_user(user_id=group_owner.user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Integration",
+   "child": "ExternalActor",
+   "col": "integration_id",
+   "child_silo": "cell",
+   "n": 5,
+   "hits": [
+    {
+     "file": "api/validators/project_codeowners.py",
+     "line": 48,
+     "text": "integration = integration_service.get_integration(integration_id=code_mapping.integration_id)"
+    },
+    {
+     "file": "integrations/notifications.py",
+     "line": 95,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/github/tasks/query_commit_author_public_emails.py",
+     "line": 64,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/messaging/linkage.py",
+     "line": 364,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/models/external_actor.py",
+     "line": 77,
+     "text": "integration = integration_service.get_integration("
+    }
+   ]
+  },
+  {
+   "parent": "Integration",
+   "child": "ExternalIssue",
+   "col": "integration_id",
+   "child_silo": "cell",
+   "n": 14,
+   "hits": [
+    {
+     "file": "integrations/api/serializers/models/external_issue.py",
+     "line": 30,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/jira/utils/api.py",
+     "line": 175,
+     "text": "result = integration_service.organization_contexts(integration_id=integration.id)"
+    },
+    {
+     "file": "integrations/models/external_issue.py",
+     "line": 97,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/tasks/sync_assignee_outbound.py",
+     "line": 70,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/tasks/sync_status_inbound.py",
+     "line": 223,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/tasks/sync_status_outbound.py",
+     "line": 49,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/vsts/issues.py",
+     "line": 465,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 196,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 285,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 463,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 652,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integrations.py",
+     "line": 71,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "issues/services/issue/impl.py",
+     "line": 35,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "rules/actions/integrations/create_ticket/utils.py",
+     "line": 152,
+     "text": "integration = integration_service.get_integration("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "GcpServiceAccount",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "OrganizationIntegration",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 5,
+   "hits": [
+    {
+     "file": "integrations/base.py",
+     "line": 421,
+     "text": "organization = organization_service.get(id=self.organization_id)"
+    },
+    {
+     "file": "integrations/api/serializers/models/integration.py",
+     "line": 240,
+     "text": "organizations[organization_id] = organization_service.get(id=organization_id)"
+    },
+    {
+     "file": "integrations/github/integration.py",
+     "line": 549,
+     "text": "context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "integrations/gitlab/integration.py",
+     "line": 334,
+     "text": "context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "integrations/source_code_management/sync_repos.py",
+     "line": 398,
+     "text": "org_context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "OrganizationIntegration",
+   "child": "RepositoryProjectPathConfig",
+   "col": "organization_integration_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationBlock",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationBlock",
+   "col": "last_edited_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationBlockExecution",
+   "col": "triggered_by_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "tasks/seer/investigation.py",
+     "line": 467,
+     "text": "user_service.get_user(user_id=execution.triggered_by_id)"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationSeen",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationComment",
+   "col": "author_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "investigations/endpoints/serializers/comment.py",
+     "line": 40,
+     "text": "for serialized in user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationFavoriteUser",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Investigation",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "InvestigationOrchestrationCommand",
+   "col": "actor_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Activity",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 14,
+   "hits": [
+    {
+     "file": "api/serializers/models/activity.py",
+     "line": 123,
+     "text": "user_list = user_service.serialize_many("
+    },
+    {
+     "file": "integrations/github/webhook.py",
+     "line": 761,
+     "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
+    },
+    {
+     "file": "integrations/github/webhook.py",
+     "line": 1200,
+     "text": "identity_user = user_service.get_user(user_id=identity.user_id)"
+    },
+    {
+     "file": "integrations/vsts/issues.py",
+     "line": 451,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "issues/endpoints/group_details.py",
+     "line": 138,
+     "text": "user_service.serialize_many("
+    },
+    {
+     "file": "notifications/notification_action/activity_registry/sentry_app.py",
+     "line": 118,
+     "text": "if user := user_service.get_user(user_id=activity.user_id):"
+    },
+    {
+     "file": "notifications/notifications/activity/assigned.py",
+     "line": 19,
+     "text": "return user_service.get_user(user_id=assignee_id)"
+    },
+    {
+     "file": "notifications/notifications/activity/base.py",
+     "line": 101,
+     "text": "user_service.get_user(self.activity.user_id)"
+    },
+    {
+     "file": "notifications/platform/templates/activity/base.py",
+     "line": 336,
+     "text": "user = user_service.get_user(user_id=activity.user_id)"
+    },
+    {
+     "file": "notifications/platform/templates/activity/base.py",
+     "line": 377,
+     "text": "user = user_service.get_user(user_id=activity.user_id)"
+    },
+    {
+     "file": "seer/smart_assignment/completion.py",
+     "line": 76,
+     "text": "if user_service.get_user(user_id=top_user_id) is None:"
+    },
+    {
+     "file": "seer/smart_assignment/scoring.py",
+     "line": 92,
+     "text": "user = user_service.get_user(user_id=activity.user_id)"
+    },
+    {
+     "file": "sentry_apps/tasks/sentry_apps.py",
+     "line": 544,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "sentry_apps/tasks/sentry_apps.py",
+     "line": 754,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiAuthorization",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/apiauthorization.py",
+     "line": 28,
+     "text": "organization_service.serialize_organization(id=obj.organization_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiDeviceCode",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiGrant",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiKey",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 580,
+     "text": "organization_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 671,
+     "text": "org_context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "ApiToken",
+   "col": "scoping_organization_id",
+   "child_silo": "control",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 580,
+     "text": "organization_context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "AuditLogEntry",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "AuthIdentity",
+   "child": "AuthIdentityReplica",
+   "col": "auth_identity_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "AuthIdentityReplica",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "AuthProvider",
+   "child": "AuthIdentityReplica",
+   "col": "auth_provider_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "AuthProvider",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "AuthProvider",
+   "child": "AuthProviderReplica",
+   "col": "auth_provider_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "DashboardFavoriteUser",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "DashboardLastVisited",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Dashboard",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 3,
+   "hits": [
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 595,
+     "text": "for user in user_service.serialize_many("
+    },
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 690,
+     "text": "user_service.serialize_many(filter={\"user_ids\": creator_ids}) if creator_ids else []"
+    },
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 739,
+     "text": "u[\"id\"]: u for u in user_service.serialize_many(filter={\"user_ids\": user_ids})"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "DashboardRevision",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 3,
+   "hits": [
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 595,
+     "text": "for user in user_service.serialize_many("
+    },
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 690,
+     "text": "user_service.serialize_many(filter={\"user_ids\": creator_ids}) if creator_ids else []"
+    },
+    {
+     "file": "api/serializers/models/dashboard.py",
+     "line": 739,
+     "text": "u[\"id\"]: u for u in user_service.serialize_many(filter={\"user_ids\": user_ids})"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupAssignee",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 3,
+   "hits": [
+    {
+     "file": "notifications/utils/participants.py",
+     "line": 468,
+     "text": "return user_service.get_many_by_id(ids=list(user_ids))"
+    },
+    {
+     "file": "seer/smart_assignment/scoring.py",
+     "line": 92,
+     "text": "user = user_service.get_user(user_id=activity.user_id)"
+    },
+    {
+     "file": "workflow_engine/handlers/condition/assigned_to_handler.py",
+     "line": 189,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupBookmark",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "GroupHistory",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "GroupOpenPeriod",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "GroupOwner",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 4,
+   "hits": [
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 197,
+     "text": "user = user_service.get_user(user_id=seer_run.user_id)"
+    },
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 235,
+     "text": "user = user_service.get_user(user_id=group_owner.user_id)"
+    },
+    {
+     "file": "seer/smart_assignment/completion.py",
+     "line": 76,
+     "text": "if user_service.get_user(user_id=top_user_id) is None:"
+    },
+    {
+     "file": "utils/committers.py",
+     "line": 238,
+     "text": "serialized_owners = user_service.serialize_many(filter={\"user_ids\": [owner.user_id]})"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupReaction",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "GroupSearchView",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/groupsearchview.py",
+     "line": 63,
+     "text": "for user in user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupSearchViewLastVisited",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/groupsearchview.py",
+     "line": 63,
+     "text": "for user in user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupSearchViewStarred",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/groupsearchview.py",
+     "line": 63,
+     "text": "for user in user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupSeen",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/serializers/models/groupseen.py",
+     "line": 10,
+     "text": "serialized_users = user_service.serialize_many("
+    },
+    {
+     "file": "issues/endpoints/group_details.py",
+     "line": 138,
+     "text": "user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "GroupShare",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "GroupSubscription",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "notifications/utils/participants.py",
+     "line": 468,
+     "text": "return user_service.get_many_by_id(ids=list(user_ids))"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "OrganizationAccessRequest",
+   "col": "requester_id",
+   "child_silo": "cell",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/serializers/models/organization_access_request.py",
+     "line": 9,
+     "text": "serialized_requesters = user_service.serialize_many("
+    },
+    {
+     "file": "models/organizationaccessrequest.py",
+     "line": 54,
+     "text": "requester = user_service.get_user(user_id=self.requester_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "OrganizationAvatarReplica",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "OrganizationMember",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 25,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 198,
+     "text": "user = user_service.get_user(user_id=user)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 200,
+     "text": "user = user_service.get_user(user_id=user.id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 542,
+     "text": "user = user_service.get_user(user_id=token.user_id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 663,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 954,
+     "text": "user = user_service.get_user(user_id=vc.user_id)"
+    },
+    {
+     "file": "api/serializers/models/organization_member/expand/roles.py",
+     "line": 54,
+     "text": "for u in user_service.serialize_many("
+    },
+    {
+     "file": "core/endpoints/scim/members.py",
+     "line": 226,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "integrations/utils/scm_actors.py",
+     "line": 50,
+     "text": "return user_service.get_user(user_id=user_id)"
+    },
+    {
+     "file": "models/organizationaccessrequest.py",
+     "line": 35,
+     "text": "user = user_service.get_user(user_id=self.member.user_id)"
+    },
+    {
+     "file": "models/organizationaccessrequest.py",
+     "line": 54,
+     "text": "requester = user_service.get_user(user_id=self.requester_id)"
+    },
+    {
+     "file": "models/organizationaccessrequest.py",
+     "line": 87,
+     "text": "user = user_service.get_user(user_id=self.member.user_id)"
+    },
+    {
+     "file": "models/organizationmember.py",
+     "line": 407,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "models/organizationmember.py",
+     "line": 440,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "models/organizationmember.py",
+     "line": 447,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "models/organizationmember.py",
+     "line": 461,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "models/organizationmember.py",
+     "line": 468,
+     "text": "user = user_service.get_user(user_id=self.user_id)"
+    },
+    {
+     "file": "notifications/notifications/organization_request/abstract_invite_request.py",
+     "line": 62,
+     "text": "inviter = user_service.get_user(user_id=self.pending_member.inviter_id)"
+    },
+    {
+     "file": "notifications/notifications/strategies/role_based_recipient_strategy.py",
+     "line": 55,
+     "text": "return user_service.get_many_by_id("
+    },
+    {
+     "file": "notifications/utils/participants.py",
+     "line": 468,
+     "text": "return user_service.get_many_by_id(ids=list(user_ids))"
+    },
+    {
+     "file": "rules/filters/assigned_to.py",
+     "line": 33,
+     "text": "user = user_service.get_user(user_id=target_identifer)"
+    },
+    {
+     "file": "tasks/auth/auth.py",
+     "line": 50,
+     "text": "user = user_service.get_user(user_id=sending_user_id)"
+    },
+    {
+     "file": "tasks/auth/auth.py",
+     "line": 117,
+     "text": "actor = user_service.get_user(user_id=actor_id) if actor_id else None"
+    },
+    {
+     "file": "tasks/auth/auth.py",
+     "line": 157,
+     "text": "rpc_users = user_service.get_many_by_id("
+    },
+    {
+     "file": "types/actor.py",
+     "line": 269,
+     "text": "user = user_service.get_user(user_id=self.id)"
+    },
+    {
+     "file": "workflow_engine/handlers/condition/assigned_to_handler.py",
+     "line": 189,
+     "text": "user = user_service.get_user(user_id=user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "OrganizationMember",
+   "col": "inviter_id",
+   "child_silo": "cell",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/serializers/models/organization_member/base.py",
+     "line": 39,
+     "text": "for u in user_service.serialize_many(filter={\"user_ids\": sorted(users_set | inviters_set)}):"
+    },
+    {
+     "file": "notifications/notifications/organization_request/abstract_invite_request.py",
+     "line": 62,
+     "text": "inviter = user_service.get_user(user_id=self.pending_member.inviter_id)"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "OrganizationMemberInvite",
+   "col": "inviter_id",
+   "child_silo": "cell",
+   "n": 2,
+   "hits": [
+    {
+     "file": "api/serializers/models/organizationmemberinvite.py",
+     "line": 26,
+     "text": "u.id: u for u in user_service.get_many_by_id(ids=inviters_set)"
+    },
+    {
+     "file": "notifications/notifications/organization_request/abstract_invite_request.py",
+     "line": 62,
+     "text": "inviter = user_service.get_user(user_id=self.pending_member.inviter_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "OrganizationMemberMapping",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 1,
+   "hits": [
+    {
+     "file": "users/api/bases/user.py",
+     "line": 126,
+     "text": "organization = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "OrganizationOnboardingTask",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/organization.py",
+     "line": 595,
+     "text": "serialized_users = user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "OrgAuthToken",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 3,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 580,
+     "text": "organization_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 671,
+     "text": "org_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "api/endpoints/secret_scanning/github.py",
+     "line": 128,
+     "text": "organization = organization_service.get(id=token.organization_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Project",
+   "child": "OrgAuthToken",
+   "col": "project_last_used_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ProjectBookmark",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "PromptsActivity",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "RecentSearch",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Release",
+   "col": "owner_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "api/serializers/models/release.py",
+     "line": 589,
+     "text": "for d in user_service.serialize_many("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "RollbackUser",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Rule",
+   "col": "owner_user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "RuleActivity",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "RuleSnooze",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "RuleSnooze",
+   "col": "owner_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "SentryShot",
+   "col": "organization_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ProjectTransactionThresholdOverride",
+   "col": "edited_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "ProjectTransactionThreshold",
+   "col": "edited_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "WeeklyReportProjectExclusion",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Monitor",
+   "col": "owner_user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Integration",
+   "child": "NotificationAction",
+   "col": "integration_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "notifications/api/serializers/notification_action_request.py",
+     "line": 164,
+     "text": "integration = integration_service.get_integration(integration_id=data.get(\"integration_id\"))"
+    }
+   ]
+  },
+  {
+   "parent": "SentryApp",
+   "child": "NotificationAction",
+   "col": "sentry_app_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Team",
+   "child": "NotificationSettingOption",
+   "col": "team_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Team",
+   "child": "NotificationSettingProvider",
+   "col": "team_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "PreprodComparisonApproval",
+   "col": "approved_by_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "preprod/api/endpoints/snapshots/preprod_artifact_snapshot.py",
+     "line": 586,
+     "text": "users_by_id = {u.id: u for u in user_service.get_many_by_id(ids=sentry_user_ids)}"
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "SeerAgentWriteGrant",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "SeerRun",
+   "col": "user_id",
+   "child_silo": "cell",
+   "n": 3,
+   "hits": [
+    {
+     "file": "seer/autofix/pr_iteration/cap_exhausted.py",
+     "line": 182,
+     "text": "user = user_service.get_user(user_id=seer_run.user_id)"
+    },
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 197,
+     "text": "user = user_service.get_user(user_id=seer_run.user_id)"
+    },
+    {
+     "file": "seer/autofix/pr_iteration/reviewer_candidates.py",
+     "line": 235,
+     "text": "user = user_service.get_user(user_id=group_owner.user_id)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "SentryApp",
+   "col": "owner_id",
+   "child_silo": "control",
+   "n": 8,
+   "hits": [
+    {
+     "file": "sentry_apps/api/bases/sentryapps.py",
+     "line": 250,
+     "text": "owner_app = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/bases/sentryapps.py",
+     "line": 516,
+     "text": "owner_app = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/bases/sentryapps.py",
+     "line": 542,
+     "text": "owner_app = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/bases/sentryapps.py",
+     "line": 573,
+     "text": "owner_app = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/endpoints/sentry_app_details.py",
+     "line": 138,
+     "text": "owner_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/endpoints/sentry_app_rotate_secret.py",
+     "line": 39,
+     "text": "org_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/serializers/sentry_app.py",
+     "line": 116,
+     "text": "owner_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "utils/sentry_apps/webhooks.py",
+     "line": 332,
+     "text": "owner_context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "SentryAppInstallation",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 4,
+   "hits": [
+    {
+     "file": "api/authentication.py",
+     "line": 580,
+     "text": "organization_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "api/authentication.py",
+     "line": 671,
+     "text": "org_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "core/endpoints/project_index.py",
+     "line": 57,
+     "text": "org_context = organization_service.get_organization_by_id("
+    },
+    {
+     "file": "sentry_apps/api/endpoints/sentry_app_authorizations.py",
+     "line": 58,
+     "text": "context = organization_service.get_organization_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "SentryAppInstallationForProvider",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "ApiApplication",
+   "child": "ServiceHook",
+   "col": "application_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "sentry_apps/models/servicehook.py",
+     "line": 95,
+     "text": "return app_service.get_by_application_id(application_id=self.application_id)"
+    }
+   ]
+  },
+  {
+   "parent": "SentryAppInstallation",
+   "child": "ServiceHook",
+   "col": "installation_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "TempestCredentials",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "tempest/serializers.py",
+     "line": 21,
+     "text": "users = user_service.get_many_by_id(ids=user_ids)"
+    }
+   ]
+  },
+  {
+   "parent": "Organization",
+   "child": "OrganizationIdentity",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Project",
+   "child": "UserOption",
+   "col": "project_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Organization",
+   "child": "UserOption",
+   "col": "organization_id",
+   "child_silo": "control",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "Integration",
+   "child": "Action",
+   "col": "integration_id",
+   "child_silo": "cell",
+   "n": 13,
+   "hits": [
+    {
+     "file": "integrations/msteams/webhook.py",
+     "line": 597,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "integrations/slack/utils/notifications.py",
+     "line": 300,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 196,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 285,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 463,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "issues/endpoints/group_integration_details.py",
+     "line": 652,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "notifications/api/serializers/notification_action_request.py",
+     "line": 164,
+     "text": "integration = integration_service.get_integration(integration_id=data.get(\"integration_id\"))"
+    },
+    {
+     "file": "notifications/notification_action/types.py",
+     "line": 405,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "notifications/notification_action/issue_alert_registry/handlers/discord_issue_alert_handler.py",
+     "line": 34,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "notifications/notification_action/issue_alert_registry/handlers/msteams_issue_alert_handler.py",
+     "line": 24,
+     "text": "integration = integration_service.get_integration("
+    },
+    {
+     "file": "notifications/notification_action/issue_alert_registry/handlers/opsgenie_issue_alert_handler.py",
+     "line": 30,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "notifications/notification_action/issue_alert_registry/handlers/pagerduty_issue_alert_handler.py",
+     "line": 30,
+     "text": "result = integration_service.organization_context("
+    },
+    {
+     "file": "notifications/notification_action/issue_alert_registry/handlers/slack_issue_alert_handler.py",
+     "line": 32,
+     "text": "integration = integration_service.get_integration("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "Detector",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 1,
+   "hits": [
+    {
+     "file": "incidents/endpoints/serializers/workflow_engine_detector.py",
+     "line": 156,
+     "text": "for user in user_service.get_many_by_id("
+    }
+   ]
+  },
+  {
+   "parent": "User",
+   "child": "Detector",
+   "col": "owner_user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Workflow",
+   "col": "created_by_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  },
+  {
+   "parent": "User",
+   "child": "Workflow",
+   "col": "owner_user_id",
+   "child_silo": "cell",
+   "n": 0,
+   "hits": []
+  }
+ ]
+}

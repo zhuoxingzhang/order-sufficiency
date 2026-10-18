@@ -1,0 +1,182 @@
+{
+ "api/authentication.py:542": [
+  "T",
+  "token replica -> user; a missing user skips the is_active check (fail-open candidate, downstream not traced)"
+ ],
+ "api/authentication.py:580": [
+  "T",
+  "token -> scoping organization; a missing organization skips the org-scope check (fail-open candidate, downstream not traced)"
+ ],
+ "integrations/api/bases/external_actor.py:179": [
+  "FP",
+  "user id from request input"
+ ],
+ "integrations/jira_server/integration.py:645": [
+  "E",
+  "note author -> user, assert user is not None in comment sync"
+ ],
+ "integrations/utils/scm_actors.py:50": [
+  "T",
+  "returns Optional user"
+ ],
+ "seer/autofix/commit_author.py:208": [
+  "T",
+  "commit_author_for_user accepts None"
+ ],
+ "integrations/models/external_issue.py:97": [
+  "E",
+  "assert integration in get_installation"
+ ],
+ "integrations/tasks/sync_status_inbound.py:223": [
+  "FP",
+  "integration id from inbound webhook"
+ ],
+ "integrations/vsts/issues.py:465": [
+  "FP",
+  "OrganizationIntegration -> Integration, both in control"
+ ],
+ "issues/endpoints/group_integration_details.py:196": [
+  "FP",
+  "integration id from URL"
+ ],
+ "issues/endpoints/group_integration_details.py:285": [
+  "FP",
+  "integration id from URL"
+ ],
+ "issues/endpoints/group_integration_details.py:463": [
+  "FP",
+  "integration id from URL"
+ ],
+ "issues/endpoints/group_integration_details.py:652": [
+  "FP",
+  "integration id from URL"
+ ],
+ "integrations/base.py:421": [
+  "T",
+  "raise NotFound (404)"
+ ],
+ "integrations/api/serializers/models/integration.py:240": [
+  "T",
+  "dict .get"
+ ],
+ "integrations/github/integration.py:549": [
+  "E",
+  "assert organization context"
+ ],
+ "integrations/gitlab/integration.py:334": [
+  "E",
+  "assert organization context"
+ ],
+ "tasks/seer/investigation.py:467": [
+  "T",
+  "user may be None"
+ ],
+ "notifications/notification_action/activity_registry/sentry_app.py:118": [
+  "T",
+  "walrus guard"
+ ],
+ "notifications/notifications/activity/assigned.py:19": [
+  "T",
+  "returns Optional user"
+ ],
+ "notifications/notifications/activity/base.py:101": [
+  "T",
+  "returns Optional user"
+ ],
+ "seer/smart_assignment/completion.py:76": [
+  "T",
+  "user_missing outcome"
+ ],
+ "sentry_apps/tasks/sentry_apps.py:544": [
+  "FP",
+  "user id from task argument"
+ ],
+ "sentry_apps/tasks/sentry_apps.py:754": [
+  "FP",
+  "user id from task argument"
+ ],
+ "api/serializers/models/apiauthorization.py:28": [
+  "T",
+  "serialize_organization returns Optional"
+ ],
+ "utils/committers.py:238": [
+  "T",
+  "comment: user_id set does not guarantee the user exists"
+ ],
+ "tasks/auth/auth.py:117": [
+  "FP",
+  "actor id from task argument"
+ ],
+ "types/actor.py:269": [
+  "E",
+  "raise Actor.InvalidActor"
+ ],
+ "api/serializers/models/organization_member/base.py:39": [
+  "T",
+  "dict .get"
+ ],
+ "notifications/api/serializers/notification_action_request.py:164": [
+  "FP",
+  "integration id from request input"
+ ],
+ "sentry_apps/api/bases/sentryapps.py:250": [
+  "E",
+  "assert owner organization"
+ ],
+ "sentry_apps/api/bases/sentryapps.py:516": [
+  "E",
+  "assert owner organization"
+ ],
+ "sentry_apps/api/endpoints/sentry_app_details.py:138": [
+  "T",
+  "owner_context and ..."
+ ],
+ "sentry_apps/api/endpoints/sentry_app_rotate_secret.py:39": [
+  "T",
+  "raise Http404"
+ ],
+ "sentry_apps/models/servicehook.py:95": [
+  "T",
+  "returns Optional app"
+ ],
+ "integrations/slack/utils/notifications.py:300": [
+  "T",
+  "comment: integration removed, but rule is still active"
+ ],
+ "notifications/notification_action/issue_alert_registry/handlers/opsgenie_issue_alert_handler.py:30": [
+  "T",
+  "empty label"
+ ],
+ "notifications/notification_action/issue_alert_registry/handlers/pagerduty_issue_alert_handler.py:30": [
+  "T",
+  "empty label"
+ ],
+ "sentry_apps/tasks/sentry_apps.py:233": [
+  "E",
+  "raise SentryAppSentryError(MISSING_SENTRY_APP) when an alert fires"
+ ],
+ "rules/actions/sentry_apps/notify_event.py:55": [
+  "T",
+  "if result"
+ ],
+ "rules/actions/sentry_apps/notify_event.py:98": [
+  "T",
+  "ValidationError when the rule is saved"
+ ],
+ "rules/actions/sentry_apps/notify_event.py:156": [
+  "E",
+  "raise ValidationError while rendering the rule label"
+ ],
+ "notifications/notification_action/issue_alert_registry/handlers/sentry_app_issue_alert_handler.py:95": [
+  "E",
+  "raise SentryAppError when an alert fires"
+ ],
+ "web/frontend/js_sdk_loader.py:311": [
+  "T",
+  "missing key -> default loader config"
+ ],
+ "integrations/github/webhook.py:761": [
+  "FP",
+  "Identity -> User, both in control"
+ ]
+}
