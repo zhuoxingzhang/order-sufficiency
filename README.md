@@ -13,6 +13,7 @@ It contains the code, the inputs and the results behind every figure and number 
 | Section 6.3, Figure 7 | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
 | Section 6.3, Figure 8 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
+| Section 6.3, Figure 8, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4 | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
 | Section 6.5, Figure 9 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
 | Appendix, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
@@ -23,6 +24,7 @@ Every directory holds the results of the paper, so each analysis script runs wit
 cd corpus && python -I summarize.py
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
 cd engines && python -I analyze_direction.py results/direction.jsonl && python -I analyze_direction.py results/direction_gap.jsonl
+cd engines && python -I analyze_grace.py results/grace.jsonl
 cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
 cd cost && python -I depth_analyze.py results/depth_citus.jsonl results/depth_rtt_citus.jsonl results/depth_vitess.jsonl
 ```
@@ -116,7 +118,17 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
 - A run counts as anomalous if some iteration sees the child but not the parent.
   `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
-  Figure 8 shows the deletion runs of the first grid; insertions give the same picture with `c2p` and `p2c` swapped.
+  Figure 8 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
+
+### Grace period (Section 6.3, Figure 8, Proposition 5.9)
+
+`run_grace.sh` runs `grace.py` on the same cluster and configuration, 2,000 runs per configuration.
+
+- The writer issues the two ordered autocommits of `direction.py` and sleeps a pause of 0, 1, 2, 5, 10 or 20 ms between the return of the first and the start of the second.
+- The reader reads in the direction that write order does not protect (`c2p` for deletions, `p2c` for insertions) and pauses 0, 1, 2, 5, 10 or 20 ms between its two reads.
+  Every iteration records its span, from the start of the first read to the end of the second, which bounds the distance between the two snapshots from above.
+- `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.9, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
+  It is 0 among 700,952 such iterations; Figure 8 shows the deletion cells.
 
 ## Cost of write order (Section 6.3, Figure 6, fault and fence runs)
 
