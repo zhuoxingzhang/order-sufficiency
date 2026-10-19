@@ -393,6 +393,15 @@ def stmt_node(sql, args, node_of):
     return node_of[args[1] if sql == UPD_C else args[0]]
 
 
+# X7_SPLIT=1 splits every 2PC and leveled commit into an execution and a commit phase: a one-message
+# 2PC sends its COMMIT in a second message, and data_p50_ms / commit_p50_ms are the two phases
+SPLIT = os.environ.get('X7_SPLIT') == '1'
+
+
+def exec_message(stmts):
+    return 'BEGIN; ' + '; '.join(s for s, _ in stmts), tuple(x for _, a in stmts for x in a)
+
+
 def one_message(stmts):
     return 'BEGIN; ' + '; '.join(s for s, _ in stmts) + '; COMMIT', tuple(x for _, a in stmts for x in a)
 
@@ -648,11 +657,14 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
             if method == 'b':
                 todo = [(stmt_node(sql, args, node_of), [(sql, args)]) for sql, args in stmts]
             else:                                   # one 2PC, coordinated by the worker of its first row
-                todo = [(stmt_node(*stmts[0], node_of), [one_message(stmts)])]
+                todo = [(stmt_node(*stmts[0], node_of), [exec_message(stmts) if SPLIT else one_message(stmts)])]
             for nd, body in todo:
                 while True:
                     att_here += 1
                     errs = par.run([(nd, body)])
+                    if not errs and SPLIT and method != 'b':
+                        tc = td = pc()
+                        errs = par.run([(nd, [('COMMIT', None)])])
                     if not errs:
                         break
                     if method != 'b':
@@ -740,6 +752,8 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                         jobs.append((conn[li, nd], body))
                 errs = par.run(jobs)                          # execute everything, in parallel
                 if not errs:
+                    if SPLIT:
+                        tc = td = pc()
                     for li, lvl in enumerate(levels):         # then commit level by level
                         if method in EAGER and li == 0:
                             continue
@@ -793,6 +807,10 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
                             for sql, args in grp:
                                 db.x(sql, args)
                             db.commit()
+                        elif SPLIT and method in ONE_MESSAGE:
+                            db.x(*exec_message(grp))
+                            tc = td = pc()
+                            db.x('COMMIT')
                         else:
                             db.x(*one_message(grp))
                         break

@@ -12,15 +12,18 @@ import fsat
 from fresh_k_uk import NAMED_UK, to_sch
 
 
-def pinned(parsed, Fz, uk):
-    """Fz closed under: if the sources at the frozen-copy positions of an IND, closed under the copy
-    FDs of S (a pointer of S determines its copies), contain a unique key of S, its pointer is frozen"""
+def pinned(parsed, Fz, uk, pk):
+    """Fz* of Proposition A.8, the least fixpoint: for an IND R[PD] <= S[LC], X_rho(M) holds the
+    attributes of L whose counterparts in P lie in M and the sources whose copies lie in M, closed under
+    the copy FDs of S (a pointer of S determines its copies); if X_rho(M) contains a unique key of S,
+    the pointer P joins M, until no pointer is added.  (Before 2026-10-20 X_rho left out the attributes
+    of L, which matters only when pointers overlap: see uk_overlap.py.)"""
     M = {r: set(v) for r, v in Fz.items()}
     changed = True
     while changed:
         changed = False
         for (R, P, D, S, C) in parsed:
-            X = {c for c, d in zip(C, D) if d in M[R]}
+            X = {l for l, p in zip(pk[S], P) if p in M[R]} | {c for c, d in zip(C, D) if d in M[R]}
             grow = True
             while grow:
                 grow = False
@@ -41,7 +44,7 @@ def main():
         spec = NAMED_UK[r['name']][0] if r['name'] in NAMED_UK else gen('K', int(r['name'][1:]))
         sch, parsed = to_sch(spec, r['uk'])
         Fz = {k: set(v) for k, v in r['Fz'].items()}
-        M = pinned(parsed, Fz, r['uk'])
+        M = pinned(parsed, Fz, r['uk'], spec['pk'])
         cm = all(all(c in M[S] for c in C) or (all(p in M[R] for p in P) and all(c in M[S] or d in M[R] for c, d in zip(C, D)))
                  for (R, P, D, S, C) in parsed)
         if cm or r['noncomm'] is not None:

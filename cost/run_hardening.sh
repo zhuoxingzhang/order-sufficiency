@@ -3,6 +3,8 @@
 # Vitess h, hA, Ls, ms), the templates at 8 and 128 rows with 1 and 64 clients, three blocks.
 #   pin  every Citus node, every Vitess tablet (its mysqld and vttablet), vtgate, the control plane,
 #        the relays and the clients on cores of their own (taskset)
+#   split  (not in the default PARTS) Citus as pin, one client, 8 and 128 rows, with X7_SPLIT=1:
+#        every 2PC and leveled commit records its execution and commit phases (split_phases.py)
 #   rtt  as pin, with every path between nodes behind a relay (relay.py) that adds 0.5 ms in each
 #        direction.  Citus: client to coordinator, coordinator to workers and client to workers (as in
 #        run_cost.sh).  Vitess: client to vtgate, vtgate to the tablets (gRPC, at the host name
@@ -111,6 +113,19 @@ if want pin; then
     grid citus results/hardening_pin_citus.jsonl pin $MC || echo "[pin] citus grid failed"
   else
     echo "[pin] citus did not start or its placement differs from the key map"
+  fi
+  [ $CITUS_UP = 1 ] && citus_down
+  CITUS_UP=0
+fi
+
+# ---------------------------------------------------------------- execution and commit phases
+if want split; then
+  if citus_ready; then
+    pin_citus
+    X7_SPLIT=1 taskset -c $CL_CPUS python -I x7_scale_run.py citus results/split_citus.jsonl split $B 1 $MC 8,128 \
+      || echo "[split] citus grid failed"
+  else
+    echo "[split] citus did not start or its placement differs from the key map"
   fi
   [ $CITUS_UP = 1 ] && citus_down
   CITUS_UP=0

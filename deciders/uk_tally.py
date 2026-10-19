@@ -34,7 +34,7 @@ need7 = 0
 for r in rows:
     spec = NAMED_UK[r['name']][0] if r['name'] in NAMED_UK else gen('K', int(r['name'][1:]))
     sch, parsed = to_sch(spec, r['uk'])
-    M = pinned(parsed, {k: set(v) for k, v in r['Fz'].items()}, r['uk'])
+    M = pinned(parsed, {k: set(v) for k, v in r['Fz'].items()}, r['uk'], spec['pk'])
     ex = all(all(c in M[S] or d in M[R] for c, d in zip(C, D)) for (R, P, D, S, C) in parsed)
     cm = all(all(c in M[S] for c in C) or (all(p in M[R] for p in P) and all(c in M[S] or d in M[R] for c, d in zip(C, D)))
              for (R, P, D, S, C) in parsed)

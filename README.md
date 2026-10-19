@@ -21,14 +21,16 @@ It contains the code, the inputs and the results behind the figures and numbers 
 | Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
 | Section 6.3, entry through the coordinator, default mode of Vitess | [`cost/`](cost) | `run_z1.sh` | `z1_ratios.py` |
 | Section 6.3, every node on cores of its own, 0.5 ms on every path | [`cost/`](cost) | `run_hardening.sh` | `z1_ratios.py` |
-| Section 6.3, recovery (Proposition 5.8) and deadlocks (Lemma A.13) | [`recovery/`](recovery) | `run_recovery.sh` | `w6_analyze.py` -> `results/w6_summary.md` |
+| Section 6.3, execution and commit phases | [`cost/`](cost) | `run_hardening.sh` (`PARTS=split`) | `split_phases.py` |
+| Section 6.3 and Appendix B, recovery (Proposition A.13) and deadlocks (Lemma A.14) | [`recovery/`](recovery) | `run_recovery.sh` | `w6_analyze.py` -> `results/w6_summary.md` |
 | Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
-| Section 6.3, Figure 7, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
+| Section 6.3, Figure 7, Proposition 5.8 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4, decision time | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.4, Figure 8, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
+| Section 6.4, Figure 8 and Appendix B, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
 | Appendix A.3, Proposition 4.7 | [`deciders/`](deciders) | `run_all.sh`, step 6 | `results/fresh_k*` |
 | Appendix A.3, Theorem 4.9 | [`deciders/`](deciders) | `run_all.sh`, step 9 | `cind_analyze.py` |
 | Appendix A.3, Proposition A.8 | [`deciders/`](deciders) | `run_all.sh`, step 7 | `uk_tally.py` |
+| Appendix A.3, Proposition A.8 with overlapping pointers | [`deciders/`](deciders) | `uk_overlap.py`, `uk_overlap_big.py` | `uk_overlap_tally.py` |
 | Appendix A.3, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
 | Appendix A.4, Theorem 5.3 | [`deciders/`](deciders) | `run_all.sh`, step 8 | `kshard_tally.py` |
 
@@ -49,9 +51,11 @@ cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
 cd cost && python -I depth_analyze.py results/depth_citus.jsonl results/depth_rtt_citus.jsonl results/depth_vitess.jsonl
 cd cost && python -I z1_ratios.py results && python -I z1_ratios.py results 64 && python -I z1_ratios.py results rtt
 cd cost && python -I z1_ratios.py results hardening
+cd cost && python -I split_phases.py results/split_citus.jsonl
 cd recovery && python -I w6_mock.py && python -I w6_analyze.py results
 cd deciders && python -I x4_shardk.py x4_shardk.json && python -I x4_unique.py x4_unique.json && python -I x4_freq.py x4_freq.json
 cd deciders && python -I uk_tally.py results/uk_n5d5.jsonl results/uk_big_n7.jsonl
+cd deciders && python -I uk_overlap_tally.py results/uk_overlap_n5d5.jsonl results/uk_overlap_big_n8.jsonl
 cd deciders && python -I kshard_tally.py results/kshard_n4d4.jsonl,results/kshard_n5d5.jsonl results/kshard_recheck_n4d4.jsonl,results/kshard_recheck_n5d5.jsonl,results/kshard_recheck2_n5d5.jsonl results/kshard_recheck_n4d4_fresh.jsonl
 cd deciders && python -I cind_analyze.py results/cind_random_n4.jsonl results/cind_random_n5.jsonl results/cind_recheck_random_n5.jsonl
 cd deciders && python -I cind_analyze.py results/cind_named_n5.jsonl results/cind_recheck_named_n6.jsonl
@@ -233,14 +237,14 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   Figure 7 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
   The fill also reran 0, 1 and 10 ms: 48.8%, 86.0% and 100%, against 47.8%, 86.1% and 100% in the first grid (`results/direction_fill.md`).
 
-### Grace period (Section 6.3, Figure 7, Proposition 5.9)
+### Grace period (Section 6.3, Figure 7, Proposition 5.8)
 
 `run_grace.sh` runs `grace.py` on the same cluster and configuration, 2,000 runs per configuration.
 
 - The writer issues the two ordered autocommits of `direction.py` and sleeps a pause of 0, 1, 2, 5, 10 or 20 ms between the return of the first and the start of the second.
 - The reader reads in the direction that write order does not protect (`c2p` for deletions, `p2c` for insertions) and pauses 0, 1, 2, 5, 10 or 20 ms between its two reads.
   Every iteration records its span, from the start of the first read to the end of the second, which bounds the distance between the two snapshots from above.
-- `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.9, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
+- `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.8, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
   It is 0 among 700,952 such iterations; Figure 7 shows the deletion cells.
 
 ## Cost of write order (Section 6.3, Figure 5, fault and fence runs)
@@ -310,15 +314,17 @@ Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus withou
   On Vitess: client to vtgate, vtgate to the tablets (the tablets advertise the host name 127.0.0.2, where the relays listen, via `TABLET_HOST` in `vitess_up.sh`) and replica to primary (every mysqld bound to 127.0.0.1).
   The relays stand in for `netem`, which needs root.
 - `z1_ratios.py results hardening` reports both configurations.
+- `PARTS=split` (not in the default) runs Citus as `pin` with one client at 8 and 128 rows and `X7_SPLIT=1`, under which `x7bench.py` sends the `COMMIT` of a one-message two-phase commit separately and records the execution phase (`data_p50_ms`) and the commit phase (`commit_p50_ms`) of every two-phase commit and leveled commit (`results/split_citus.jsonl`).
+  `split_phases.py` reports both phases per method and the share of the gap to the fastest two-phase commit that lies in the execution phase: 78% at 8 rows and 95% at 128 rows for leveled commits sent to the workers, 82% and 95% through the coordinator.
   Behind the relays, direct-routed leveled commits take 0.43 and 0.19 of the time of the fastest two-phase commit on Citus at 8 and 128 rows, and reach 2.11 and 5.15 times its throughput with 64 clients; on Vitess, 0.59 and 0.60 of the time and 2.25 and 2.00 times the throughput.
 
-## Recovery and deadlocks (Section 6.3, Proposition 5.8, Lemma A.13)
+## Recovery and deadlocks (Section 6.3, Appendix B, Proposition A.13, Lemma A.14)
 
 `run_recovery.sh` runs on the Citus cluster of `cost/` (its own tables, colocated with those of `cost/`, dropped at the end), every transaction sent to the worker that holds its rows.
 
 - Recovery (`w6_recovery.py`): an update merges a group into a new one (the reparent template, Ex. 5.6) in three rounds on three workers, and stops after its first or second round.
   A conflicting update then runs, either to completion before the relay (`staged`) or overlapping it (`race`), and a relay completes the stopped update from its outbox row.
-  `replay` re-applies the new tuples of the remaining rounds, as `x7_fault.py` does; `validate` is the relay of Proposition 5.8, which locks and reads the changed tuples and aborts unless they match a prefix state of the update.
+  `replay` re-applies the new tuples of the remaining rounds, as `x7_fault.py` does; `validate` is the relay of Proposition A.13, which locks and reads the changed tuples and aborts unless they match a prefix state of the update.
   Readers check for orphans throughout, and an audit after every trial checks the final state for orphans and lost updates.
 - Deadlocks (`w6_deadlock.py`, `w6_dl_run.py`): 8 to 64 clients move children between Zipf-hot groups, with writes that fail and retry (`Lnw`, NOWAIT), writes that wait with a lock timeout of 100 ms or 2 s (`Lb100`, `Lb2000`), writes that lock in one global order (`Lord`), and one two-phase commit through the coordinator or a worker (`h`, `hd`).
   A monitor samples the lock waits on the workers every 25 ms and reports the wait-for cycles whose edges span two workers, which PostgreSQL cannot detect.
@@ -347,6 +353,9 @@ cd deciders && PROCS=64 sh run_all.sh
 - Step 6 checks Proposition 4.7 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
 - Step 7 checks Proposition A.8 (unique keys that no IND references) by the same search on 4,172 pairs of random schemas of class K with one or two unique keys of one or two non-key attributes and freezes, with 5 entities and 5 values (`fresh_k_uk.py`).
   For the 6 pairs in which the prediction under Fz* finds no witness with 5 entities, `uk_big.py` finds one with 7.
+  Fz* is the least fixpoint of Appendix A.3 (`uk_big.pinned`): until 2026-10-20 the function left the attributes of the referenced key out of X_rho, which changes no prediction on these 4,172 pairs, since their pointers do not overlap.
+  `uk_overlap.py` checks 8,498 pairs of 144 schemas in which two INDs out of one relation share pointer attributes, with unique keys on sources, on sources together with key attributes and on copies (5 entities, 5 values); `uk_overlap_big.py` searches again, with 8 entities of which 3 change, the 487 pairs that some prediction rejects without a counterexample at 5.
+  `uk_overlap_tally.py` scores three predictions: the fixpoint rejects 4,518 pairs, all confirmed, and refutes none of the others; computing every X_rho under Fz without iteration rejects 28 pairs wrongly, and the earlier `uk_big.pinned` 244.
   `uk_tally.py` scores the predictions: under Fz* none is wrong; under Fz, 157 pairs are predicted wrongly (168 checks, 12 of executability and 156 of order-insensitivity).
 - Step 8 checks Theorem 5.3 under hash placement with co-location groups on 13,199 combinations of 280 random schemas of class K, freezes, shard keys of one attribute and groups (`kshard.py`), and searches again with more changed entities and unchanged rows for the predicted counterexamples that the first run did not find (`kshard_recheck.py`).
   `kshard_tally.py` prints the outcome: every combination predicted executable has no counterexample within the bounds, every combination predicted not executable has one, and for fresh updates the necessary condition of Appendix A.4 fails to be sufficient in 4 combinations.
