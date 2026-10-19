@@ -1,0 +1,34 @@
+# Readers of the templates that need atomic visibility (Section 6.2)
+
+GitLab (commit 9d4cbde6) and Sentry (commit 13ccaecc) have 16 templates that need atomic visibility (`out/templates.csv`): the exemptions G12, G13 and G14 of GitLab and 13 templates of Sentry.
+Each of them maintains a copy or a derived value on another database or silo.
+
+Question.  Does some reader rely on the copy agreeing with its source, that is, does it act in a way that no consistent state allows when it reads the copy before the update reaches it, or the source before the copy?
+
+Method.  The code of both applications was read statically at these commits (tests skipped, nothing run), following every reader of the copied or derived columns.
+For each template, the table gives the reader with the most severe consequence, and in parentheses further readers, by file and line (for GitLab, file and line only), and what that reader decides.
+Sentry paths are relative to `src/sentry`.
+
+Result.  Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
+
+| Template | Copy or derived value | Reader (file:line) | What the reader decides | Authentication or authorization |
+|---|---|---|---|---|
+| G12 | two-factor requirement and grace period of a user, derived from the groups of its memberships | `app/controllers/concerns/enforces_two_factor_authentication.rb:21-38`, `lib/gitlab/auth/two_factor_auth_verifier.rb:31-37` (`lib/api/api_guard.rb:162-170`, `lib/gitlab/auth.rb:269-272`, `app/controllers/profiles/two_factor_auths_controller.rb:129-136`) | whether a user who has just joined or left a group that enforces two-factor authentication must set it up before using the web interface, the session API and Git over HTTP, while group access itself is read from the memberships | yes |
+| G13 | full route paths of a transferred group and its descendants | `ee/lib/gitlab/code_owners/groups_loader.rb:22-33`, `ee/app/models/approval_wrapped_code_owner_rule.rb:25` (`app/services/routes/rename_descendants_service.rb:54-75`) | which groups own code under CODEOWNERS, and so how many code-owner approvals a merge request needs; the ancestors come from the group hierarchy and the group names from the route paths, so a mix of old and new can resolve to no owner and require no approval | yes |
+| G14 | full route path of a transferred project | `lib/json_web_token/user_project_token_claims.rb:15-21` via `lib/gitlab/ci/jwt.rb:53-74` and `lib/gitlab/ci/jwt_v2.rb:91-97` (`app/services/auth/container_registry_authentication_service.rb:124-148`) | the claims of the signed CI ID token, whose project path comes from the route and whose namespace comes from the project, and on which external services authorize CI jobs | yes |
+| R02 | Organization name, status and flags in OrganizationMapping | `users/models/user.py:500-511` via `users/api/endpoints/user_authenticator_details.py:206` (`users/api/bases/user.py:138-153`) | whether a user may remove an authenticator under the two-factor policy of its organizations, and the authority of organization admins, from the copied flags and status | yes |
+| R03 | Organization slug in OrganizationSlugReservation and OrganizationMapping | `web/frontend/setup_wizard.py:269-285` (`types/cell.py:363-377` via `hybridcloud/apigateway/proxy.py:107-115`) | the slug stored with a new organization token, and the cell to which the API gateway routes a request by slug (404 for the new slug) | no |
+| R06 | OrganizationMember role, user, email and invitation status in OrganizationMemberMapping | `users/api/endpoints/user_details.py:404-447` (`auth/services/access/impl.py:45-73`) | whether deleting a user also schedules the organizations it owns alone for deletion, and whether a member may skip SSO, from the copied role | yes |
+| R11 | OrganizationAvatar in OrganizationAvatarReplica | `api/serializers/models/organization.py:372-385` | the avatar URL shown for an organization (an old ident returns 404) | no |
+| R17 | User email and is_active in the OrganizationMember rows of every cell | `tasks/auth/auth.py:126-152`, `:194`, `models/organizationmember.py:268-271` (`receivers/owners.py:12-24`) | the address to which an invitation token is mailed and stored, and whether the last active owner of an organization may be demoted | yes |
+| R20 | AuthProvider configuration, default role and flags in its cell replica | `auth/services/access/impl.py:79` -> `auth/services/access/service.py:81` -> `api/permissions.py:288` | whether a member without a linked identity may skip SSO (`allow_unlinked`); the other copied columns have no reader | yes |
+| R23 | AuthIdentity data, last verification and user in its cell replica | `auth/services/access/impl.py:88` -> `auth/services/access/service.py:52-57`, `:88-91` (`auth/services/access/impl.py:116`) | whether the SSO session of a member is valid, from the copied user and last verification; `data` has no reader | yes |
+| R26 | ApiKey label, scopes, allowed origins and status in its cell replica | `api/authentication.py:300`, `api/permissions.py:171`, `api/base.py:490` | whether an API key authenticates, which scopes it grants and from which origins; `label` has no reader | yes |
+| R29 | ApiToken token, hashed token, expiry and scopes in its cell replica | `api/authentication.py:485`, `:489` (`api/permissions.py:171`) | whether a token authenticates in a cell (a rotated-out token still does, the new one is refused) and which scopes it grants | yes |
+| R32 | OrgAuthToken name and deactivation date in its cell replica | `api/authentication.py:716-719` | whether an organization auth token authenticates (a revoked token still does in the cells); `name` has no reader | yes |
+| R34 | SentryApp webhook URL and events in ServiceHook, over two hops | `sentry_apps/tasks/sentry_apps.py:865` (`tasks/post_process.py:95-118`) | to which URL and for which events a webhook is sent (an event subscribed in the meantime raises an error and is dropped) | no |
+| D07 | superuser, staff and UserPermission in control, derived from membership in a privileged SCIM team | `auth/superuser.py:238`, `:90-106` (`users/api/endpoints/user_details.py:65-77`) | whether a user deprovisioned by SCIM keeps superuser or staff privileges | yes |
+| D14 | the same privileges, when the membership of the privileged team changes | `auth/superuser.py:238`, `:90-106` (`auth/services/access/impl.py:120-124`) | whether a user removed from the team keeps its privileges | yes |
+
+Almost every such reader acts on the copy while the source already holds the new value.
+Today GitLab writes G12, G13 and G14 in one transaction under a temporary exemption from its guard against cross-database writes, and Sentry replicates its copies through outboxes that are drained after the commit and retried periodically, so the disagreement lasts until the copy is written.
