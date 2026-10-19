@@ -10,6 +10,7 @@ It contains the code, the inputs and the results behind the figures and numbers 
 | Sections 6.1 and 6.2, static analyzer, Figure 4b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
 | Section 6.2, blind hand labels of 135 templates | [`apps/`](apps) | `sample_blind.py` | `blind/estimate.py` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
+| Sections 6.1 and 6.2, second annotator | [`corpus/annotator/`](corpus/annotator) | `templates.csv`, `sites.csv` | `agreement.py` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
 | Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Figure 5 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
@@ -31,6 +32,7 @@ Every directory holds the results of the paper, so each analysis script runs wit
 
 ```bash
 cd corpus && python -I summarize.py
+cd corpus/annotator && python -I agreement.py
 cd apps && python -I validate.py out && python -I fig_apps.py out fig_apps.tex
 cd apps/blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
@@ -117,6 +119,21 @@ python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 
 `atomic_audit.md` asks, for each of the 16 templates that need atomic visibility (G12, G13 and G14 of GitLab and 13 of Sentry), whether some reader relies on the copy agreeing with its source.
 It names, for each template, the reader with the most severe consequence and further readers by file and line (for GitLab file and line only), and what the reader decides.
 Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
+
+### Second annotator (Sections 6.1 and 6.2)
+
+A second annotator, who saw neither our labels nor the paper, labelled the 97 templates and the 181 read-path sites of both audits (Sentry and the GitLab sample) independently; `annotator/instructions.md` gives the instructions.
+`annotator/templates.csv` and `annotator/sites.csv` hold the returned labels, one per item, with the template or the code location.
+`agreement.py` compares them with our labels in `out/templates.csv`, `out/readpath_sites.json` (a batch fetch counts as tolerant) and `gitlab_readpath_review.json`.
+
+- Templates: 88% agreement (Cohen's kappa 0.71), and 94 of the 97 agree on whether order suffices.
+  The annotator labelled 8 templates `serial`, citing values read from another database that a concurrent update may change; Section 5.3 handles these conflicts with a lock.
+- Read-path sites: 93% agreement (kappa 0.88) over the 181 sites, 97% (kappa 0.94) over the 125 sites of Sentry.
+
+```bash
+cd corpus/annotator
+python -I agreement.py
+```
 
 ## Static analyzer (Sections 6.1 and 6.2, Figure 4b)
 
