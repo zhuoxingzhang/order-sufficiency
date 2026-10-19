@@ -1,0 +1,14 @@
+{"tag": "B10_dominated", "fam": "restr_i", "Fz": {"R": ["k", "p"], "S": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B10_dominated", "fam": "restr_i", "Fz": {"R": ["k", "p"], "S": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["b", "f", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["a", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["b", "f", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["a", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["b", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["a", "b", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["b", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["a", "b", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["f", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "fr_comm", "N": 6, "found": null}
+{"tag": "B11_pointer_in_pk", "fam": "restr_ii", "Fz": {"R": ["f", "k"], "M": ["h", "k1", "k2"], "O": ["k"]}, "check": "mod_comm", "N": 6, "found": null}
