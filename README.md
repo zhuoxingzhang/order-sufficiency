@@ -6,6 +6,9 @@ It contains the code, the inputs and the results behind every figure and number 
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
 | Section 6.2, Figure 4a | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
+| Section 6.2, readers of the templates that need atomic visibility | [`corpus/`](corpus) | reading of the code | `atomic_audit.md` |
+| Sections 6.1 and 6.2, static analyzer, Figure 4b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
+| Section 6.2, blind hand labels of 135 templates | [`apps/`](apps) | `sample_blind.py` | `blind/estimate.py` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
 | Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
@@ -13,22 +16,34 @@ It contains the code, the inputs and the results behind every figure and number 
 | Section 6.3, Figure 5f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
 | Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
+| Section 6.3, entry through the coordinator, default mode of Vitess | [`cost/`](cost) | `run_z1.sh` | `z1_ratios.py` |
 | Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
 | Section 6.3, Figure 7, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4, decision time | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.4, shard keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
+| Section 6.4, Figure 8, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
 | Appendix A.3, Proposition 4.7 | [`deciders/`](deciders) | `run_all.sh`, step 6 | `results/fresh_k*` |
+| Appendix A.3, Theorem 4.9 | [`deciders/`](deciders) | `run_all.sh`, step 9 | `cind_analyze.py` |
+| Appendix A.3, Proposition A.8 | [`deciders/`](deciders) | `run_all.sh`, step 7 | `uk_tally.py` |
 | Appendix A.3, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
+| Appendix A.4, Theorem 5.3 | [`deciders/`](deciders) | `run_all.sh`, step 8 | `kshard_tally.py` |
 
 Every directory holds the results of the paper, so each analysis script runs without a database:
 
 ```bash
 cd corpus && python -I summarize.py
+cd apps && python -I validate.py out && python -I fig_apps.py out fig_apps.tex
+cd apps/blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
 cd engines && python -I analyze_direction.py results/direction.jsonl && python -I analyze_direction.py results/direction_gap.jsonl
 cd engines && python -I analyze_grace.py results/grace.jsonl
 cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
 cd cost && python -I depth_analyze.py results/depth_citus.jsonl results/depth_rtt_citus.jsonl results/depth_vitess.jsonl
+cd cost && python -I z1_ratios.py results
+cd deciders && python -I x4_shardk.py x4_shardk.json && python -I x4_unique.py x4_unique.json && python -I x4_freq.py x4_freq.json
+cd deciders && python -I uk_tally.py results/uk_n5d5.jsonl results/uk_big_n7.jsonl
+cd deciders && python -I kshard_tally.py results/kshard_n4d4.jsonl,results/kshard_n5d5.jsonl results/kshard_recheck_n4d4.jsonl,results/kshard_recheck_n5d5.jsonl,results/kshard_recheck2_n5d5.jsonl results/kshard_recheck_n4d4_fresh.jsonl
+cd deciders && python -I cind_analyze.py results/cind_random_n4.jsonl results/cind_random_n5.jsonl results/cind_recheck_random_n5.jsonl
+cd deciders && python -I cind_analyze.py results/cind_named_n5.jsonl results/cind_recheck_named_n6.jsonl
 ```
 
 ## Setup
@@ -39,6 +54,7 @@ All experiments ran on one server with two 64-core AMD EPYC 7742 processors and 
   The scripts are run with `python -I`.
 - Citus: PostgreSQL 17.11 with Citus 14.2.0 built from source, with `initdb`, `pg_ctl` and `psql` on `PATH`.
 - Vitess: Vitess 24.0.5 (set `VTROOT` to the build) with MySQL 8.4.2 (set `VT_MYSQL_ROOT` to the installation), plus `etcd` and `curl` on `PATH`.
+- The static analyzer (`apps/`) needs only the Python standard library and checkouts of the analyzed applications at the commits listed in `apps/run_all.sh`; it reads their code and runs none of it.
 - The clusters run on one host on fixed local ports (Citus 29700-29703 and 29800-29803, Vitess the ports of the upstream examples shifted by +20000 and +30000).
   Their data go to `engines/work` and `cost/work`, or to `X2_WORK` and `X7_WORK` if set.
 
@@ -94,6 +110,69 @@ The same question for the 17 cascading deletions of GitLab (C01-C17 of `gitlab_c
 cd corpus
 python -I gitlab_readpath_probe.py <gitlab> ../deciders/data/gitlab_schema.json out/gitlab_readpath_probe.json
 python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 sample.txt out/gitlab_readpath_sample.json
+```
+
+### Readers of the templates that need atomic visibility (Section 6.2)
+
+`atomic_audit.md` asks, for each of the 16 templates that need atomic visibility (G12, G13 and G14 of GitLab and 13 of Sentry), whether some reader relies on the copy agreeing with its source.
+It names, for each template, the reader with the most severe consequence and further readers by file and line (for GitLab file and line only), and what the reader decides.
+Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
+
+## Static analyzer (Sections 6.1 and 6.2, Figure 4b)
+
+The analyzer in `apps/analyzer` reads the code of Rails and Django applications statically.
+
+- It collects the references (declared foreign keys and the associations that the code relies on), the copies that callbacks keep equal to a column of the referenced row, and the derived values such as counter caches (`rails_*.py`, `django_front.py`, `schema.py`).
+- It groups the writes into templates: transaction blocks, methods, and the creation, modification or deletion of a row of a model with its callbacks, cascades, counter caches and queued jobs.
+- `classify.py` labels every template that writes several tables, assuming that every table may lie on a shard of its own: it needs only order if it inserts or deletes rows or moves pointers along references (Proposition 5.4), and atomic visibility if it changes a source and its copy (Corollary 4.8).
+  Under the strict reading, a derived value must equal its definition in every state, so changing it together with its rows needs atomic visibility; under the one-way reading, readers accept a derived value that lags behind its rows, so order suffices.
+- `run_gitlab.py` and `run_sentry.py` add the partitions of GitLab (databases and gitlab_schemas, loose foreign keys, the exemptions from its guard) and the silos of Sentry (hybrid-cloud foreign keys, remote calls, outboxes), and count only constraints across partitions or silos.
+
+`run_all.sh` runs the analyzer over the ten applications, GitLab and Sentry; the outputs of the paper are in `out/` (gzipped).
+`validate.py` compares the analyzer with the 97 hand labels of `corpus/`: it finds 72 of the templates and agrees with 54 labels (57 under the one-way reading), and under the one-way reading 11 of its 12 verdicts of atomic visibility are right and it reports 11 of the 15 found templates that need atomic visibility.
+On the ten applications it prints the verdicts of their 6,033 templates that write several tables outside test and development code: 5,049 of them are constrained, and 99% of these need only order under the one-way reading and 78% under the strict one.
+`fig_apps.py` writes Figure 4b.
+
+```bash
+cd apps
+SRC=<directory of the checkouts> sh run_all.sh
+python -I validate.py out
+python -I fig_apps.py out fig_apps.tex
+```
+
+### Blind hand labels (Section 6.2)
+
+The share of order among the constrained templates is an upper bound, since the analyzer recognizes only the copies that it can parse.
+Templates sampled from the ten applications were therefore labelled by hand, blind to the verdicts of the analyzer.
+
+- `sample_blind.py` draws, per application and strict verdict of the analyzer, a fixed number of templates with a fixed seed.
+  The sheet shows the repository, the commit, the kind of template and a link to its code; the key (`key_*.json`) holds the verdicts.
+- Sample 1 (`blind/sample1`) draws 2 templates per application and verdict (seed 20261019) from the output of an earlier version of the analyzer, which handled copies along reversed references differently.
+  On the stored output, parts a and b are drawn again identically, and part c differs in 3 templates of Canvas; `key_c.json` holds the sample as labelled.
+  Of its 56 templates, the 5 in test or development code (A06, A16, B02, C11, C12) were left out before labelling, so 51 carry labels.
+- Sample 2 (`blind/sample2`) draws 3 templates per application and verdict (seed 20261020) outside test and development code and outside sample 1: 84 templates.
+- The labelling instructions set the premise that every table may lie on its own shard, that shards commit separately and that there is no global snapshot.
+  They define the scope of the three kinds of template (including callbacks, cascades, counter caches and queued jobs), the three constraints to consider (references, copies of a column of the referenced row, and derived values such as counts, sums and flags aggregated from other rows), and the labels: `none` if no such constraint relates rows of different tables, `order` if some commit order keeps every constraint satisfied after every commit, and `atomic` if no order does.
+  The column `derived` is `yes` if the label is `atomic` only because of a derived value.
+  Four practice examples outside the sample illustrate the labels: creating a group and its first project (order), renaming a group whose path the projects cache (atomic, not derived), creating a comment counted in a counter of its post (atomic, derived), and writing an audit log next to an unrelated row (none).
+  The instructions ask for independent work, without the paper or our labels.
+- `labels_*.csv` hold the labels (columns `item`, `app`, `kind`, `origin`, `label`, `derived`).
+- `estimate.py` weighs the labelled templates of each stratum (application and strict verdict of the analyzer on the stored output) by the size of the stratum, reads the labels one way (atomic and derived counts as order), and resamples within the strata (2,000 rounds) for a 95% interval.
+  Both samples pooled (135 templates) put the share of order among the constrained templates at 81.9% (73.8-89.6%).
+
+```bash
+cd apps
+python -I sample_blind.py out sheet_a.csv key_a.json zulip,makeplane,saleor,openedx A
+python -I sample_blind.py out sheet_b.csv key_b.json PostHog,chatwoot,mastodon B
+python -I sample_blind.py out sheet_c.csv key_c.json discourse,spree,instructure C
+X=--exclude=blind/sample1/key_a.json,blind/sample1/key_b.json,blind/sample1/key_c.json
+python -I sample_blind.py out sheet_u.csv key_u.json zulip,makeplane U --seed=20261020 --per=3 $X --skip-testdev
+python -I sample_blind.py out sheet_v.csv key_v.json saleor,openedx V --seed=20261020 --per=3 $X --skip-testdev
+python -I sample_blind.py out sheet_w.csv key_w.json PostHog,mastodon W --seed=20261020 --per=3 $X --skip-testdev
+python -I sample_blind.py out sheet_x.csv key_x.json chatwoot,spree X --seed=20261020 --per=3 $X --skip-testdev
+python -I sample_blind.py out sheet_y.csv key_y.json discourse Y --seed=20261020 --per=3 $X --skip-testdev
+python -I sample_blind.py out sheet_z.csv key_z.json instructure Z --seed=20261020 --per=3 $X --skip-testdev
+cd blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 ```
 
 ## Engines (Section 6.3, Figure 6)
@@ -176,6 +255,16 @@ Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus withou
   With one client, the prepares raise the median latency by 6% to 26%; with 64 clients they raise it by 34% to 102% and cut the throughput by a fifth to a half.
 - The stored run was stopped from outside during its last part (one client behind 1 ms proxies, 53 of 252 runs), and `Lt@d` ran out of keys in a few cells (deletions at 128 rows, and insertions and deletions at 32 rows with 64 clients); the analysis lists the missing pairs.
 
+### Entry through the coordinator and the default mode of Vitess (Section 6.3)
+
+`run_z1.sh` reruns, with one client, three blocks and the templates, sizes and windows of Figure 5, leveled commits against the fastest two-phase commit in two further settings.
+
+- On Citus, `Ls` enters at the coordinator instead of the workers (`Ls@d`).
+- On Vitess, `ms` is one transaction in the default mode of Vitess (`transaction_mode = 'multi'`), which commits the shards one after the other in the order in which the transaction touched them and gives up atomicity; its statements are those of `Ls` in the order of the levels, sent as one message.
+- `z1_ratios.py` computes the ratios as `fig_cost.py` does.
+  Through the coordinator, `Ls` takes 0.95, 0.87, 0.76 and 0.47 of the time of the fastest two-phase commit at 2 or 3, 8, 32 and 128 rows; on Vitess, `ms` takes 0.44, 0.49, 0.53 and 0.62, and `Ls` 0.40, 0.42, 0.44 and 0.49.
+- The same comparison with 64 clients has not been run, and a run behind the 0.5 ms relays did not complete; neither is included.
+
 ## Deciders and design (Section 6.4, Appendix A)
 
 `deciders.py` implements the tests of order-sufficiency: `dec_fd` (Theorem 3.6), `dec_unary` (Theorem 4.1), `dec_A` (Theorem 4.2) and `dec_K` (Theorem 4.5).
@@ -189,12 +278,26 @@ cd deciders && PROCS=64 sh run_all.sh
 - Step 1 compares the deciders with an exhaustive search over small updates (`selfcheck.py`, reference semantics in `ref_order2.py`) and builds witnesses for rejected schemas (`k_witness.py`).
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
 - Step 4 compares the shard keys of Theorem 5.2 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source.
-- Step 5 runs the checks of Appendix A.3 beyond the exact classes; it needs pycosat.
+  `x4_unique.py` counts the tables with a single-column shard key that makes every fresh update executable and under which a shard checks every unique key (1,040 of 1,127); the rule of Citus leaves 600 tables without such a key (`none_citus` in `results/x4_shardkey.json`), so it admits one for 527.
+  `x4_shardk.py` checks Theorem 5.3 on the 903 copies that GitLab maintains, 808 of sharding keys and 95 that callbacks write, under co-location by the declared sharding keys (Figure 8a): the copies whose IND violates condition (4), and how many of them co-location carries, are 126 and 93 if every write counts as a modification, 45 and 35 without the initialisations of new rows, and 4 and 4 with frozen sharding keys.
+  `x4_freq.py` draws template frequencies from four distributions and reports the weight that the optimal freeze saves over freezing every copied source (Figure 8b; medians 18%, 54%, 36% and 70%).
+- Step 5 runs the checks of Appendix A.3 beyond the exact classes; it needs pycosat, as do steps 6 to 9.
 - Step 6 checks Proposition 4.7 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
+- Step 7 checks Proposition A.8 (unique keys that no IND references) by the same search on 4,172 pairs of random schemas of class K with one or two unique keys of one or two non-key attributes and freezes, with 5 entities and 5 values (`fresh_k_uk.py`).
+  For the 6 pairs in which the prediction under Fz* finds no witness with 5 entities, `uk_big.py` finds one with 7.
+  `uk_tally.py` scores the predictions: under Fz* none is wrong; under Fz, 157 pairs are predicted wrongly (168 checks, 12 of executability and 156 of order-insensitivity).
+- Step 8 checks Theorem 5.3 under hash placement with co-location groups on 13,199 combinations of 280 random schemas of class K, freezes, shard keys of one attribute and groups (`kshard.py`), and searches again with more changed entities and unchanged rows for the predicted counterexamples that the first run did not find (`kshard_recheck.py`).
+  `kshard_tally.py` prints the outcome: every combination predicted executable has no counterexample within the bounds, every combination predicted not executable has one, and for fresh updates the necessary condition of Appendix A.4 fails to be sufficient in 4 combinations.
+- Step 9 checks Theorem 4.9 on 270 random schemas of class C (6,040 pairs of a schema and a freeze, 42,280 checks) and on 21 named families with 552 pairs (`cind_check.py`, `cind_sat.py`).
+  For every pair it searches for a modification update without a legal order, one with an illegal intermediate state, one whose canonical order of part (1) fails, the same for updates that also insert and delete, and the same for fresh updates.
+  On class C every prediction of part (1) holds, and part (2) agrees on 12,072 of 12,080 checks; the other 8 predict a violation that needs 5 entities, which `cind_recheck.py` finds.
+  The named families cover the shapes of Section 6.2 (repositories of a disabled integration, SCIM flags, linked identities, the SCIM denial of GitLab, archiving in the running example), each restriction of class C (two tested attributes, sets that form no chain, a cyclic IND graph, a mutable unique key as the referenced key), the two restrictions on pointers (without them, no violation is found up to 6 entities in 7 pairs where the condition of part (2) fails), and combinations with FDs, unique keys and copies of class K, each with the prediction stated in `cind_check.py`.
+  `cind_analyze.py` prints the agreement per family and check; `cind_smoke.py` runs a few families quickly.
+- `data/gitlab_mutable.json` lists the columns that the code of GitLab commit 9d4cbde6 modifies, with every resolved write site by table, columns, file, line, method and operation (`gl_mutable.py`, which runs the analyzer of `apps/`); `data/gitlab_mutable_filtered.json` leaves out the initialisations of new rows (`gl_sites.py`), and `gl_sk_sites.py` lists the sites that still modify a declared sharding key.
 - `data/gitlab_schema.json` holds the tables, keys, foreign keys, sharding keys and loose foreign keys of GitLab commit 9d4cbde6; `gitlab_extract.py` rebuilds it from that commit (usage in `run_all.sh`).
 - The large per-task result files are stored gzipped.
 
 ## License
 
 The code is released under the MIT License (see `LICENSE`).
-`deciders/data/gitlab_schema.json` contains schema facts extracted from GitLab, and `corpus/out` contains model names and code locations of Sentry and GitLab (file and line only, no source text); both remain subject to the licenses of these projects.
+`deciders/data/gitlab_schema.json` and `deciders/data/gitlab_mutable*.json` contain schema facts and code locations extracted from GitLab, `corpus/out` contains model names and code locations of Sentry and GitLab, and `apps/out` and `apps/blind` contain table and model names, identifiers and code locations of the ten applications, GitLab and Sentry (file and line, no source text); they remain subject to the licenses of these projects.
