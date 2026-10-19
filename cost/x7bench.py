@@ -71,6 +71,7 @@ Environment:
   X7_ROUTE       coordinator (default) or direct, see above
   X6_CITUS_PORT  coordinator port (a delay relay in front of the coordinator, default 29800)
   X6_DELAY_MS    one-way delay of that relay, recorded with the result
+  X6_VT_PORT     vtgate port (a delay relay in front of vtgate, default 45306)
   X6_VT_MODE     if set (e.g. multi), every Vitess session runs SET transaction_mode = '<mode>';
                  method c then is one transaction in that mode with the statements in the
                  required order
@@ -108,7 +109,7 @@ ROUTE = os.environ.get('X7_ROUTE', 'coordinator')
 
 def worker_dsn(i):
     return CITUS_DSN.replace(f'port={CITUS_PORT} ', f'port={CITUS_PORT + 1 + i} ')
-VT = dict(host='127.0.0.1', port=45306, user='root', database='ks', autocommit=True,
+VT = dict(host='127.0.0.1', port=int(os.environ.get('X6_VT_PORT', '45306')), user='root', database='ks', autocommit=True,
           read_timeout=60, write_timeout=60)
 SHARDS = ('-80', '80-')
 

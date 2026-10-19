@@ -2,7 +2,8 @@
 # Vitess 24.0.5 cluster for the cost runs: 2 shards (-80, 80-) x 3 tablets, durability semi_sync,
 # vtgate TWOPC, on the ports of the upstream examples +30000 (etcd 32379) and the data root
 # $X7_WORK/vtdata. Tablet uids 300-302 and 400-402. Tablet pools are raised to 300 so that client
-# concurrency, not the default pool caps (16 / 20), bounds the load.
+# concurrency, not the default pool caps (16 / 20), bounds the load.  TABLET_HOST (default localhost)
+# is the host name that the tablets advertise; run_hardening.sh sets it to 127.0.0.2, where relays wait.
 # Needs VTROOT (a Vitess 24.0.5 build) and VT_MYSQL_ROOT (a MySQL 8.4 installation) in the environment.
 set -x
 : "${VTROOT:?set VTROOT to the Vitess 24.0.5 build}"
@@ -37,7 +38,7 @@ start_tablet() {
   printf -v alias '%s-%010d' $CELL $uid
   printf -v tdir 'vt_%010d' $uid
   mysqlctl $CFG --tablet-uid $uid --mysql-port $((47000 + uid)) --log-format text init
-  vttablet $CFG $TOPO $LOCAL --tablet-path $alias --tablet-hostname localhost --init-keyspace ks --init-shard $shard \
+  vttablet $CFG $TOPO $LOCAL --tablet-path $alias --tablet-hostname ${TABLET_HOST:-localhost} --init-keyspace ks --init-shard $shard \
     --init-tablet-type replica --health-check-interval 5s --backup-storage-implementation file \
     --file-backup-storage-root $VTDATAROOT/backups --port $((45000 + uid)) --grpc-port $((46000 + uid)) \
     --service-map 'grpc-queryservice,grpc-tabletmanager,grpc-updatestream' \
