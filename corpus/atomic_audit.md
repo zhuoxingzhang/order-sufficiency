@@ -5,7 +5,7 @@ Each of them maintains a copy or a derived value on another database or silo.
 
 Question.  Does some reader rely on the copy agreeing with its source, that is, does it act in a way that no consistent state allows when it reads the copy before the update reaches it, or the source before the copy?
 
-Method.  The code of both applications was read statically at these commits (tests skipped, nothing run), following every reader of the copied or derived columns.
+Method.  The code of both applications was read statically at these commits (tests skipped, nothing run), following every reader of the copied or derived columns, and the reader of every template was checked by hand at these commits.
 For each template, the table gives the reader with the most severe consequence, and in parentheses further readers, by file and line (for GitLab, file and line only), and what that reader decides.
 Sentry paths are relative to `src/sentry`.
 
