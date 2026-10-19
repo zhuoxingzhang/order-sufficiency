@@ -1,4 +1,4 @@
-"""Generate the LaTeX of Figure 6 from the cost runs (numbers by fig_cost.py): every
+"""Generate the LaTeX of Figure 5 from the cost runs (numbers by fig_cost.py): every
 value is the median latency or the throughput of a way of writing relative to the fastest one
 two-phase commit of the same block and cell.
 Panels: (a) Citus latency, one client; (b) Vitess latency, one client; (c) Citus latency, one client,

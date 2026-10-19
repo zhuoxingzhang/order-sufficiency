@@ -1,8 +1,8 @@
 #!/bin/bash
-# Rounds sweep of Figure 6f: an insertion of a path of k rows whose every hop changes nodes (x7bench.py,
+# Rounds sweep of Figure 5f: an insertion of a path of k rows whose every hop changes nodes (x7bench.py,
 # workload chain), so that leveled commits need k rounds, against one 2PC at its best.  Three blocks,
 # one client, k = 2, 3, 4, 5, 6, 8.  Citus without and with relays that add 0.5 ms in each direction,
-# then Vitess.  Methods as in Figure 6, without the outbox.
+# then Vitess.  Methods as in Figure 5, without the outbox.
 # Needs what run_cost.sh needs; the key maps of run_cost.sh are reused (built here if missing).
 # usage: cd cost && setsid nohup bash run_depth.sh > logs/run_depth.log 2>&1 < /dev/null &
 cd "$(dirname "$0")" || exit 1

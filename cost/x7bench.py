@@ -7,7 +7,7 @@ Workloads (k = number of entities = statements per business operation):
   rep  insert new parent P', repoint m = k-2 children to P', delete old parent P
                                                         required order: P' before children before P
   chain  insert a path of k rows, row i referencing row i - 1, consecutive rows on different nodes
-         (rounds sweep, Figure 6f): every hop changes nodes, so leveled commits need k rounds;
+         (rounds sweep, Figure 5f): every hop changes nodes, so leveled commits need k rounds;
          a node with several transactions of one update gets one connection per transaction
 
 One distributed transaction:

@@ -1,4 +1,4 @@
-"""Analysis of the engine runs (Figure 5): per-cell pooled rate with Wilson 95% CI, batch-level t interval and
+"""Analysis of the engine runs (Figure 6): per-cell pooled rate with Wilson 95% CI, batch-level t interval and
 batch (cluster) bootstrap interval.  usage: python -I analyze.py citus.jsonl vitess.jsonl > summary.md
 """
 import json, math, random, sys

@@ -5,19 +5,20 @@ It contains the code, the inputs and the results behind every figure and number 
 
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
-| Section 6.2, Figure 4 | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
+| Section 6.2, Figure 4a | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
-| Section 6.3, Figure 5 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
-| Section 6.3, Figure 6 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
-| Section 6.3, Figure 6f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
+| Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
+| Section 6.3, Figure 5 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
+| Section 6.3, Figure 5f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
 | Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
 | Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
 | Section 6.3, Figure 7, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
-| Section 6.4 | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.5, Figure 8 | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
-| Appendix, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
+| Section 6.4, decision time | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
+| Section 6.4, shard keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `results/x4_*` |
+| Appendix A.3, Proposition 4.7 | [`deciders/`](deciders) | `run_all.sh`, step 6 | `results/fresh_k*` |
+| Appendix A.3, beyond the exact classes | [`deciders/`](deciders) | `run_all.sh`, step 5 | `results/k_beyond*` |
 
 Every directory holds the results of the paper, so each analysis script runs without a database:
 
@@ -41,7 +42,7 @@ All experiments ran on one server with two 64-core AMD EPYC 7742 processors and 
 - The clusters run on one host on fixed local ports (Citus 29700-29703 and 29800-29803, Vitess the ports of the upstream examples shifted by +20000 and +30000).
   Their data go to `engines/work` and `cost/work`, or to `X2_WORK` and `X7_WORK` if set.
 
-## Corpus (Section 6.2, Figure 4)
+## Corpus (Section 6.2, Figure 4a)
 
 The corpus consists of the cross-database write templates of GitLab (commit 9d4cbde6, 2026-10-15) and Sentry (commit 13ccaecc, 2026-10-16).
 Both code bases are read statically; no application code is run.
@@ -49,7 +50,7 @@ Both code bases are read statically; no application code is run.
 - `sentry_corpus.py` and `sentry_rpc.py` scan `src/sentry` of the Sentry checkout for silo models, foreign keys, hybrid-cloud foreign keys, outbox replication and remote procedure calls (`out/sentry_models.json`, `out/sentry_rpc.json`).
 - `sentry_classify.py` holds the hand classification of the 65 Sentry templates (42 outbox replications, 23 synchronous remote writes) with their constraints and code locations, and prints the census of the Sentry schema used in Section 6.2.
 - `gitlab_classify.py` holds the classification of the 32 GitLab templates: the 15 transactions that GitLab exempts from its guard against cross-database writes, and the deletions of the 17 parents whose loose foreign keys cross databases (from `deciders/data/gitlab_schema.json`).
-- `summarize.py` prints Figure 4 and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
+- `summarize.py` prints Figure 4a and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
 
 ```bash
 cd corpus
@@ -95,7 +96,7 @@ python -I gitlab_readpath_probe.py <gitlab> ../deciders/data/gitlab_schema.json 
 python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 sample.txt out/gitlab_readpath_sample.json
 ```
 
-## Engines (Section 6.3, Figure 5)
+## Engines (Section 6.3, Figure 6)
 
 The engine runs test whether one distributed transaction exposes orphans and inconsistent copies to readers.
 
@@ -107,7 +108,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - A reader reads the child and then, in the next statement, the parent it points to; an absent parent is an orphan.
   Copy readers read the source and the copy in one statement (Citus) or one scatter query (Vitess).
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
-  `analyze.py` reports the pooled rate per cell; the interval in Figure 5 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
+  `analyze.py` reports the pooled rate per cell; the interval in Figure 6 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
 
 ### Read direction (Section 6.3, Figure 7)
 
@@ -131,7 +132,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.9, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
   It is 0 among 700,952 such iterations; Figure 7 shows the deletion cells.
 
-## Cost of write order (Section 6.3, Figure 6, fault and fence runs)
+## Cost of write order (Section 6.3, Figure 5, fault and fence runs)
 
 `run_cost.sh` runs every cost cell in three blocks; within each block the compared ways of writing run back to back in a random order.
 `x7bench.py` is the benchmark client; its docstring defines every method.
@@ -149,7 +150,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   A third Citus configuration places relays (`x7_proxy.py`) that add 0.5 ms in each direction in front of every node.
 - Durability is the engine default: fsync, synchronous commit and full-page writes on Citus, semi-synchronous replication on Vitess.
 - `fig_cost.py` divides the median latency (one client) or the throughput (64 clients) of each way of writing by that of the fastest two-phase commit of the same block and cell, averages geometrically over the three templates, and reports a 95% t-interval over the blocks.
-  `gen_fig_cost.py` writes Figure 6 as LaTeX.
+  `gen_fig_cost.py` writes Figure 5 as LaTeX.
 - Every block of a cell that lacks a method is rerun with all methods (`x7_refill.py`).
   During our Vitess runs, vtgate was occasionally stopped by an external signal and restarted by a watchdog; the blocks that ran against a restarted vtgate were rerun the same way.
 - Fault runs (`x7_fault.py`): 4 writers run the move template and 2 readers check for orphans for 12 s, while a relay in front of worker 29802 is armed every 0.5 s and then drops the next commit message to that worker.
@@ -157,29 +158,29 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - Fence runs (`x7_fence.py`): 4 clients add children to groups (5 ms think time) while 2 clients merge groups, over 16 active groups for 12 s, with and without a lock on the merged group.
 - Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and one commit per row commit without two-phase commit.
 
-### Number of rounds (Section 6.3, Figure 6f)
+### Number of rounds (Section 6.3, Figure 5f)
 
 `run_depth.sh` runs the `chain` workload of `x7bench.py`: an insertion of a path of k = 2, 3, 4, 5, 6 or 8 rows, row i referencing row i - 1, with consecutive rows on different nodes.
 Every hop changes nodes, so leveled commits need k rounds, whereas one two-phase commit keeps its prepare and commit rounds; a node with several transactions of one update gets one connection per transaction.
-Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 6 except the outbox; Figure 6f shows Citus without relays, and `results/depth.md` holds all three.
+Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 5 except the outbox; Figure 5f shows Citus without relays, and `results/depth.md` holds all three.
 `depth_analyze.py` divides the median latency of each method by that of the fastest two-phase commit of the same block and reports the geometric mean over the blocks with its range (`results/depth.md`).
 
 ### Ordered two-phase commit (Section 6.3)
 
-`run_ordered2pc.sh` compares an ordered two-phase commit with leveled commits on Citus, with the templates, sizes, blocks and windows of Figure 6 and the one 2PC baselines rerun in the same blocks.
+`run_ordered2pc.sh` compares an ordered two-phase commit with leveled commits on Citus, with the templates, sizes, blocks and windows of Figure 5 and the one 2PC baselines rerun in the same blocks.
 
 - `Ps@d` prepares every single-node transaction of leveled commits at the end of the message that executes it, so that all of them are prepared before any commits, and then commits the prepared transactions level by level with `COMMIT PREPARED`.
 - Citus refuses `PREPARE TRANSACTION` after a statement on a distributed table name, so `Ps@d` writes the shard tables by name (`probe_prepare.sh` checks this).
-  `Lt@d` is the same on the shard tables without `PREPARE`, so the paired ratio `Ps@d / Lt@d` isolates the cost of the prepares; `Ls@d` are the leveled commits of Figure 6.
+  `Lt@d` is the same on the shard tables without `PREPARE`, so the paired ratio `Ps@d / Lt@d` isolates the cost of the prepares; `Ls@d` are the leveled commits of Figure 5.
 - `analyze_ordered2pc.py` reports every method relative to the fastest one 2PC of the same block and the paired ratios (`results/ordered2pc.md`).
   With one client, the prepares raise the median latency by 6% to 26%; with 64 clients they raise it by 34% to 102% and cut the throughput by a fifth to a half.
 - The stored run was stopped from outside during its last part (one client behind 1 ms proxies, 53 of 252 runs), and `Lt@d` ran out of keys in a few cells (deletions at 128 rows, and insertions and deletions at 32 rows with 64 clients); the analysis lists the missing pairs.
 
-## Deciders and design (Sections 6.4 and 6.5, Figure 8, appendix)
+## Deciders and design (Section 6.4, Appendix A)
 
-`deciders.py` implements the tests of order-sufficiency: `dec_fd` (Theorem 3.6), `dec_unary` (Theorem 4.2), `dec_A` (Theorem 4.4) and `dec_K` (Theorem 4.7).
+`deciders.py` implements the tests of order-sufficiency: `dec_fd` (Theorem 3.6), `dec_unary` (Theorem 4.1), `dec_A` (Theorem 4.2) and `dec_K` (Theorem 4.5).
 `m2.py` solves MIN-FREEZE (Theorem 5.1; "M2" in the code) by a minimum cut on bipartite conflict graphs and by a 2-approximation otherwise.
-The shard-key condition of Theorem 5.3 is "B-pi" in the code.
+The shard-key condition of Theorem 5.2 is "B-pi" in the code.
 
 ```bash
 cd deciders && PROCS=64 sh run_all.sh
@@ -187,9 +188,9 @@ cd deciders && PROCS=64 sh run_all.sh
 
 - Step 1 compares the deciders with an exhaustive search over small updates (`selfcheck.py`, reference semantics in `ref_order2.py`) and builds witnesses for rejected schemas (`k_witness.py`).
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
-- Step 4 compares the shard keys of Theorem 5.3 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source (Figure 8).
-- Step 5 runs the checks of the appendix beyond the exact classes; it needs pycosat.
-- Step 6 checks Proposition 4.9 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
+- Step 4 compares the shard keys of Theorem 5.2 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source.
+- Step 5 runs the checks of Appendix A.3 beyond the exact classes; it needs pycosat.
+- Step 6 checks Proposition 4.7 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
 - `data/gitlab_schema.json` holds the tables, keys, foreign keys, sharding keys and loose foreign keys of GitLab commit 9d4cbde6; `gitlab_extract.py` rebuilds it from that commit (usage in `run_all.sh`).
 - The large per-task result files are stored gzipped.
 

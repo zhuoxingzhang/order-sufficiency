@@ -1,4 +1,4 @@
-"""E4: Theorem 5.3 on GitLab against fairer baselines.
+"""E4: Theorem 5.2 on GitLab against fairer baselines.
 
 Schema as in x4_design.bpi_gitlab: keys from the primary key and the unique constraints and
 non-partial unique indexes of db/structure.sql, plus the copy FDs pointer -> sharding-key copy that
@@ -15,23 +15,23 @@ Mutability scenarios (GitLab declares none):
          which is not downloaded; this rule stands in for that estimate.
 
 Single-column sharding keys feasible per table:
-  bpi           SK <= (X n Fz)+ for every unstable elementary FD X -> a      (Theorem 5.3)
+  bpi           SK <= (X n Fz)+ for every unstable elementary FD X -> a      (Theorem 5.2)
   unstable_cont SK <= X for every unstable elementary FD X -> a              (containment, but only
-                for the FDs that Theorem 5.3 constrains); also reported over the declared keys
+                for the FDs that Theorem 5.2 constrains); also reported over the declared keys
                 and copy FDs alone (unstable_cont_declared), without the keys derived through
                 copy FDs such as (pipeline_id, iid) from pipeline_id -> project_id; tables where this
-                variant admits a column that Theorem 5.3 rejects are counted, since it ignores
+                variant admits a column that Theorem 5.2 rejects are counted, since it ignores
                 unstable FDs of Sigma+
   citus         SK <= K for the primary key and every declared unique key    (Citus rule; it does
                 not depend on Fz, since PK <= Fz)
 
-Mitigation, SK = PK against the key Theorem 5.3 chooses (and the declared GitLab sharding key):
+Mitigation, SK = PK against the key Theorem 5.2 chooses (and the declared GitLab sharding key):
   unstable FDs served   (X n Fz)+ >= SK.  SK = PK serves none, since (X n Fz)+ >= PK makes X n Fz
                         a superkey and the FD stable.
   templates             one modification template per mutable column c, changing c in any number
                         of rows.  It needs atomic visibility under SK iff some elementary FD that is
                         unstable under Fz_c = (all columns but c) has (X n Fz_c)+ not >= SK, i.e.
-                        Theorem 5.3 applied to the template alone.
+                        Theorem 5.2 applied to the template alone.
   chosen key            a feasible single column if there is one (the declared key when feasible),
                         otherwise the frozen single column serving most unstable FDs, then most
                         templates (ties: declared key, then column order).

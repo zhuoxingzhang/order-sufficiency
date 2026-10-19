@@ -1,4 +1,4 @@
-"""Repeated batches of the Citus engine experiments behind Figure 5.
+"""Repeated batches of the Citus engine experiments behind Figure 6.
 
 The measured cells call the functions of exp_citus.py; only the seed differs per batch.
 e3x is an instrumented copy of exp_citus.e3 (same keys, same reader) that also

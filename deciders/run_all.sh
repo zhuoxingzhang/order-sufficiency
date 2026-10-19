@@ -26,7 +26,7 @@ $P -I x3_baseline.py $N 20 results/x3_baseline.jsonl > results/x3_baseline_summa
 $P -I x3_gitlab.py 20 results/x3_gitlab.json > /dev/null
 # 3. MIN-FREEZE: minimum cut vs 2-approximation
 $P -I x3_m2.py $N 5 results/x3_m2.jsonl > results/x3_m2_summary.jsonl
-# 4. design gains on GitLab: shard keys (Theorem 5.3), frozen attributes (Theorem 5.1), fresh updates
+# 4. design gains on GitLab: shard keys (Theorem 5.2), frozen attributes (Theorem 5.1), fresh updates
 $P -I x4_design.py results/x4_design.json > /dev/null
 $P -I x4_shardkey.py results/x4_shardkey.json > /dev/null
 $P -I x4_fresh.py results/x4_fresh.json > /dev/null
@@ -34,7 +34,7 @@ $P -I x4_fresh.py results/x4_fresh.json > /dev/null
 $P -I k_beyond.py 3000 7 $N results/k_beyond.jsonl > results/k_beyond.json
 $P -I k_beyond_recheck.py results/k_beyond.jsonl $N results/k_beyond_recheck.json > /dev/null
 $P -I k_beyond_pin.py results/k_beyond.jsonl results/k_beyond_recheck.json $N results/k_beyond_pin.json > /dev/null
-# 6. fresh updates on class K (Proposition 4.9): bounded SAT search over fresh updates only
+# 6. fresh updates on class K (Proposition 4.7): bounded SAT search over fresh updates only
 $P -I fresh_k.py 400 7 $N 5 5 results/fresh_k.jsonl > results/fresh_k.txt
 $P -I seq_sanity.py results/fresh_k.jsonl 300 5 5 > results/fresh_k_seq.txt
 echo done

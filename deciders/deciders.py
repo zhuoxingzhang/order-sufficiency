@@ -10,13 +10,13 @@ A frozen set Fz is {R: set(attrs)} with Fz(R) >= PK(R).
 Deciders (each returns (ok, reasons); ok means order-sufficient = commutative):
   dec_fd     FDs only, Theorem 3.6 (G |= Sigma), equivalently N1.  For a declared FD
              X -> a the G-closure of X is U if (X n Fz)+ = U, else X u ((X n Fz)+ n Fz).
-  dec_unary  FDs plus unary INDs, Theorem 4.2: (U1) every nontrivial unary IND of the finite
+  dec_unary  FDs plus unary INDs, Theorem 4.1: (U1) every nontrivial unary IND of the finite
              closure has a frozen right side, (U2) N1 for the finite FD closure.  The finite
              closure reverses the unary FDs and unary INDs inside each cycle of the counting graph
              (edge a => b when |b| <= |a| holds in every finite model) and repeats to a fixpoint.
   dec_A      class A (acyclic INDs, each right side exactly a minimal key of the target under its
-             declared FDs, one key per target), Theorem 4.4: N1 relation by relation.
-  dec_K      class K (PK-only FDs, acyclic INDs R[P D] <= S[K C]), Theorem 4.7: every IND stable,
+             declared FDs, one key per target), Theorem 4.2: N1 relation by relation.
+  dec_K      class K (PK-only FDs, acyclic INDs R[P D] <= S[K C]), Theorem 4.5: every IND stable,
              i.e. C frozen, or P frozen and C_i or D_i frozen for every i.
 All four run in polynomial time: dec_fd and dec_A in O(sum_R |F_R|^2), dec_unary in
 O(iterations * sum_R |U_R| |F_R| + |INDs|), dec_K in O(|INDs| * arity)."""
@@ -142,7 +142,7 @@ def dec_fd(sch, Fz, rels=None):
     return not bad, bad
 
 
-# ---------------------------------------------------------------------------- Theorem 4.2
+# ---------------------------------------------------------------------------- Theorem 4.1
 def tarjan(nodes, adj):
     """SCC id per node; adj: dict node -> iterable.  Iterative."""
     index, low, comp, onst, st = {}, {}, {}, set(), []

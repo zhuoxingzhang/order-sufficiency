@@ -1,4 +1,4 @@
-"""E4: design gains of Theorems 5.1 and 5.3.
+"""E4: design gains of Theorems 5.1 and 5.2.
 
 Part M2 (GitLab).  On the class-K fragment of the GitLab schema (inferred sharding-key copies,
 gitlab_schema.k_fragment) compare the degenerate rule "freeze every copied attribute" with the M2
@@ -11,7 +11,7 @@ Weights: unit, and random template counts 1..10 (median over 200 draws).  The sa
 run on random class-K schemas for contrast (gen_scale.gen_K, family dag).
 
 Part B-pi.  Feasible sharding keys of a relation: SK <= Fz n (X n Fz)+ for every unstable
-left-reduced X -> A in Sigma+ (Theorem 5.3).  Compared with the containment rule SK <= X for
+left-reduced X -> A in Sigma+ (Theorem 5.2).  Compared with the containment rule SK <= X for
 every left-reduced X -> A (stable or not).  Counts single-column sharding keys on random FD
 relations and, when db/structure.sql was extracted, on GitLab (keys from unique indexes).
 Usage: python -I x4_design.py <out.json>"""

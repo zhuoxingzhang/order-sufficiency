@@ -1,4 +1,4 @@
-"""Repeated batches of the Vitess engine experiments behind Figure 5.
+"""Repeated batches of the Vitess engine experiments behind Figure 6.
 
 Every cell calls the functions of vt_exp.py; only the seed differs per batch.
 

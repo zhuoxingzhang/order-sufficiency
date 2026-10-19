@@ -1,5 +1,5 @@
 #!/bin/bash
-# Citus engine runs of Figure 5: B batches of the copy cell in the uniform configuration, then B
+# Citus engine runs of Figure 6: B batches of the copy cell in the uniform configuration, then B
 # batches of the foreign-key cells with a slow worker (29701: fsync, synchronous_commit,
 # commit_delay = 10 ms, commit_siblings = 0). The trap resets 29701 and stops the cluster.
 # Needs PostgreSQL 17 with Citus 14.2 and a Python with psycopg2 on PATH.

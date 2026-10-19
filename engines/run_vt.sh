@@ -1,5 +1,5 @@
 #!/bin/bash
-# Vitess engine runs of Figure 5: fresh cluster from vitess_up.sh (TWOPC, 2 shards x 3 tablets,
+# Vitess engine runs of Figure 6: fresh cluster from vitess_up.sh (TWOPC, 2 shards x 3 tablets,
 # semi_sync, no injected delays), then B batches of every cell. The trap stops the cluster.
 # Needs VTROOT, VT_MYSQL_ROOT (see vitess_up.sh) and a Python with pymysql on PATH.
 # usage: bash run_vt.sh

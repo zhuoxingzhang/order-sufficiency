@@ -4,7 +4,7 @@ Conjectures (per IND R[P D] <= S[L C] of a class K schema, L = PK(S)):
   exec   every fresh modification update is executable  iff  C_i in Fz or D_i in Fz at every
          position i (no source with a mutable copy);
   comm   every fresh modification update is commutative iff  C <= Fz, or P <= Fz and C_i in Fz or
-         D_i in Fz at every position i (condition (4) of Theorem 4.7, unchanged).
+         D_i in Fz at every position i (condition (4) of Theorem 4.5, unchanged).
 So under fresh updates write order matters exactly where a mutable pointer leads to a mutable
 source whose copy is frozen: the referencing entities must move away before the source changes.
 

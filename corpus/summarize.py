@@ -1,9 +1,9 @@
-"""Figure 4 and the list of all 97 cross-database write templates.
+"""Figure 4a and the list of all 97 cross-database write templates.
 
 Usage: python -I summarize.py [out_dir]
 
 Reads out/sentry_templates.json (sentry_classify.py) and out/gitlab_templates.json
-(gitlab_classify.py), prints the templates by application, operation and class (Figure 4), and
+(gitlab_classify.py), prints the templates by application, operation and class (Figure 4a), and
 writes out/templates.csv with the code location and the constraint behind every label.
 """
 import csv
@@ -23,7 +23,7 @@ for app, name in (('GitLab', 'gitlab_templates.json'), ('Sentry', 'sentry_templa
                          what=t['what'], writes=t['writes'], constraint=t['constraint'], label=LABEL[t['cls']],
                          required_order=t.get('order', ''), locations='; '.join(t['locs'])))
 
-print('Figure 4: templates by application, operation and class')
+print('Figure 4a: templates by application, operation and class')
 for app in ('GitLab', 'Sentry'):
     for group, ops in (('insertions, deletions', ('insert', 'delete', 'insert/delete')), ('modifications', ('modify',))):
         c = Counter(r['label'] for r in rows if r['application'] == app and r['operation'] in ops)

@@ -2,7 +2,7 @@
 # Ordered two-phase commit on Citus (Section 6.3, "Atomicity on top of order costs more").
 # Ps prepares every transaction of leveled commits at the end of its first message and then commits
 # the prepared transactions level by level; Lt is the same on the shard tables without PREPARE;
-# Ls@d are the leveled commits of Figure 6; h, hA, h@d, hA@d are one 2PC.  Three blocks, the
+# Ls@d are the leveled commits of Figure 5; h, hA, h@d, hA@d are one 2PC.  Three blocks, the
 # templates at 2 or 3, 8, 32 and 128 rows, one client and 64 clients, as in run_cost.sh.
 # The stored results (results/ordered2pc_*.jsonl) come from a run that was stopped from outside
 # during its last part (one client behind 1 ms proxies), and Lt exhausted its keys in a few cells

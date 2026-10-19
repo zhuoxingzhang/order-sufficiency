@@ -14,7 +14,7 @@ because the INDs are acyclic, so it decides finite implication of INDs (resp. FD
   stab_implies(Fz)   Sigma_stab |= Sigma (Theorem 3.5), by the chase with the stable consequences
 
 Syntactic conditions (per IND rho = R[P D] <= S[K C], position i):
-  cond_orig     the condition of Theorem 4.7:  C_i in Fz  or  (P <= Fz and D_i in Fz)
+  cond_orig     the condition of Theorem 4.5:  C_i in Fz  or  (P <= Fz and D_i in Fz)
   mstar_syn     closure rule on declared INDs: if a key U of S (PK or UK) lies inside M*(S) and inside
                 the right side of rho, and the R-attributes at U's positions lie in M*(R), then every
                 R-attribute whose S-partner lies in M*(S) joins M*(R)

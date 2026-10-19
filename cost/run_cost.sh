@@ -1,5 +1,5 @@
 #!/bin/bash
-# Cost runs of Figure 6 and the fault and fence runs, three blocks each.
+# Cost runs of Figure 5 and the fault and fence runs, three blocks each.
 # The templates (ins, del, rep) run at 2 or 3, 8, 32 and 128 rows.  Within each block the compared
 # ways of writing of one cell run back to back in a random order (x7_scale_run.py).
 #   Citus (methods MC): one client; 64 clients; one client behind relays that add 0.5 ms in each

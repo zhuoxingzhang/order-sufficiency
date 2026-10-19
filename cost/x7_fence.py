@@ -1,7 +1,7 @@
 """Fence runs on Citus: two templates that are not legal together (Section 5.3), with and without a
 lock on the shared parent row.
 
-  merge  (the reparent template of Example 5.7 with a read): insert a new group g1 on another worker,
+  merge  (the reparent template of Example 5.6 with a read): insert a new group g1 on another worker,
          move every child of a group g2 to g1, delete g2
   add    insert a child into an existing group g, after checking that g exists
 

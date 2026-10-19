@@ -1,4 +1,4 @@
-"""Numbers for Figure 6 from the cost runs (run_cost.sh): results/final_*.jsonl with one
+"""Numbers for Figure 5 from the cost runs (run_cost.sh): results/final_*.jsonl with one
 client, final64_*.jsonl with 64 clients, final_rtt_citus.jsonl with one client behind relays that
 add 1 ms per round trip.
 usage: python -I fig_cost.py RESULTS_DIR
