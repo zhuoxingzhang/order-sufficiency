@@ -1,0 +1,1113 @@
+{
+ "W01": {
+  "app": "PostHog",
+  "origin": "products/canvas/backend/actions.py:182",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task",
+    "task_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task",
+    "task_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "posthog_task",
+    "team_team",
+    "channel_id/exact_identifiers/kind/metadata/search_text/source_key/subtitle/task_id/task_run_id/team_id/title"
+   ]
+  ]
+ },
+ "W02": {
+  "app": "PostHog",
+  "origin": "HogFlow#create",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "posthog_hogflow",
+    "team_team",
+    "write_scopes"
+   ]
+  ]
+ },
+ "W03": {
+  "app": "PostHog",
+  "origin": "products/commands/backend/logic/handlers.py:171",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_channel",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_channel",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "posthog_task_channel",
+    "channel_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task",
+    "posthog_task_channel",
+    "channel_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task",
+    "task_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task",
+    "task_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task_channel",
+    "channel_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_task_search_document",
+    "posthog_task_channel",
+    "channel_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "posthog_task_channel",
+    "team_team",
+    "channel_id/exact_identifiers/kind/metadata/search_text/source_key/subtitle/task_id/task_run_id/team_id/title"
+   ]
+  ]
+ },
+ "W04": {
+  "app": "PostHog",
+  "origin": "products/customer_analytics/backend/presentation/views/views.py:1706",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "customer_analytics_custompropertysyncrun",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "customer_analytics_custompropertysyncrun",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ]
+  ]
+ },
+ "W05": {
+  "app": "PostHog",
+  "origin": "products/signals/backend/scout_harness/suggestions.py:915",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ]
+  ]
+ },
+ "W06": {
+  "app": "PostHog",
+  "origin": "products/tasks/backend/facade/api.py:11975",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "llm_analytics_clusteringjob",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogfunction",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ],
+   [
+    "order",
+    "reference",
+    "posthog_hogflow",
+    "team_team",
+    "team_id"
+   ]
+  ]
+ },
+ "W07": {
+  "app": "PostHog",
+  "origin": "posthog/api/cimd_verification_token.py:226",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "W08": {
+  "app": "PostHog",
+  "origin": "products/replay_vision/backend/temporal/vision_alerts/activities.py:599",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "W09": {
+  "app": "PostHog",
+  "origin": "products/business_knowledge/backend/libraries.py:208",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "W10": {
+  "app": "mastodon",
+  "origin": "app/lib/activitypub/activity/remove.rb:11",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "collection_items",
+    "collections",
+    "collection_id"
+   ],
+   [
+    "order",
+    "reference",
+    "collection_items",
+    "collections",
+    "collection_id"
+   ],
+   [
+    "order",
+    "reference",
+    "collection_reports",
+    "collections",
+    "collection_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "collections",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "collection_items",
+    "collections",
+    "collection_id"
+   ],
+   [
+    "order",
+    "reference",
+    "collection_reports",
+    "collections",
+    "collection_id"
+   ],
+   [
+    "derived",
+    "counter",
+    "collection_items",
+    "collections",
+    "item_count"
+   ]
+  ]
+ },
+ "W11": {
+  "app": "mastodon",
+  "origin": "lib/mastodon/cli/accounts.rb:228",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "bulk_imports",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_reach_filters",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_stats",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "follow_requests",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "tag_follows",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "conversation_mutes",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_domain_blocks",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "announcement_mutes",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_domain_blocks",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_reach_filters",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_stats",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "announcement_mutes",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "bookmarks",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "bookmarks",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "bulk_imports",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "conversation_mutes",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "favourites",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "favourites",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "favourites",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "follow_requests",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "follow_requests",
+    "accounts",
+    "target_account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "follow_requests",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "invites",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "invites",
+    "invite_id"
+   ],
+   [
+    "order",
+    "reference",
+    "login_activities",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "markers",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "media_attachments",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "media_attachments",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "mentions",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "mentions",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "mentions",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "accounts",
+    "from_account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notification_requests",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notification_requests",
+    "accounts",
+    "from_account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notification_requests",
+    "statuses",
+    "last_status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "polls",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "polls",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "polls",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "session_activations",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "statuses",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "statuses",
+    "accounts",
+    "in_reply_to_account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "statuses",
+    "polls",
+    "poll_id"
+   ],
+   [
+    "order",
+    "reference",
+    "favourites",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "bookmarks",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "mentions",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "media_attachments",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "mentions",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "statuses",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "status_stats",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "polls",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "status_stats",
+    "statuses",
+    "status_id"
+   ],
+   [
+    "order",
+    "reference",
+    "tag_follows",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "invites",
+    "invite_id"
+   ],
+   [
+    "order",
+    "reference",
+    "invites",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "login_activities",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "markers",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "webauthn_credentials",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_invite_requests",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "session_activations",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_invite_requests",
+    "users",
+    "user_id"
+   ],
+   [
+    "derived",
+    "counter",
+    "users",
+    "invites",
+    "uses"
+   ]
+  ]
+ },
+ "W12": {
+  "app": "mastodon",
+  "origin": "AccountAlias#create",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "account_stats",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_aliases",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "order",
+    "reference",
+    "account_stats",
+    "accounts",
+    "account_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "account_aliases",
+    "accounts",
+    "also_known_as"
+   ]
+  ]
+ },
+ "W13": {
+  "app": "mastodon",
+  "origin": "lib/mastodon/cli/accounts.rb:441",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "notifications",
+    "follows",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "follow_requests",
+    "activity_id"
+   ]
+  ]
+ },
+ "W14": {
+  "app": "mastodon",
+  "origin": "app/models/featured_tag.rb:46",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "featured_tags",
+    "tags",
+    "tag_id"
+   ],
+   [
+    "order",
+    "reference",
+    "featured_tags",
+    "tags",
+    "tag_id"
+   ]
+  ]
+ },
+ "W15": {
+  "app": "mastodon",
+  "origin": "lib/mastodon/cli/accounts.rb:410",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "notifications",
+    "follows",
+    "activity_id"
+   ],
+   [
+    "order",
+    "reference",
+    "notifications",
+    "follow_requests",
+    "activity_id"
+   ]
+  ]
+ },
+ "W16": {
+  "app": "mastodon",
+  "origin": "app/controllers/api/v2/notifications_controller.rb:60",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "W17": {
+  "app": "mastodon",
+  "origin": "Favourite#create",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "W18": {
+  "app": "mastodon",
+  "origin": "app/workers/web/push_notification_worker.rb:22",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ }
+}

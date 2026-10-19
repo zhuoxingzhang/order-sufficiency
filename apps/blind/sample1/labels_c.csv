@@ -1,0 +1,17 @@
+item,app,kind,origin,label,derived
+C15,instructure,event,Lti::Overlay#destroy,order,no
+C02,discourse,method,plugins/discourse-ai/lib/ai_bot/user_flair.rb:43,atomic,yes
+C16,instructure,method,lib/api/v1/quiz.rb:135,atomic,no
+C17,instructure,method,app/models/content_export.rb:207,order,no
+C14,instructure,method,app/controllers/discussion_topics_controller.rb:1238,atomic,no
+C10,spree,method,spree/providers/stripe/app/models/spree_stripe/gateway/payment_sessions.rb:114,atomic,yes
+C18,instructure,method,lib/sis/group_membership_importer.rb:75,atomic,yes
+C03,discourse,method,app/jobs/regular/clear_slow_mode.rb:6,none,no
+C06,discourse,event,DiscourseEvents::Calendar::Event#destroy,atomic,yes
+C01,discourse,transaction,app/models/user_avatar.rb:56,atomic,no
+C13,instructure,method,app/helpers/profile_helper.rb:23,none,no
+C05,discourse,method,plugins/discourse-ai/lib/agents/tools/create_tag.rb:47,order,no
+C09,spree,method,spree/core/app/workflows/spree/fulfillments/fulfill.rb:293,atomic,yes
+C08,spree,method,spree/core/app/services/spree/imports/row_processors/price_list_price.rb:27,none,no
+C07,spree,method,spree/core/app/models/spree/price_list.rb:124,none,no
+C04,discourse,method,app/controllers/posts_controller.rb:165,none,no

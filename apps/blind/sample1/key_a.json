@@ -1,0 +1,763 @@
+{
+ "A01": {
+  "app": "zulip",
+  "origin": "zerver/actions/users.py:92",
+  "strict": "atomic",
+  "oneway": "atomic",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "zerver_attachment",
+    "zerver_userprofile",
+    "owner_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_attachment",
+    "zerver_userprofile",
+    "owner_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "acting_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "acting_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "modified_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "modified_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_subscription",
+    "zerver_userprofile",
+    "user_profile_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_subscription",
+    "zerver_userprofile",
+    "user_profile_id"
+   ],
+   [
+    "order",
+    "copy-insdel",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "realm_id=realm_id"
+   ],
+   [
+    "atomic",
+    "copy",
+    "zerver_subscription",
+    "zerver_userprofile",
+    "is_user_active=is_active"
+   ]
+  ]
+ },
+ "A02": {
+  "app": "zulip",
+  "origin": "zerver/views/users.py:138",
+  "strict": "atomic",
+  "oneway": "atomic",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "acting_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "acting_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "modified_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "modified_user_id"
+   ],
+   [
+    "order",
+    "copy-insdel",
+    "zerver_realmauditlog",
+    "zerver_userprofile",
+    "realm_id=realm_id"
+   ],
+   [
+    "atomic",
+    "copy",
+    "zerver_subscription",
+    "zerver_userprofile",
+    "is_user_active=is_active"
+   ]
+  ]
+ },
+ "A03": {
+  "app": "zulip",
+  "origin": "OutgoingSession#destroy",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "lib_githubsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "lib_githubsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "lib_pushbouncersession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "lib_pushbouncersession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "lib_katexsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "lib_katexsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "url_preview_previewsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "url_preview_previewsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "views_sentrytunnelsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "views_sentrytunnelsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "views_videocallsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "views_videocallsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_registrationtransferverificationsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_registrationtransferverificationsession",
+    "lib_outgoingsession",
+    "outgoingsession_ptr_id"
+   ]
+  ]
+ },
+ "A04": {
+  "app": "zulip",
+  "origin": "corporate/views/remote_billing_page.py:455",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "corporate_customer",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "corporate_customer",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "corporate_customer",
+    "zilencer_remotezulipserver",
+    "remote_server_id"
+   ],
+   [
+    "order",
+    "reference",
+    "corporate_customer",
+    "zilencer_remotezulipserver",
+    "remote_server_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmbillinguser",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmbillinguser",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remotezulipserver",
+    "server_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remotezulipserver",
+    "server_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remoterealm",
+    "remote_realm_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remoterealmbillinguser",
+    "acting_remote_user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "zilencer_remoterealmauditlog",
+    "zilencer_remoterealmbillinguser",
+    "acting_remote_user_id"
+   ]
+  ]
+ },
+ "A05": {
+  "app": "zulip",
+  "origin": "zerver/views/realm_linkifiers.py:103",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A06": {
+  "app": "zulip",
+  "origin": "zerver/openapi/curl_param_value_generators.py:453",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A07": {
+  "app": "makeplane",
+  "origin": "apps/api/plane/app/views/asset/v2.py:235",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "created_by_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "created_by_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "updated_by_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "updated_by_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "user_notification_preferences",
+    "users",
+    "user_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "file_assets",
+    "avatar_asset_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "file_assets",
+    "avatar_asset_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "file_assets",
+    "cover_image_asset_id"
+   ],
+   [
+    "order",
+    "reference",
+    "users",
+    "file_assets",
+    "cover_image_asset_id"
+   ]
+  ]
+ },
+ "A08": {
+  "app": "makeplane",
+  "origin": "apps/api/plane/app/views/issue/archive.py:328",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "issue_mentions",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_mentions",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_activities",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_sequences",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_sequences",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_subscribers",
+    "issues",
+    "issue_id"
+   ],
+   [
+    "order",
+    "reference",
+    "issue_subscribers",
+    "issues",
+    "issue_id"
+   ]
+  ]
+ },
+ "A09": {
+  "app": "makeplane",
+  "origin": "apps/api/plane/app/views/project/base.py:578",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A10": {
+  "app": "makeplane",
+  "origin": "apps/api/plane/app/views/workspace/member.py:161",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A11": {
+  "app": "saleor",
+  "origin": "AttributeValue#destroy",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "attribute_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "attribute_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_attributevaluetranslation",
+    "attribute_attributevalue",
+    "attribute_value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_attributevaluetranslation",
+    "attribute_attributevalue",
+    "attribute_value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assigneduserattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assigneduserattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedpageattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedpageattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedproductattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedproductattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedvariantattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_assignedvariantattributevalue",
+    "attribute_attributevalue",
+    "value_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "max_sort_order"
+   ]
+  ]
+ },
+ "A12": {
+  "app": "saleor",
+  "origin": "saleor/graphql/attribute/utils/attribute_assignment.py:568",
+  "strict": "atomic",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "attribute_id"
+   ],
+   [
+    "order",
+    "reference",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "attribute_id"
+   ],
+   [
+    "derived",
+    "maintained",
+    "attribute_attributevalue",
+    "attribute_attribute",
+    "max_sort_order"
+   ]
+  ]
+ },
+ "A13": {
+  "app": "saleor",
+  "origin": "saleor/graphql/discount/mutations/promotion/promotion_rule_delete.py:55",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "discount_promotionevent",
+    "discount_promotion",
+    "promotion_id"
+   ],
+   [
+    "order",
+    "reference",
+    "discount_promotionevent",
+    "discount_promotion",
+    "promotion_id"
+   ]
+  ]
+ },
+ "A14": {
+  "app": "saleor",
+  "origin": "saleor/order/actions.py:873",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "giftcard_giftcardevent",
+    "order_order",
+    "order_id"
+   ],
+   [
+    "order",
+    "reference",
+    "giftcard_giftcardevent",
+    "order_order",
+    "order_id"
+   ],
+   [
+    "order",
+    "reference",
+    "giftcard_giftcardevent",
+    "giftcard_giftcard",
+    "gift_card_id"
+   ],
+   [
+    "order",
+    "reference",
+    "giftcard_giftcardevent",
+    "giftcard_giftcard",
+    "gift_card_id"
+   ],
+   [
+    "order",
+    "reference",
+    "order_orderevent",
+    "order_order",
+    "order_id"
+   ],
+   [
+    "order",
+    "reference",
+    "order_orderevent",
+    "order_order",
+    "order_id"
+   ]
+  ]
+ },
+ "A15": {
+  "app": "saleor",
+  "origin": "saleor/order/calculations.py:1081",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A16": {
+  "app": "saleor",
+  "origin": "saleor/core/development/random_data.py:2290",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A17": {
+  "app": "openedx",
+  "origin": "common/djangoapps/entitlements/tasks.py:118",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "entitlements_courseentitlementsupportdetail",
+    "entitlements_courseentitlement",
+    "entitlement_id"
+   ],
+   [
+    "order",
+    "reference",
+    "entitlements_courseentitlementsupportdetail",
+    "entitlements_courseentitlement",
+    "entitlement_id"
+   ]
+  ]
+ },
+ "A18": {
+  "app": "openedx",
+  "origin": "PersistentSubsectionGrade#destroy",
+  "strict": "order",
+  "oneway": "order",
+  "reasons": [
+   [
+    "order",
+    "reference",
+    "grades_persistentsubsectiongradeoverride",
+    "grades_persistentsubsectiongrade",
+    "grade_id"
+   ],
+   [
+    "order",
+    "reference",
+    "grades_persistentsubsectiongradeoverride",
+    "grades_persistentsubsectiongrade",
+    "grade_id"
+   ]
+  ]
+ },
+ "A19": {
+  "app": "openedx",
+  "origin": "openedx/core/djangoapps/course_groups/views.py:135",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ },
+ "A20": {
+  "app": "openedx",
+  "origin": "lms/djangoapps/instructor_task/tasks_helper/grades.py:568",
+  "strict": "none",
+  "oneway": "none",
+  "reasons": []
+ }
+}
