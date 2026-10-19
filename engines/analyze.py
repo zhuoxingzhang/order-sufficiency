@@ -1,5 +1,6 @@
 """Analysis of the engine runs (Figure 6): per-cell pooled rate with Wilson 95% CI, batch-level t interval and
-batch (cluster) bootstrap interval.  usage: python -I analyze.py citus.jsonl vitess.jsonl > summary.md
+batch (cluster) bootstrap interval.  usage: python -I analyze.py [--json=OUT] citus.jsonl vitess.jsonl > summary.md
+(OUT defaults to summary.json in the current directory)
 """
 import json, math, random, sys
 
@@ -66,8 +67,10 @@ def pct(v):
 
 
 def main():
+    args = sys.argv[1:]
+    js = args.pop(0)[len('--json='):] if args and args[0].startswith('--json=') else 'summary.json'
     rows = []
-    for p in sys.argv[1:]:
+    for p in args:
         rows += load(p)
     out = {}
     print('| cell | batches | pooled x/N | rate % | Wilson 95% CI % | batch mean % (sd) | batch t 95% CI % | batch bootstrap 95% CI % | reported CI % | dispersion | per-batch x/n |')
@@ -112,7 +115,7 @@ def main():
                 lo, hi = wilson(x, n)
                 print(f"  {name}: {x:,}/{n:,} = {pct(x / n)}% [{pct(lo)}, {pct(hi)}]")
                 out[f"{cell}_{name}"] = dict(x=x, n=n, wilson=[lo, hi])
-    json.dump(out, open('summary.json', 'w'), indent=1)
+    json.dump(out, open(js, 'w'), indent=1)
 
 
 if __name__ == '__main__':

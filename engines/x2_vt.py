@@ -1,6 +1,7 @@
 """Repeated batches of the Vitess engine experiments behind Figure 6.
 
 Every cell calls the functions of vt_exp.py; only the seed differs per batch.
+With VT_SHARDS=4 (run_vt4.sh) the same cells run on four shards.
 
 usage: python -I x2_vt.py <cell> <n> <batch> <seed>
 cells: v2 (parent first, ordered), v2swap (child first), v1 (scatter, txn)
@@ -22,7 +23,7 @@ if __name__ == '__main__':
         r = [V.v1(n, 'scatter'), V.v1(n, 'txn')]
     else:
         raise SystemExit('unknown cell ' + cell)
-    print(json.dumps({'engine': 'vitess', 'cell': cell, 'batch': batch, 'seed': seed, 'n': n,
+    print(json.dumps({'engine': 'vitess', 'shards': len(V.SHARDS), 'cell': cell, 'batch': batch, 'seed': seed, 'n': n,
                       'transaction_mode': mode,
                       'start': time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(t0)),
                       'secs': round(time.time() - t0, 1), 'loadavg_start': l0,

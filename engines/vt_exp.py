@@ -1,11 +1,12 @@
-"""Vitess 24 (vtgate --transaction-mode TWOPC, 2 shards, semi_sync) anomaly reproduction.
+"""Vitess 24 (vtgate --transaction-mode TWOPC, 2 shards or 4 with VT_SHARDS=4, semi_sync) anomaly reproduction.
 V1 redundant copy (FD / non-key IND) across shards: TwoPC writer, scatter or transactional reader.
 V2 foreign key across shards: TwoPC atomic writer vs ordered autocommit writer; reader child-then-parent.
 """
-import json, random, sys, threading, time
+import json, os, random, sys, threading, time
 import pymysql
 
 CFG = dict(host='127.0.0.1', port=35306, user='root', database='ks', autocommit=True)
+SHARDS = ('-40', '40-80', '80-c0', 'c0-') if os.environ.get('VT_SHARDS') == '4' else ('-80', '80-')
 
 
 def conn():
@@ -19,7 +20,7 @@ def q(c, sql, args=None):
 
 
 def shard_of(c, table, col, key):
-    for s in ('-80', '80-'):
+    for s in SHARDS:
         q(c, f"use `ks:{s}`")
         hit = q(c, f"select 1 from {table} where {col} = %s", (key,))
         q(c, "use ks")
