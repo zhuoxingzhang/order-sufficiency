@@ -13,12 +13,16 @@ It contains the code, the inputs and the results behind the figures and numbers 
 | Sections 6.1 and 6.2, second annotator | [`corpus/annotator/`](corpus/annotator) | `templates.csv`, `sites.csv` | `agreement.py` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
 | Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
+| Section 6.3, Vitess on four shards | [`engines/`](engines) | `run_vt4.sh` | `analyze.py` -> `results/vitess4.md` |
+| Section 6.3, injected commit delay from 0 to 10 ms | [`engines/`](engines) | `run_delay.sh` | `analyze_delay.py` -> `results/citus_delay.md` |
 | Section 6.3, Figure 5 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
 | Section 6.3, Figure 5f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
 | Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
 | Section 6.3, entry through the coordinator, default mode of Vitess | [`cost/`](cost) | `run_z1.sh` | `z1_ratios.py` |
-| Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md` |
+| Section 6.3, every node on cores of its own, 0.5 ms on every path | [`cost/`](cost) | `run_hardening.sh` | `z1_ratios.py` |
+| Section 6.3, recovery (Proposition 5.8) and deadlocks (Lemma A.13) | [`recovery/`](recovery) | `run_recovery.sh` | `w6_analyze.py` -> `results/w6_summary.md` |
+| Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
 | Section 6.3, Figure 7, Proposition 5.9 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4, decision time | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
 | Section 6.4, Figure 8, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
@@ -36,11 +40,16 @@ cd corpus/annotator && python -I agreement.py
 cd apps && python -I validate.py out && python -I fig_apps.py out fig_apps.tex
 cd apps/blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
+cd engines/results && python -I ../analyze.py --json=vitess4.json vitess4.jsonl
+cd engines && python -I analyze_delay.py results/citus_delay.jsonl
 cd engines && python -I analyze_direction.py results/direction.jsonl && python -I analyze_direction.py results/direction_gap.jsonl
+cd engines && python -I analyze_direction.py results/direction_fill.jsonl
 cd engines && python -I analyze_grace.py results/grace.jsonl
 cd cost && python -I fig_cost.py results && python -I summarize_fault_fence.py
 cd cost && python -I depth_analyze.py results/depth_citus.jsonl results/depth_rtt_citus.jsonl results/depth_vitess.jsonl
-cd cost && python -I z1_ratios.py results
+cd cost && python -I z1_ratios.py results && python -I z1_ratios.py results 64 && python -I z1_ratios.py results rtt
+cd cost && python -I z1_ratios.py results hardening
+cd recovery && python -I w6_mock.py && python -I w6_analyze.py results
 cd deciders && python -I x4_shardk.py x4_shardk.json && python -I x4_unique.py x4_unique.json && python -I x4_freq.py x4_freq.json
 cd deciders && python -I uk_tally.py results/uk_n5d5.jsonl results/uk_big_n7.jsonl
 cd deciders && python -I kshard_tally.py results/kshard_n4d4.jsonl,results/kshard_n5d5.jsonl results/kshard_recheck_n4d4.jsonl,results/kshard_recheck_n5d5.jsonl,results/kshard_recheck2_n5d5.jsonl results/kshard_recheck_n4d4_fresh.jsonl
@@ -205,6 +214,11 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   Copy readers read the source and the copy in one statement (Citus) or one scatter query (Vitess).
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
   `analyze.py` reports the pooled rate per cell; the interval in Figure 6 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
+- Four shards (`run_vt4.sh`): the Vitess cells on a cluster with four shards instead of two (`vitess4_up.sh`, the same ports, `VT_SHARDS=4` for `vt_exp.py`), 10 batches.
+  One TwoPC exposed an orphan in 88% of the runs that wrote the child first and in none of those that wrote the parent first, and two ordered commits in none (`results/vitess4.md`).
+  The fixed MySQL ports of the tablets lie in the ephemeral port range of Linux, so an outgoing connection can hold one at start-up and leave a shard without a primary; `run_vt4.sh` then restarts the cluster, up to three times.
+- Commit delay (`run_delay.sh`): the Citus foreign-key cells with the `commit_delay` of worker 29701 swept over 0, 1, 2, 5 and 10 ms, three batches each.
+  One 2PC exposed orphans in 34% of the runs from 1 ms on, all with the parent on the delayed worker, and in 0.1% without a delay; two ordered commits exposed none (`results/citus_delay.md`).
 
 ### Read direction (Section 6.3, Figure 7)
 
@@ -216,7 +230,8 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
 - A run counts as anomalous if some iteration sees the child but not the parent.
   `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
-  Figure 7 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
+  Figure 7 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
+  The fill also reran 0, 1 and 10 ms: 48.8%, 86.0% and 100%, against 47.8%, 86.1% and 100% in the first grid (`results/direction_fill.md`).
 
 ### Grace period (Section 6.3, Figure 7, Proposition 5.9)
 
@@ -274,13 +289,43 @@ Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus withou
 
 ### Entry through the coordinator and the default mode of Vitess (Section 6.3)
 
-`run_z1.sh` reruns, with one client, three blocks and the templates, sizes and windows of Figure 5, leveled commits against the fastest two-phase commit in two further settings.
+`run_z1.sh` reruns, with 1 and 64 clients, three blocks and the templates, sizes and windows of Figure 5, leveled commits against the fastest two-phase commit in two further settings.
 
 - On Citus, `Ls` enters at the coordinator instead of the workers (`Ls@d`).
 - On Vitess, `ms` is one transaction in the default mode of Vitess (`transaction_mode = 'multi'`), which commits the shards one after the other in the order in which the transaction touched them and gives up atomicity; its statements are those of `Ls` in the order of the levels, sent as one message.
 - `z1_ratios.py` computes the ratios as `fig_cost.py` does.
   Through the coordinator, `Ls` takes 0.95, 0.87, 0.76 and 0.47 of the time of the fastest two-phase commit at 2 or 3, 8, 32 and 128 rows; on Vitess, `ms` takes 0.44, 0.49, 0.53 and 0.62, and `Ls` 0.40, 0.42, 0.44 and 0.49.
-- The same comparison with 64 clients has not been run, and a run behind the 0.5 ms relays did not complete; neither is included.
+- With 64 clients (`z1_ratios.py results 64`) and one client behind the 0.5 ms relays of Figure 5 (`z1_ratios.py results rtt`), the results are in `results/z1_64_*.jsonl` and `results/z1_rtt_citus.jsonl`.
+  These runs share cores between the servers and the clients.
+  The paper takes its statements about 64 clients from the runs below, in which every node has cores of its own: there the coordinator becomes the bottleneck of `Ls` (0.61 of the throughput of the fastest two-phase commit at 8 rows), which the unpinned runs hide (1.12).
+
+### Every node on cores of its own, 0.5 ms on every path (Section 6.3)
+
+`run_hardening.sh` repeats the comparison of `run_z1.sh` at 8 and 128 rows with 1 and 64 clients, three blocks, in two configurations.
+
+- `pin`: every Citus node, every Vitess tablet (its mysqld and vttablet), vtgate, the control plane and the clients run on cores of their own (`taskset`), the servers on one socket and the clients on the other.
+  The core sets fit the machine of the paper; environment variables override them (see the script).
+- `rtt`: as `pin`, with relays (`relay.py`) that add 0.5 ms in each direction on every path between nodes.
+  On Citus: client to coordinator, coordinator to workers, client to workers.
+  On Vitess: client to vtgate, vtgate to the tablets (the tablets advertise the host name 127.0.0.2, where the relays listen, via `TABLET_HOST` in `vitess_up.sh`) and replica to primary (every mysqld bound to 127.0.0.1).
+  The relays stand in for `netem`, which needs root.
+- `z1_ratios.py results hardening` reports both configurations.
+  Behind the relays, direct-routed leveled commits take 0.43 and 0.19 of the time of the fastest two-phase commit on Citus at 8 and 128 rows, and reach 2.11 and 5.15 times its throughput with 64 clients; on Vitess, 0.59 and 0.60 of the time and 2.25 and 2.00 times the throughput.
+
+## Recovery and deadlocks (Section 6.3, Proposition 5.8, Lemma A.13)
+
+`run_recovery.sh` runs on the Citus cluster of `cost/` (its own tables, colocated with those of `cost/`, dropped at the end), every transaction sent to the worker that holds its rows.
+
+- Recovery (`w6_recovery.py`): an update merges a group into a new one (the reparent template, Ex. 5.6) in three rounds on three workers, and stops after its first or second round.
+  A conflicting update then runs, either to completion before the relay (`staged`) or overlapping it (`race`), and a relay completes the stopped update from its outbox row.
+  `replay` re-applies the new tuples of the remaining rounds, as `x7_fault.py` does; `validate` is the relay of Proposition 5.8, which locks and reads the changed tuples and aborts unless they match a prefix state of the update.
+  Readers check for orphans throughout, and an audit after every trial checks the final state for orphans and lost updates.
+- Deadlocks (`w6_deadlock.py`, `w6_dl_run.py`): 8 to 64 clients move children between Zipf-hot groups, with writes that fail and retry (`Lnw`, NOWAIT), writes that wait with a lock timeout of 100 ms or 2 s (`Lb100`, `Lb2000`), writes that lock in one global order (`Lord`), and one two-phase commit through the coordinator or a worker (`h`, `hd`).
+  A monitor samples the lock waits on the workers every 25 ms and reports the wait-for cycles whose edges span two workers, which PostgreSQL cannot detect.
+- `w6_mock.py` checks the logic of both without a database; the smoke part of `run_recovery.sh` checks that the staged cells reach the predicted outcomes.
+- `w6_analyze.py` writes `results/w6_summary.md`.
+  In the 3,000 race trials with a conflicting update, `replay` left 653 orphans and lost 381 updates, `validate` left no orphan and lost no update.
+  With 64 clients over 1,000 groups (Zipf 0.99), `Lnw` sustained 6,440 updates per second without a cycle, `Lb100` closed 303 cycles across workers, and two-phase commit reached at most 35 updates per second.
 
 ## Deciders and design (Section 6.4, Appendix A)
 

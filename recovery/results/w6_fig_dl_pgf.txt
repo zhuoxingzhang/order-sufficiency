@@ -1,0 +1,28 @@
+% Zipf 0.99 over 1000 groups, tput
+\addplot coordinates {(8,5502) (16,6085) (32,6423) (64,6440)}; % Lnw: leveled, NOWAIT
+\addplot coordinates {(8,4993) (16,4826) (32,4328) (64,3871)}; % Lord: leveled, ordered locks
+\addplot coordinates {(8,3997) (16,821.3) (32,264) (64,159.7)}; % Lb100: leveled, lock_timeout 100 ms
+\addplot coordinates {(8,674.1) (16,54.3) (32,10.73) (64,12.8)}; % Lb2000: leveled, lock_timeout 2 s
+\addplot coordinates {(8,490.1) (16,182.6) (32,107.8) (64,27.7)}; % h: 2PC via coordinator
+\addplot coordinates {(8,514.7) (16,169.6) (32,61.37) (64,34.93)}; % hd: 2PC via worker
+% Zipf 0.99 over 1000 groups, p99
+\addplot coordinates {(8,13.76) (16,48.35) (32,97.94) (64,183.5)}; % Lnw: leveled, NOWAIT
+\addplot coordinates {(8,6.149) (16,19.26) (32,98.95) (64,223.1)}; % Lord: leveled, ordered locks
+\addplot coordinates {(8,67.02) (16,280.1) (32,1143) (64,4216)}; % Lb100: leveled, lock_timeout 100 ms
+\addplot coordinates {(8,669.9) (16,4680) (32,8824) (64,9629)}; % Lb2000: leveled, lock_timeout 2 s
+\addplot coordinates {(8,747) (16,2317) (32,2451) (64,8926)}; % h: 2PC via coordinator
+\addplot coordinates {(8,561.6) (16,2459) (32,7376) (64,8762)}; % hd: 2PC via worker
+% Zipf 0.8 over 10000 groups, tput
+\addplot coordinates {(8,9943) (16,1.542e+04) (32,1.882e+04) (64,1.92e+04)}; % Lnw: leveled, NOWAIT
+\addplot coordinates {(8,7530) (16,1.306e+04) (32,1.435e+04) (64,1.224e+04)}; % Lord: leveled, ordered locks
+\addplot coordinates {(8,1.259e+04) (16,2.023e+04) (32,1.141e+04) (64,3019)}; % Lb100: leveled, lock_timeout 100 ms
+\addplot coordinates {(8,9315) (16,6341) (32,537.9) (64,109.4)}; % Lb2000: leveled, lock_timeout 2 s
+\addplot coordinates {(8,5181) (16,5921) (32,2469) (64,659.7)}; % h: 2PC via coordinator
+\addplot coordinates {(8,6040) (16,7702) (32,2786) (64,682.4)}; % hd: 2PC via worker
+% Zipf 0.8 over 10000 groups, p99
+\addplot coordinates {(8,2.209) (16,4.633) (32,21.54) (64,77.96)}; % Lnw: leveled, NOWAIT
+\addplot coordinates {(8,2.034) (16,4.053) (32,30.13) (64,118.3)}; % Lord: leveled, ordered locks
+\addplot coordinates {(8,1.14) (16,1.638) (32,94.93) (64,415.4)}; % Lb100: leveled, lock_timeout 100 ms
+\addplot coordinates {(8,1.163) (16,1.702) (32,2144) (64,6990)}; % Lb2000: leveled, lock_timeout 2 s
+\addplot coordinates {(8,2.562) (16,3.313) (32,111.2) (64,3381)}; % h: 2PC via coordinator
+\addplot coordinates {(8,2.102) (16,3.16) (32,994.7) (64,2372)}; % hd: 2PC via worker
