@@ -56,6 +56,12 @@ Leveled commits (Section 5.3):
       prepared at the end of its first message, then COMMIT PREPARED level by level
   Lt  Ps without PREPARE (the control for the cost of the prepares)
 
+Sequential commits without atomicity:
+  ms  Vitess only: one transaction in the default MULTI mode of Vitess, which commits the shards one
+      after the other in the order in which the transaction touched them and gives up atomicity.
+      Its statements are those of Ls, the folded statements of every node in the order of the levels
+      of plan(), a topological order of the merged precedence graph, sent as one message.
+
 Entry points: X7_ROUTE=direct makes every method on Citus enter at the workers; leveled commits and
 b send each single-node transaction to the worker that holds its rows, one 2PC goes to the worker of
 its first row, which coordinates it.
@@ -291,6 +297,7 @@ SHARDTAB = ('Ps', 'Lt')
 OUTBOX = ('Lo', 'Los')                # every first-round transaction also writes an outbox row
 EAGER = ('E', 'Es')                   # the first round commits in its first message
 ONE_MESSAGE = ('h', 'hA')
+MULTI_SET = ('ms',)                   # Vitess MULTI mode, one message
 
 
 def load_keymap(engine):
@@ -560,7 +567,12 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
         E = ENGINES[engine]
         node_of = load_keymap(engine)
         W = make_workload(engine, wl, k, C, wid, prepop, node_of)
-        db = E(multi=True) if (engine == 'vitess' and method in ONE_MESSAGE) else E()
+        db = E(multi=True) if (engine == 'vitess' and method in ONE_MESSAGE + MULTI_SET) else E()
+        if method in MULTI_SET:
+            assert engine == 'vitess', 'ms is the default (MULTI) mode of Vitess'
+            db.cur.execute("set transaction_mode = 'multi'")
+            db.cur.execute('select @@transaction_mode')
+            assert db.cur.fetchone()[0].lower() == 'multi', 'transaction_mode is not MULTI'
         if wl == 'rep':
             # one loader at a time: a Citus COPY opens a connection and a prepared transaction per
             # shard, so 64 concurrent loads exhaust max_connections and max_prepared_transactions
@@ -750,6 +762,24 @@ def client_body(engine, wl, method, k, C, wid, seed, prepop, bulk_lock, go, t_st
             rounds_here, txns_here = len(levels), sum(len(l) for l in levels)
             for nd, okey in obs:
                 ob_pending[nd].append(okey)
+        elif method in MULTI_SET:
+            levels = plan(stmts, node_of, wl)
+            # one commit per shard: every node must occur in one level only
+            assert len({nd for lvl in levels for nd, _ in lvl}) == sum(len(lvl) for lvl in levels)
+            body = [st for lvl in levels for nd, idx in lvl for st in fold([stmts[j] for j in idx])]
+            while True:
+                att_here += 1
+                try:
+                    db.x(*one_message(body))
+                    break
+                except db.err as e:
+                    db.rollback()
+                    a_here += 1
+                    key = type(e).__name__ + ':' + str(e)[:80]
+                    errors[key] = errors.get(key, 0) + 1
+                    consec += 1
+                    if consec > 1000:
+                        raise
         elif method in ('g', 'G') + ONE_MESSAGE:
             for grp in (groups(stmts, node_of, wl) if method not in ONE_MESSAGE else [stmts]):
                 while True:
