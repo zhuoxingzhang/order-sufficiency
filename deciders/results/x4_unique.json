@@ -1,0 +1,2190 @@
+{
+ "source": "structure",
+ "lower": {
+  "tables": 1127,
+  "tables_with_unique_keys": 668,
+  "unique_keys": 780,
+  "no_feasible": 0,
+  "chosen_checkable_all": 982,
+  "chosen_contained_all": 728,
+  "some_feasible_column_checkable": 1040,
+  "some_feasible_column_contained": 1031,
+  "no_column_checkable_but_generated": 25,
+  "tables_missing": 145,
+  "tables_missing_only_generated": 47,
+  "tables_missing_chosen_values": 98,
+  "keys_missing": 169,
+  "keys_missing_generated": 56
+ },
+ "lower_missing": {
+  "agent_organization_authorizations": [
+   [
+    "agent_id"
+   ]
+  ],
+  "ai_active_context_connections": [
+   [
+    "name"
+   ]
+  ],
+  "ai_audit_events": [
+   [
+    "created_at",
+    "cloud_event_id"
+   ]
+  ],
+  "ai_catalog_item_consumers": [
+   [
+    "service_account_id"
+   ]
+  ],
+  "ai_events_counts": [
+   [
+    "events_date",
+    "namespace_id",
+    "user_id",
+    "event"
+   ]
+  ],
+  "ai_feature_settings": [
+   [
+    "feature"
+   ]
+  ],
+  "ai_namespace_feature_access_rules": [
+   [
+    "through_namespace_id",
+    "accessible_entity"
+   ]
+  ],
+  "ai_self_hosted_models": [
+   [
+    "name"
+   ]
+  ],
+  "analytics_dashboards_pointers": [
+   [
+    "namespace_id"
+   ],
+   [
+    "project_id"
+   ]
+  ],
+  "analytics_usage_trends_measurements": [
+   [
+    "recorded_at",
+    "identifier"
+   ]
+  ],
+  "atlassian_identities": [
+   [
+    "extern_uid"
+   ]
+  ],
+  "audit_events_instance_amazon_s3_configurations": [
+   [
+    "name"
+   ],
+   [
+    "bucket_name"
+   ]
+  ],
+  "audit_events_instance_external_audit_event_destinations": [
+   [
+    "name"
+   ]
+  ],
+  "audit_events_instance_external_streaming_destinations": [
+   [
+    "category",
+    "name"
+   ]
+  ],
+  "audit_events_instance_google_cloud_logging_configurations": [
+   [
+    "google_project_id_name",
+    "log_id_name"
+   ],
+   [
+    "name"
+   ]
+  ],
+  "aws_roles": [
+   [
+    "role_external_id"
+   ]
+  ],
+  "batched_background_migrations": [
+   [
+    "job_class_name",
+    "table_name",
+    "column_name",
+    "job_arguments"
+   ],
+   [
+    "job_class_name",
+    "table_name",
+    "column_name",
+    "job_arguments",
+    "gitlab_schema"
+   ],
+   [
+    "queued_migration_version"
+   ]
+  ],
+  "billable_usage_daily_totals": [
+   [
+    "usage_date",
+    "event_type",
+    "feature_qualified_name",
+    "operation_type"
+   ]
+  ],
+  "catalog_bundled_resources": [
+   [
+    "server_fqdn",
+    "full_path"
+   ]
+  ],
+  "ci_build_pending_states": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_build_trace_chunks": [
+   [
+    "chunk_index",
+    "build_id"
+   ]
+  ],
+  "ci_builds_runner_session": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_gitlab_hosted_runner_monthly_usages": [
+   [
+    "runner_id",
+    "project_id",
+    "root_namespace_id",
+    "billing_month"
+   ]
+  ],
+  "ci_instance_variables": [
+   [
+    "key"
+   ]
+  ],
+  "ci_job_variables": [
+   [
+    "key",
+    "job_id"
+   ]
+  ],
+  "ci_pending_builds": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_pipeline_artifacts": [
+   [
+    "pipeline_id",
+    "file_type"
+   ]
+  ],
+  "ci_pipeline_chat_data": [
+   [
+    "pipeline_id"
+   ]
+  ],
+  "ci_runner_taggings_group_type": [
+   [
+    "tag_id",
+    "runner_id",
+    "runner_type"
+   ]
+  ],
+  "ci_runner_taggings_project_type": [
+   [
+    "tag_id",
+    "runner_id",
+    "runner_type"
+   ]
+  ],
+  "ci_running_builds": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "design_management_designs": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "design_management_repositories": [
+   [
+    "project_id"
+   ]
+  ],
+  "duo_agent_platform_functional_verification_runs": [
+   [
+    "check_type"
+   ]
+  ],
+  "duo_workflows_events": [
+   [
+    "project_id",
+    "correlation_id_value"
+   ]
+  ],
+  "elastic_index_settings": [
+   [
+    "alias_name"
+   ]
+  ],
+  "emails": [
+   [
+    "email"
+   ]
+  ],
+  "feature_gates": [
+   [
+    "feature_key",
+    "key",
+    "value"
+   ]
+  ],
+  "features": [
+   [
+    "key"
+   ]
+  ],
+  "geo_ci_job_artifact_verification_summaries": [
+   [
+    "bucket_number"
+   ]
+  ],
+  "geo_nodes": [
+   [
+    "name"
+   ]
+  ],
+  "gpg_key_subkeys": [
+   [
+    "keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "gpg_keys": [
+   [
+    "primary_keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "group_secrets_manager_maintenance_tasks": [
+   [
+    "group_id"
+   ]
+  ],
+  "group_type_ci_runner_machines": [
+   [
+    "runner_id",
+    "runner_type",
+    "system_xid"
+   ]
+  ],
+  "group_wiki_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "instance_model_selection_feature_settings": [
+   [
+    "feature"
+   ]
+  ],
+  "integrations": [
+   [
+    "project_id",
+    "type_new"
+   ]
+  ],
+  "issues": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "lfs_objects": [
+   [
+    "oid"
+   ]
+  ],
+  "milestones": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "namespace_import_users": [
+   [
+    "user_id"
+   ]
+  ],
+  "namespaces": [
+   [
+    "name",
+    "type",
+    "parent_id"
+   ],
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "oauth_applications": [
+   [
+    "uid"
+   ]
+  ],
+  "oauth_consents": [
+   [
+    "consent_challenge"
+   ]
+  ],
+  "oauth_device_grants": [
+   [
+    "device_code"
+   ],
+   [
+    "user_code"
+   ]
+  ],
+  "observability_traces_issues_connections": [
+   [
+    "issue_id",
+    "trace_identifier"
+   ]
+  ],
+  "organization_cluster_agent_mappings": [
+   [
+    "cluster_agent_id"
+   ]
+  ],
+  "p_ci_build_needs": [
+   [
+    "name",
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "p_ci_job_annotations": [
+   [
+    "partition_id",
+    "job_id",
+    "name"
+   ]
+  ],
+  "p_ci_job_artifacts": [
+   [
+    "file_type",
+    "job_id",
+    "partition_id"
+   ]
+  ],
+  "p_ci_job_inputs": [
+   [
+    "job_id",
+    "partition_id",
+    "name"
+   ]
+  ],
+  "p_ci_pipeline_variables": [
+   [
+    "key",
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "p_ci_stages": [
+   [
+    "name",
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "p_ci_workloads": [
+   [
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "pages_domains": [
+   [
+    "domain",
+    "wildcard"
+   ]
+  ],
+  "plans": [
+   [
+    "name"
+   ],
+   [
+    "plan_name_uid"
+   ]
+  ],
+  "pm_advisories": [
+   [
+    "advisory_xid",
+    "source_xid"
+   ]
+  ],
+  "pm_checkpoints": [
+   [
+    "purl_type",
+    "data_type",
+    "version_format"
+   ]
+  ],
+  "pm_cve_enrichment": [
+   [
+    "cve"
+   ]
+  ],
+  "pm_licenses": [
+   [
+    "spdx_identifier"
+   ],
+   [
+    "spdx_expression"
+   ]
+  ],
+  "pm_malware_advisories": [
+   [
+    "source_xid",
+    "advisory_xid"
+   ]
+  ],
+  "pm_packages": [
+   [
+    "purl_type",
+    "name"
+   ]
+  ],
+  "pool_repositories": [
+   [
+    "shard_id",
+    "disk_path"
+   ]
+  ],
+  "postgres_async_foreign_key_validations": [
+   [
+    "name",
+    "table_name"
+   ]
+  ],
+  "postgres_async_indexes": [
+   [
+    "name"
+   ]
+  ],
+  "programming_languages": [
+   [
+    "name"
+   ],
+   [
+    "language_id"
+   ]
+  ],
+  "project_aliases": [
+   [
+    "name"
+   ]
+  ],
+  "project_compliance_violations_issues": [
+   [
+    "project_compliance_violation_id",
+    "issue_id"
+   ]
+  ],
+  "project_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "project_secrets_manager_maintenance_tasks": [
+   [
+    "project_id"
+   ]
+  ],
+  "project_type_ci_runner_machines": [
+   [
+    "runner_id",
+    "runner_type",
+    "system_xid"
+   ]
+  ],
+  "protected_environments": [
+   [
+    "project_id",
+    "name"
+   ]
+  ],
+  "redirect_routes": [
+   [
+    "path"
+   ]
+  ],
+  "requirements": [
+   [
+    "issue_id"
+   ]
+  ],
+  "routes": [
+   [
+    "source_id",
+    "source_type"
+   ],
+   [
+    "path"
+   ]
+  ],
+  "service_desk_settings": [
+   [
+    "custom_email"
+   ]
+  ],
+  "shards": [
+   [
+    "name"
+   ]
+  ],
+  "slack_integrations": [
+   [
+    "team_id",
+    "alias",
+    "organization_id"
+   ],
+   [
+    "team_id",
+    "alias",
+    "project_id"
+   ]
+  ],
+  "smartcard_identities": [
+   [
+    "subject",
+    "issuer"
+   ]
+  ],
+  "snippet_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "subscription_add_ons": [
+   [
+    "name"
+   ]
+  ],
+  "tags": [
+   [
+    "name"
+   ]
+  ],
+  "user_preferences": [
+   [
+    "default_duo_add_on_assignment_id"
+   ]
+  ],
+  "users": [
+   [
+    "email"
+   ]
+  ],
+  "virtual_registries_packages_maven_cache_remote_entry_states": [
+   [
+    "virtual_registries_packages_maven_cache_remote_entry_iid"
+   ]
+  ],
+  "webauthn_registrations": [
+   [
+    "credential_xid"
+   ]
+  ],
+  "workspaces": [
+   [
+    "name"
+   ]
+  ]
+ },
+ "lower_no_column": {
+  "ai_active_context_connections": [
+   [
+    "name"
+   ]
+  ],
+  "ai_feature_settings": [
+   [
+    "feature"
+   ]
+  ],
+  "ai_self_hosted_models": [
+   [
+    "name"
+   ]
+  ],
+  "analytics_dashboards_pointers": [
+   [
+    "project_id"
+   ]
+  ],
+  "analytics_usage_trends_measurements": [
+   [
+    "recorded_at",
+    "identifier"
+   ]
+  ],
+  "atlassian_identities": [
+   [
+    "extern_uid"
+   ]
+  ],
+  "audit_events_instance_amazon_s3_configurations": [
+   [
+    "name"
+   ],
+   [
+    "bucket_name"
+   ]
+  ],
+  "audit_events_instance_external_audit_event_destinations": [
+   [
+    "name"
+   ]
+  ],
+  "audit_events_instance_external_streaming_destinations": [
+   [
+    "category",
+    "name"
+   ]
+  ],
+  "audit_events_instance_google_cloud_logging_configurations": [
+   [
+    "google_project_id_name",
+    "log_id_name"
+   ],
+   [
+    "name"
+   ]
+  ],
+  "aws_roles": [
+   [
+    "role_external_id"
+   ]
+  ],
+  "batched_background_migrations": [
+   [
+    "job_class_name",
+    "table_name",
+    "column_name",
+    "job_arguments"
+   ],
+   [
+    "job_class_name",
+    "table_name",
+    "column_name",
+    "job_arguments",
+    "gitlab_schema"
+   ],
+   [
+    "queued_migration_version"
+   ]
+  ],
+  "billable_usage_daily_totals": [
+   [
+    "usage_date",
+    "event_type",
+    "feature_qualified_name",
+    "operation_type"
+   ]
+  ],
+  "catalog_bundled_resources": [
+   [
+    "server_fqdn",
+    "full_path"
+   ]
+  ],
+  "ci_gitlab_hosted_runner_monthly_usages": [
+   [
+    "runner_id",
+    "project_id",
+    "root_namespace_id",
+    "billing_month"
+   ]
+  ],
+  "ci_instance_variables": [
+   [
+    "key"
+   ]
+  ],
+  "ci_runner_controller_tokens": [
+   [
+    "token_digest"
+   ]
+  ],
+  "ci_triggers": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "cluster_agent_tokens": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "content_blocked_states": [
+   [
+    "commit_sha",
+    "path",
+    "container_identifier"
+   ]
+  ],
+  "deploy_tokens": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "design_management_designs": [
+   [
+    "issue_id",
+    "filename"
+   ]
+  ],
+  "duo_agent_platform_functional_verification_runs": [
+   [
+    "check_type"
+   ]
+  ],
+  "elastic_index_settings": [
+   [
+    "alias_name"
+   ]
+  ],
+  "emails": [
+   [
+    "email"
+   ]
+  ],
+  "events": [
+   [
+    "target_type",
+    "fingerprint",
+    "target_id"
+   ]
+  ],
+  "feature_gates": [
+   [
+    "feature_key",
+    "key",
+    "value"
+   ]
+  ],
+  "features": [
+   [
+    "key"
+   ]
+  ],
+  "geo_ci_job_artifact_verification_summaries": [
+   [
+    "bucket_number"
+   ]
+  ],
+  "geo_nodes": [
+   [
+    "name"
+   ]
+  ],
+  "gpg_key_subkeys": [
+   [
+    "keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "gpg_keys": [
+   [
+    "primary_keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "group_secrets_manager_maintenance_tasks": [
+   [
+    "group_id"
+   ]
+  ],
+  "group_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "group_wiki_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "instance_model_selection_feature_settings": [
+   [
+    "feature"
+   ]
+  ],
+  "instance_ssh_certificates": [
+   [
+    "fingerprint"
+   ]
+  ],
+  "instance_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "issues": [
+   [
+    "iid",
+    "namespace_id"
+   ]
+  ],
+  "keys": [
+   [
+    "fingerprint_sha256"
+   ]
+  ],
+  "lfs_objects": [
+   [
+    "oid"
+   ]
+  ],
+  "members": [
+   [
+    "invite_token"
+   ]
+  ],
+  "mobile_device_push_subscriptions": [
+   [
+    "apns_environment",
+    "device_token"
+   ]
+  ],
+  "namespace_import_users": [
+   [
+    "namespace_id"
+   ]
+  ],
+  "namespaces": [
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "oauth_access_grants": [
+   [
+    "token"
+   ]
+  ],
+  "oauth_access_tokens": [
+   [
+    "token"
+   ],
+   [
+    "refresh_token"
+   ]
+  ],
+  "oauth_applications": [
+   [
+    "uid"
+   ]
+  ],
+  "oauth_consents": [
+   [
+    "consent_challenge"
+   ]
+  ],
+  "oauth_device_grants": [
+   [
+    "device_code"
+   ],
+   [
+    "user_code"
+   ]
+  ],
+  "organizations": [
+   [
+    "uuid"
+   ]
+  ],
+  "pages_domains": [
+   [
+    "domain",
+    "wildcard"
+   ]
+  ],
+  "personal_access_tokens": [
+   [
+    "token_digest"
+   ]
+  ],
+  "plans": [
+   [
+    "name"
+   ],
+   [
+    "plan_name_uid"
+   ]
+  ],
+  "pm_advisories": [
+   [
+    "advisory_xid",
+    "source_xid"
+   ]
+  ],
+  "pm_checkpoints": [
+   [
+    "purl_type",
+    "data_type",
+    "version_format"
+   ]
+  ],
+  "pm_cve_enrichment": [
+   [
+    "cve"
+   ]
+  ],
+  "pm_licenses": [
+   [
+    "spdx_identifier"
+   ],
+   [
+    "spdx_expression"
+   ]
+  ],
+  "pm_malware_advisories": [
+   [
+    "source_xid",
+    "advisory_xid"
+   ]
+  ],
+  "pm_packages": [
+   [
+    "purl_type",
+    "name"
+   ]
+  ],
+  "postgres_async_foreign_key_validations": [
+   [
+    "name",
+    "table_name"
+   ]
+  ],
+  "postgres_async_indexes": [
+   [
+    "name"
+   ]
+  ],
+  "programming_languages": [
+   [
+    "name"
+   ],
+   [
+    "language_id"
+   ]
+  ],
+  "project_aliases": [
+   [
+    "name"
+   ]
+  ],
+  "project_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "project_secrets_manager_maintenance_tasks": [
+   [
+    "project_id"
+   ]
+  ],
+  "project_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "projects": [
+   [
+    "runners_token"
+   ],
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "redirect_routes": [
+   [
+    "path"
+   ]
+  ],
+  "routes": [
+   [
+    "source_id",
+    "source_type"
+   ],
+   [
+    "path"
+   ]
+  ],
+  "sbom_occurrences": [
+   [
+    "uuid"
+   ]
+  ],
+  "security_finding_enrichments": [
+   [
+    "finding_uuid",
+    "cve"
+   ]
+  ],
+  "service_desk_settings": [
+   [
+    "custom_email"
+   ]
+  ],
+  "shards": [
+   [
+    "name"
+   ]
+  ],
+  "slack_integrations": [
+   [
+    "team_id",
+    "alias",
+    "group_id"
+   ],
+   [
+    "team_id",
+    "alias",
+    "project_id"
+   ]
+  ],
+  "smartcard_identities": [
+   [
+    "subject",
+    "issuer"
+   ]
+  ],
+  "snippet_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "subscription_add_ons": [
+   [
+    "name"
+   ]
+  ],
+  "tags": [
+   [
+    "name"
+   ]
+  ],
+  "terraform_states": [
+   [
+    "uuid"
+   ]
+  ],
+  "user_preferences": [
+   [
+    "default_duo_add_on_assignment_id"
+   ]
+  ],
+  "users": [
+   [
+    "email"
+   ]
+  ],
+  "vulnerability_occurrences": [
+   [
+    "uuid"
+   ]
+  ],
+  "vulnerability_reads": [
+   [
+    "uuid"
+   ]
+  ],
+  "webauthn_registrations": [
+   [
+    "credential_xid"
+   ]
+  ],
+  "workspaces": [
+   [
+    "name"
+   ]
+  ],
+  "zoekt_nodes": [
+   [
+    "uuid"
+   ]
+  ]
+ },
+ "lower_cols_missing": [
+  [
+   "id",
+   25
+  ],
+  [
+   "name",
+   23
+  ],
+  [
+   "project_id",
+   11
+  ],
+  [
+   "partition_id",
+   11
+  ],
+  [
+   "build_id",
+   10
+  ],
+  [
+   "runner_type",
+   8
+  ],
+  [
+   "uuid",
+   8
+  ],
+  [
+   "runner_id",
+   5
+  ],
+  [
+   "key",
+   5
+  ],
+  [
+   "pipeline_id",
+   5
+  ],
+  [
+   "token_encrypted",
+   5
+  ],
+  [
+   "job_id",
+   4
+  ],
+  [
+   "fingerprint",
+   4
+  ],
+  [
+   "disk_path",
+   4
+  ],
+  [
+   "issue_id",
+   4
+  ],
+  [
+   "table_name",
+   3
+  ],
+  [
+   "path",
+   3
+  ],
+  [
+   "iid",
+   3
+  ],
+  [
+   "namespace_id",
+   2
+  ],
+  [
+   "user_id",
+   2
+  ],
+  [
+   "feature",
+   2
+  ],
+  [
+   "job_class_name",
+   2
+  ],
+  [
+   "column_name",
+   2
+  ],
+  [
+   "job_arguments",
+   2
+  ],
+  [
+   "file_type",
+   2
+  ],
+  [
+   "token_digest",
+   2
+  ],
+  [
+   "tag_id",
+   2
+  ],
+  [
+   "email",
+   2
+  ],
+  [
+   "system_xid",
+   2
+  ],
+  [
+   "runners_token_encrypted",
+   2
+  ]
+ ],
+ "upper": {
+  "tables": 1127,
+  "tables_with_unique_keys": 668,
+  "unique_keys": 780,
+  "no_feasible": 0,
+  "chosen_checkable_all": 1003,
+  "chosen_contained_all": 749,
+  "some_feasible_column_checkable": 1077,
+  "some_feasible_column_contained": 1068,
+  "no_column_checkable_but_generated": 17,
+  "tables_missing": 124,
+  "tables_missing_only_generated": 44,
+  "tables_missing_chosen_values": 80,
+  "keys_missing": 144,
+  "keys_missing_generated": 53
+ },
+ "upper_missing": {
+  "agent_organization_authorizations": [
+   [
+    "agent_id"
+   ]
+  ],
+  "ai_active_context_connections": [
+   [
+    "name"
+   ]
+  ],
+  "ai_audit_events": [
+   [
+    "created_at",
+    "cloud_event_id"
+   ]
+  ],
+  "ai_catalog_item_consumers": [
+   [
+    "service_account_id"
+   ]
+  ],
+  "ai_events_counts": [
+   [
+    "events_date",
+    "namespace_id",
+    "user_id",
+    "event"
+   ]
+  ],
+  "ai_namespace_feature_access_rules": [
+   [
+    "through_namespace_id",
+    "accessible_entity"
+   ]
+  ],
+  "ai_self_hosted_models": [
+   [
+    "name"
+   ]
+  ],
+  "analytics_dashboards_pointers": [
+   [
+    "namespace_id"
+   ],
+   [
+    "project_id"
+   ]
+  ],
+  "atlassian_identities": [
+   [
+    "extern_uid"
+   ]
+  ],
+  "audit_events_instance_amazon_s3_configurations": [
+   [
+    "name"
+   ],
+   [
+    "bucket_name"
+   ]
+  ],
+  "audit_events_instance_external_audit_event_destinations": [
+   [
+    "name"
+   ]
+  ],
+  "audit_events_instance_google_cloud_logging_configurations": [
+   [
+    "google_project_id_name",
+    "log_id_name"
+   ],
+   [
+    "name"
+   ]
+  ],
+  "aws_roles": [
+   [
+    "role_external_id"
+   ]
+  ],
+  "batched_background_migrations": [
+   [
+    "queued_migration_version"
+   ]
+  ],
+  "ci_build_pending_states": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_build_trace_chunks": [
+   [
+    "chunk_index",
+    "build_id"
+   ]
+  ],
+  "ci_builds_runner_session": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_job_variables": [
+   [
+    "key",
+    "job_id"
+   ]
+  ],
+  "ci_pending_builds": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "ci_pipeline_artifacts": [
+   [
+    "pipeline_id",
+    "file_type"
+   ]
+  ],
+  "ci_pipeline_chat_data": [
+   [
+    "pipeline_id"
+   ]
+  ],
+  "ci_runner_taggings_group_type": [
+   [
+    "tag_id",
+    "runner_id",
+    "runner_type"
+   ]
+  ],
+  "ci_runner_taggings_project_type": [
+   [
+    "tag_id",
+    "runner_id",
+    "runner_type"
+   ]
+  ],
+  "ci_running_builds": [
+   [
+    "build_id"
+   ],
+   [
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "design_management_designs": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "design_management_repositories": [
+   [
+    "project_id"
+   ]
+  ],
+  "duo_agent_platform_functional_verification_runs": [
+   [
+    "check_type"
+   ]
+  ],
+  "duo_workflows_events": [
+   [
+    "project_id",
+    "correlation_id_value"
+   ]
+  ],
+  "elastic_index_settings": [
+   [
+    "alias_name"
+   ]
+  ],
+  "emails": [
+   [
+    "email"
+   ]
+  ],
+  "geo_nodes": [
+   [
+    "name"
+   ]
+  ],
+  "gpg_key_subkeys": [
+   [
+    "keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "gpg_keys": [
+   [
+    "primary_keyid"
+   ],
+   [
+    "fingerprint"
+   ]
+  ],
+  "group_type_ci_runner_machines": [
+   [
+    "runner_id",
+    "runner_type",
+    "system_xid"
+   ]
+  ],
+  "group_wiki_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "integrations": [
+   [
+    "project_id",
+    "type_new"
+   ]
+  ],
+  "issues": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "milestones": [
+   [
+    "project_id",
+    "iid"
+   ]
+  ],
+  "namespace_import_users": [
+   [
+    "user_id"
+   ]
+  ],
+  "namespaces": [
+   [
+    "name",
+    "type",
+    "parent_id"
+   ],
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "oauth_applications": [
+   [
+    "uid"
+   ]
+  ],
+  "oauth_consents": [
+   [
+    "consent_challenge"
+   ]
+  ],
+  "oauth_device_grants": [
+   [
+    "device_code"
+   ],
+   [
+    "user_code"
+   ]
+  ],
+  "observability_traces_issues_connections": [
+   [
+    "issue_id",
+    "trace_identifier"
+   ]
+  ],
+  "organization_cluster_agent_mappings": [
+   [
+    "cluster_agent_id"
+   ]
+  ],
+  "p_ci_build_needs": [
+   [
+    "name",
+    "build_id",
+    "partition_id"
+   ]
+  ],
+  "p_ci_job_annotations": [
+   [
+    "partition_id",
+    "job_id",
+    "name"
+   ]
+  ],
+  "p_ci_job_artifacts": [
+   [
+    "file_type",
+    "job_id",
+    "partition_id"
+   ]
+  ],
+  "p_ci_job_inputs": [
+   [
+    "job_id",
+    "partition_id",
+    "name"
+   ]
+  ],
+  "p_ci_pipeline_variables": [
+   [
+    "key",
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "p_ci_stages": [
+   [
+    "name",
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "p_ci_workloads": [
+   [
+    "partition_id",
+    "pipeline_id"
+   ]
+  ],
+  "pages_domains": [
+   [
+    "domain",
+    "wildcard"
+   ]
+  ],
+  "plans": [
+   [
+    "name"
+   ],
+   [
+    "plan_name_uid"
+   ]
+  ],
+  "pm_licenses": [
+   [
+    "spdx_expression"
+   ]
+  ],
+  "pool_repositories": [
+   [
+    "shard_id",
+    "disk_path"
+   ]
+  ],
+  "postgres_async_foreign_key_validations": [
+   [
+    "name",
+    "table_name"
+   ]
+  ],
+  "postgres_async_indexes": [
+   [
+    "name"
+   ]
+  ],
+  "programming_languages": [
+   [
+    "name"
+   ]
+  ],
+  "project_aliases": [
+   [
+    "name"
+   ]
+  ],
+  "project_compliance_violations_issues": [
+   [
+    "project_compliance_violation_id",
+    "issue_id"
+   ]
+  ],
+  "project_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "project_secrets_manager_maintenance_tasks": [
+   [
+    "project_id"
+   ]
+  ],
+  "project_type_ci_runner_machines": [
+   [
+    "runner_id",
+    "runner_type",
+    "system_xid"
+   ]
+  ],
+  "protected_environments": [
+   [
+    "project_id",
+    "name"
+   ]
+  ],
+  "redirect_routes": [
+   [
+    "path"
+   ]
+  ],
+  "requirements": [
+   [
+    "issue_id"
+   ]
+  ],
+  "routes": [
+   [
+    "source_id",
+    "source_type"
+   ],
+   [
+    "path"
+   ]
+  ],
+  "service_desk_settings": [
+   [
+    "custom_email"
+   ]
+  ],
+  "shards": [
+   [
+    "name"
+   ]
+  ],
+  "slack_integrations": [
+   [
+    "team_id",
+    "alias",
+    "organization_id"
+   ],
+   [
+    "team_id",
+    "alias",
+    "project_id"
+   ]
+  ],
+  "smartcard_identities": [
+   [
+    "subject",
+    "issuer"
+   ]
+  ],
+  "snippet_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "subscription_add_ons": [
+   [
+    "name"
+   ]
+  ],
+  "tags": [
+   [
+    "name"
+   ]
+  ],
+  "user_preferences": [
+   [
+    "default_duo_add_on_assignment_id"
+   ]
+  ],
+  "users": [
+   [
+    "email"
+   ]
+  ],
+  "virtual_registries_packages_maven_cache_remote_entry_states": [
+   [
+    "virtual_registries_packages_maven_cache_remote_entry_iid"
+   ]
+  ],
+  "webauthn_registrations": [
+   [
+    "credential_xid"
+   ]
+  ],
+  "workspaces": [
+   [
+    "name"
+   ]
+  ]
+ },
+ "upper_no_column": {
+  "ai_active_context_connections": [
+   [
+    "name"
+   ]
+  ],
+  "ai_self_hosted_models": [
+   [
+    "name"
+   ]
+  ],
+  "analytics_dashboards_pointers": [
+   [
+    "project_id"
+   ]
+  ],
+  "audit_events_instance_amazon_s3_configurations": [
+   [
+    "name"
+   ],
+   [
+    "bucket_name"
+   ]
+  ],
+  "audit_events_instance_external_audit_event_destinations": [
+   [
+    "name"
+   ]
+  ],
+  "audit_events_instance_google_cloud_logging_configurations": [
+   [
+    "google_project_id_name",
+    "log_id_name"
+   ],
+   [
+    "name"
+   ]
+  ],
+  "batched_background_migrations": [
+   [
+    "queued_migration_version"
+   ]
+  ],
+  "ci_runner_controller_tokens": [
+   [
+    "token_digest"
+   ]
+  ],
+  "ci_triggers": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "cluster_agent_tokens": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "deploy_tokens": [
+   [
+    "token_encrypted"
+   ]
+  ],
+  "design_management_designs": [
+   [
+    "issue_id",
+    "filename"
+   ]
+  ],
+  "duo_agent_platform_functional_verification_runs": [
+   [
+    "check_type"
+   ]
+  ],
+  "elastic_index_settings": [
+   [
+    "alias_name"
+   ]
+  ],
+  "emails": [
+   [
+    "email"
+   ]
+  ],
+  "geo_nodes": [
+   [
+    "name"
+   ]
+  ],
+  "gpg_key_subkeys": [
+   [
+    "fingerprint"
+   ]
+  ],
+  "gpg_keys": [
+   [
+    "fingerprint"
+   ]
+  ],
+  "group_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "group_wiki_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "instance_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "members": [
+   [
+    "invite_token"
+   ]
+  ],
+  "namespace_import_users": [
+   [
+    "namespace_id"
+   ]
+  ],
+  "namespaces": [
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "oauth_access_grants": [
+   [
+    "token"
+   ]
+  ],
+  "oauth_access_tokens": [
+   [
+    "token"
+   ],
+   [
+    "refresh_token"
+   ]
+  ],
+  "oauth_device_grants": [
+   [
+    "user_code"
+   ]
+  ],
+  "personal_access_tokens": [
+   [
+    "token_digest"
+   ]
+  ],
+  "plans": [
+   [
+    "name"
+   ],
+   [
+    "plan_name_uid"
+   ]
+  ],
+  "pm_licenses": [
+   [
+    "spdx_expression"
+   ]
+  ],
+  "postgres_async_foreign_key_validations": [
+   [
+    "name",
+    "table_name"
+   ]
+  ],
+  "postgres_async_indexes": [
+   [
+    "name"
+   ]
+  ],
+  "programming_languages": [
+   [
+    "name"
+   ]
+  ],
+  "project_aliases": [
+   [
+    "name"
+   ]
+  ],
+  "project_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "project_secrets_manager_maintenance_tasks": [
+   [
+    "project_id"
+   ]
+  ],
+  "project_type_ci_runners": [
+   [
+    "id"
+   ]
+  ],
+  "projects": [
+   [
+    "runners_token"
+   ],
+   [
+    "runners_token_encrypted"
+   ]
+  ],
+  "redirect_routes": [
+   [
+    "path"
+   ]
+  ],
+  "routes": [
+   [
+    "path"
+   ],
+   [
+    "namespace_id"
+   ]
+  ],
+  "service_desk_settings": [
+   [
+    "custom_email"
+   ]
+  ],
+  "shards": [
+   [
+    "name"
+   ]
+  ],
+  "snippet_repositories": [
+   [
+    "disk_path"
+   ]
+  ],
+  "subscription_add_ons": [
+   [
+    "name"
+   ]
+  ],
+  "tags": [
+   [
+    "name"
+   ]
+  ],
+  "terraform_states": [
+   [
+    "uuid"
+   ]
+  ],
+  "user_preferences": [
+   [
+    "default_duo_add_on_assignment_id"
+   ]
+  ],
+  "users": [
+   [
+    "email"
+   ]
+  ],
+  "vulnerability_reads": [
+   [
+    "uuid"
+   ]
+  ],
+  "workspaces": [
+   [
+    "name"
+   ]
+  ]
+ },
+ "upper_cols_missing": [
+  [
+   "id",
+   25
+  ],
+  [
+   "name",
+   21
+  ],
+  [
+   "partition_id",
+   11
+  ],
+  [
+   "project_id",
+   10
+  ],
+  [
+   "build_id",
+   10
+  ],
+  [
+   "runner_type",
+   8
+  ],
+  [
+   "uuid",
+   7
+  ],
+  [
+   "pipeline_id",
+   5
+  ],
+  [
+   "token_encrypted",
+   5
+  ],
+  [
+   "job_id",
+   4
+  ],
+  [
+   "runner_id",
+   4
+  ],
+  [
+   "disk_path",
+   4
+  ],
+  [
+   "issue_id",
+   4
+  ],
+  [
+   "iid",
+   3
+  ],
+  [
+   "fingerprint",
+   3
+  ],
+  [
+   "namespace_id",
+   2
+  ],
+  [
+   "user_id",
+   2
+  ],
+  [
+   "key",
+   2
+  ],
+  [
+   "file_type",
+   2
+  ],
+  [
+   "token_digest",
+   2
+  ],
+  [
+   "tag_id",
+   2
+  ],
+  [
+   "email",
+   2
+  ],
+  [
+   "system_xid",
+   2
+  ],
+  [
+   "runners_token_encrypted",
+   2
+  ],
+  [
+   "token",
+   2
+  ],
+  [
+   "trace_identifier",
+   2
+  ],
+  [
+   "path",
+   2
+  ],
+  [
+   "team_id",
+   2
+  ],
+  [
+   "alias",
+   2
+  ],
+  [
+   "agent_id",
+   1
+  ]
+ ]
+}

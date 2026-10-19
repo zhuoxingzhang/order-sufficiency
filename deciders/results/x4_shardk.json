@@ -1,0 +1,1942 @@
+{
+ "precise": {
+  "copies": 1329,
+  "by_evidence": {
+   "triangle": 1234,
+   "assigned": 73,
+   "created": 19,
+   "pushed": 3
+  },
+  "by_source": {
+   "code": {
+    "copies": 95,
+    "violate_cond4": 43,
+    "violate_cond4_carried": 29,
+    "two_mutable": 43,
+    "two_mutable_carried": 29
+   },
+   "sk": {
+    "copies": 808,
+    "violate_cond4": 83,
+    "violate_cond4_carried": 64,
+    "two_mutable": 73,
+    "two_mutable_carried": 58
+   },
+   "heur": {
+    "copies": 426,
+    "violate_cond4": 70,
+    "violate_cond4_carried": 40,
+    "two_mutable": 47,
+    "two_mutable_carried": 28
+   }
+  },
+  "source_mutable": 588,
+  "copy_mutable": 253,
+  "pointer_mutable": 154,
+  "violate_cond4": 196,
+  "violate_cond4_carried": 133,
+  "two_mutable": 163,
+  "two_mutable_carried": 115,
+  "gap_only": 33,
+  "two_mutable_by_pair": [
+   [
+    "p_ci_builds->p_ci_pipelines",
+    6
+   ],
+   [
+    "integrations->integrations",
+    3
+   ],
+   [
+    "notes->users",
+    3
+   ],
+   [
+    "notes->projects",
+    3
+   ],
+   [
+    "projects->users",
+    3
+   ],
+   [
+    "todos->notes",
+    3
+   ],
+   [
+    "web_hooks->integrations",
+    3
+   ],
+   [
+    "work_item_custom_lifecycles->work_item_custom_statuses",
+    3
+   ],
+   [
+    "work_item_dates_sources->issues",
+    3
+   ],
+   [
+    "work_item_transitions->issues",
+    3
+   ],
+   [
+    "ai_catalog_items->ai_catalog_item_versions",
+    2
+   ],
+   [
+    "board_labels->labels",
+    2
+   ],
+   [
+    "bulk_import_entities->bulk_import_entities",
+    2
+   ],
+   [
+    "draft_notes->merge_requests",
+    2
+   ],
+   [
+    "epics->issues",
+    2
+   ],
+   [
+    "issues->issues",
+    2
+   ],
+   [
+    "lists->labels",
+    2
+   ],
+   [
+    "p_ci_builds->p_ci_stages",
+    2
+   ],
+   [
+    "p_ci_job_runtime_environments->p_ci_builds",
+    2
+   ],
+   [
+    "projects->namespaces",
+    2
+   ],
+   [
+    "resource_iteration_events->issues",
+    2
+   ],
+   [
+    "routes->namespaces",
+    2
+   ],
+   [
+    "security_scans->p_ci_builds",
+    2
+   ],
+   [
+    "timelogs->notes",
+    2
+   ],
+   [
+    "todos->users",
+    2
+   ],
+   [
+    "vulnerability_occurrences->p_ci_pipelines",
+    2
+   ],
+   [
+    "vulnerability_partial_scans->security_scans",
+    2
+   ],
+   [
+    "ai_catalog_item_versions->ai_catalog_items",
+    1
+   ],
+   [
+    "ai_catalog_item_versions->users",
+    1
+   ],
+   [
+    "ai_catalog_items->projects",
+    1
+   ],
+   [
+    "ai_conversation_messages->ai_conversation_threads",
+    1
+   ],
+   [
+    "ai_conversation_threads->users",
+    1
+   ],
+   [
+    "ai_suggested_reviewers->merge_requests",
+    1
+   ],
+   [
+    "bulk_import_entities->namespaces",
+    1
+   ],
+   [
+    "bulk_import_entities->projects",
+    1
+   ],
+   [
+    "bulk_import_failures->bulk_import_entities",
+    1
+   ],
+   [
+    "catalog_resource_versions->releases",
+    1
+   ],
+   [
+    "catalog_resources->projects",
+    1
+   ],
+   [
+    "ci_build_pending_states->p_ci_builds",
+    1
+   ],
+   [
+    "ci_build_trace_chunks->p_ci_builds",
+    1
+   ]
+  ],
+  "not_carried": [
+   "ai_catalog_item_versions[created_by_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_catalog_items[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "ai_conversation_threads[user_id,organization_id] <= users[organization_id] (triangle)",
+   "ci_build_pending_states[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "ci_build_trace_chunks[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "ci_job_variables[job_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "fork_networks[root_project_id,organization_id] <= projects[organization_id] (triangle)",
+   "granular_scopes[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "issues[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "keys[user_id,organization_id] <= users[organization_id] (triangle)",
+   "namespaces[owner_id,organization_id] <= users[organization_id] (triangle)",
+   "namespaces[parent_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "notes[author_id,organization_id] <= users[organization_id] (triangle)",
+   "notes[resolved_by_id,organization_id] <= users[organization_id] (triangle)",
+   "notes[updated_by_id,organization_id] <= users[organization_id] (triangle)",
+   "observability_metrics_issues_connections[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "p_ci_build_needs[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_build_trace_metadata[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_builds[auto_canceled_by_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[commit_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "p_ci_builds[commit_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[partition_id,project_id] <= p_ci_stages[project_id] (triangle)",
+   "p_ci_builds[stage_id,project_id] <= p_ci_stages[project_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_job_annotations[job_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_job_runtime_environments[['build_id', 'partition_id'],project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_pipeline_variables[pipeline_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "p_ci_runner_machine_builds[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_stages[pipeline_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "p_sent_notifications[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "pool_repositories[source_project_id,organization_id] <= projects[organization_id] (assigned)",
+   "projects[creator_id,organization_id] <= users[organization_id] (triangle)",
+   "projects[marked_for_deletion_by_user_id,organization_id] <= users[organization_id] (triangle)",
+   "projects[mirror_user_id,organization_id] <= users[organization_id] (triangle)",
+   "projects[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "projects[pool_repository_id,organization_id] <= pool_repositories[organization_id] (triangle)",
+   "projects[project_namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "security_findings[uuid,scanner_id] <= vulnerability_occurrences[scanner_id] (triangle)",
+   "timelogs[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "todos[author_id,organization_id] <= users[organization_id] (triangle)",
+   "todos[user_id,organization_id] <= users[organization_id] (assigned)",
+   "users[managing_group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "vulnerability_exports[author_id,organization_id] <= users[organization_id] (triangle)",
+   "vulnerability_exports[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "vulnerability_exports[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "zoekt_tasks[zoekt_repository_id,project_identifier] <= zoekt_repositories[project_identifier] (assigned)"
+  ],
+  "carried": [
+   "ai_catalog_item_versions[ai_catalog_item_id,organization_id] <= ai_catalog_items[organization_id] (triangle)",
+   "ai_catalog_items[latest_released_version_id,organization_id] <= ai_catalog_item_versions[organization_id] (triangle)",
+   "ai_catalog_items[latest_version_id,organization_id] <= ai_catalog_item_versions[organization_id] (triangle)",
+   "ai_conversation_messages[thread_id,organization_id] <= ai_conversation_threads[organization_id] (assigned)",
+   "ai_suggested_reviewers[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "board_labels[label_id,group_id] <= labels[group_id] (triangle)",
+   "board_labels[label_id,project_id] <= labels[project_id] (triangle)",
+   "bulk_import_entities[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,organization_id] <= bulk_import_entities[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "bulk_import_entities[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "bulk_import_failures[bulk_import_entity_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "catalog_resource_versions[release_id,released_at] <= releases[released_at] (assigned)",
+   "catalog_resources[project_id,name] <= projects[name] (assigned)",
+   "dast_profile_schedules[dast_profile_id,project_id] <= dast_profiles[project_id] (triangle)",
+   "dependency_list_exports[pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "deploy_tokens[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "description_versions[issue_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "draft_notes[merge_request_id,author_id] <= merge_requests[author_id] (triangle)",
+   "draft_notes[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "epic_issues[epic_id,work_item_parent_link_id] <= epics[work_item_parent_link_id] (triangle)",
+   "epics[issue_id,closed_at] <= issues[closed_at] (created)",
+   "epics[issue_id,closed_by_id] <= issues[closed_by_id] (created)",
+   "integrations[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "integrations[inherit_from_id,group_id] <= integrations[group_id] (triangle)",
+   "integrations[inherit_from_id,organization_id] <= integrations[organization_id] (triangle)",
+   "integrations[inherit_from_id,project_id] <= integrations[project_id] (triangle)",
+   "integrations[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "issues[duplicated_to_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "issues[moved_to_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "issues[promoted_to_epic_id,closed_by_id] <= epics[closed_by_id] (triangle)",
+   "job_environments[ci_job_id,project_id] <= p_ci_builds[project_id] (triangle)",
+   "job_environments[ci_pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "label_links[label_id,namespace_id] <= labels[group_id] (triangle)",
+   "labels[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "labels[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "lists[label_id,group_id] <= labels[group_id] (triangle)",
+   "lists[label_id,project_id] <= labels[project_id] (triangle)",
+   "merge_request_diff_files[merge_request_diff_id,project_id] <= merge_request_diffs[project_id] (assigned)",
+   "merge_request_diffs[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "merge_request_merge_schedules[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "merge_request_metrics[merge_request_id,target_project_id] <= merge_requests[target_project_id] (assigned)",
+   "merge_request_metrics[pipeline_id,target_project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "merge_requests[head_pipeline_id,target_project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "merge_requests[latest_merge_request_diff_id,target_project_id] <= merge_request_diffs[project_id] (triangle)",
+   "merge_requests_approval_rules_merge_requests[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "merge_requests_closing_issues[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "merge_requests_merge_data[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "ml_candidates[model_version_id,package_id] <= ml_model_versions[package_id] (triangle)",
+   "notes[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "notes[noteable_id,project_id] <= vulnerabilities[project_id] (triangle)",
+   "notes[project_id,author_id] <= projects[creator_id] (created)",
+   "notes[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "notes[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "observability_metrics_issues_connections[issue_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "p_ci_job_runtime_environments[build_id,project_id] <= p_ci_builds[project_id] (triangle)",
+   "p_ci_pipelines[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "packages_packages[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "project_compliance_standards_adherence[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "resource_iteration_events[issue_id,namespace_id] <= issues[namespace_id] (triangle)"
+  ]
+ },
+ "with_star": {
+  "copies": 1329,
+  "by_evidence": {
+   "triangle": 1234,
+   "assigned": 73,
+   "created": 19,
+   "pushed": 3
+  },
+  "by_source": {
+   "code": {
+    "copies": 95,
+    "violate_cond4": 63,
+    "violate_cond4_carried": 47,
+    "two_mutable": 63,
+    "two_mutable_carried": 47
+   },
+   "sk": {
+    "copies": 808,
+    "violate_cond4": 167,
+    "violate_cond4_carried": 135,
+    "two_mutable": 159,
+    "two_mutable_carried": 128
+   },
+   "heur": {
+    "copies": 426,
+    "violate_cond4": 138,
+    "violate_cond4_carried": 76,
+    "two_mutable": 126,
+    "two_mutable_carried": 65
+   }
+  },
+  "source_mutable": 900,
+  "copy_mutable": 410,
+  "pointer_mutable": 320,
+  "violate_cond4": 368,
+  "violate_cond4_carried": 258,
+  "two_mutable": 348,
+  "two_mutable_carried": 240,
+  "gap_only": 20,
+  "two_mutable_by_pair": [
+   [
+    "p_ci_builds->p_ci_pipelines",
+    14
+   ],
+   [
+    "work_item_custom_lifecycles->work_item_custom_statuses",
+    9
+   ],
+   [
+    "epics->issues",
+    6
+   ],
+   [
+    "issues->epics",
+    5
+   ],
+   [
+    "lists->boards",
+    4
+   ],
+   [
+    "custom_dashboards->users",
+    3
+   ],
+   [
+    "epics->epics",
+    3
+   ],
+   [
+    "integrations->integrations",
+    3
+   ],
+   [
+    "merge_requests_compliance_violations->merge_requests",
+    3
+   ],
+   [
+    "notes->users",
+    3
+   ],
+   [
+    "notes->projects",
+    3
+   ],
+   [
+    "projects->users",
+    3
+   ],
+   [
+    "todos->notes",
+    3
+   ],
+   [
+    "vulnerability_reads->vulnerability_occurrences",
+    3
+   ],
+   [
+    "web_hooks->integrations",
+    3
+   ],
+   [
+    "work_item_dates_sources->issues",
+    3
+   ],
+   [
+    "work_item_decisions->notes",
+    3
+   ],
+   [
+    "work_item_transitions->issues",
+    3
+   ],
+   [
+    "ai_catalog_item_consumers->ai_catalog_items",
+    2
+   ],
+   [
+    "ai_catalog_item_consumers->ai_catalog_item_consumers",
+    2
+   ],
+   [
+    "ai_catalog_items->ai_catalog_item_versions",
+    2
+   ],
+   [
+    "ai_settings->users",
+    2
+   ],
+   [
+    "board_assignees->boards",
+    2
+   ],
+   [
+    "board_labels->boards",
+    2
+   ],
+   [
+    "board_labels->labels",
+    2
+   ],
+   [
+    "board_user_preferences->boards",
+    2
+   ],
+   [
+    "boards->milestones",
+    2
+   ],
+   [
+    "bulk_import_entities->bulk_import_entities",
+    2
+   ],
+   [
+    "catalog_resources->projects",
+    2
+   ],
+   [
+    "ci_resources->p_ci_builds",
+    2
+   ],
+   [
+    "clusters->projects",
+    2
+   ],
+   [
+    "draft_notes->merge_requests",
+    2
+   ],
+   [
+    "duo_workflows_workflows->issues",
+    2
+   ],
+   [
+    "duo_workflows_workflows->duo_workflows_workflows",
+    2
+   ],
+   [
+    "epics->milestones",
+    2
+   ],
+   [
+    "incident_management_timeline_events->issues",
+    2
+   ],
+   [
+    "incident_management_timeline_events->notes",
+    2
+   ],
+   [
+    "issues->issues",
+    2
+   ],
+   [
+    "issues->milestones",
+    2
+   ],
+   [
+    "issues->projects",
+    2
+   ]
+  ],
+  "not_carried": [
+   "ai_catalog_item_consumers[ai_catalog_item_id,organization_id] <= ai_catalog_items[organization_id] (triangle)",
+   "ai_catalog_item_consumers[ai_catalog_item_id,project_id] <= ai_catalog_items[project_id] (triangle)",
+   "ai_catalog_item_consumers[service_account_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_catalog_item_versions[created_by_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_catalog_items[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "ai_catalog_mcp_servers[created_by_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_catalog_mcp_servers_users[user_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_conversation_threads[user_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_settings[amazon_q_service_account_user_id,organization_id] <= users[organization_id] (triangle)",
+   "ai_settings[duo_workflow_service_account_user_id,organization_id] <= users[organization_id] (triangle)",
+   "alert_management_alerts[issue_id,project_id] <= issues[project_id] (triangle)",
+   "boards[iteration_id,group_id] <= sprints[group_id] (triangle)",
+   "boards[milestone_id,group_id] <= milestones[group_id] (triangle)",
+   "boards[milestone_id,project_id] <= milestones[project_id] (triangle)",
+   "ci_build_pending_states[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "ci_build_trace_chunks[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "ci_job_variables[job_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "ci_resources[build_id,resource_group_id] <= p_ci_builds[resource_group_id] (triangle)",
+   "ci_resources[partition_id,resource_group_id] <= p_ci_builds[resource_group_id] (triangle)",
+   "clusters[management_project_id,organization_id] <= projects[organization_id] (triangle)",
+   "clusters[user_id,organization_id] <= users[organization_id] (triangle)",
+   "custom_dashboards[created_by_id,organization_id] <= users[organization_id] (triangle)",
+   "custom_dashboards[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "custom_dashboards[updated_by_id,created_by_id] <= users[created_by_id] (triangle)",
+   "custom_dashboards[updated_by_id,organization_id] <= users[organization_id] (triangle)",
+   "custom_fields[updated_by_id,created_by_id] <= users[created_by_id] (triangle)",
+   "duo_workflows_workflows[ai_catalog_item_id,project_id] <= ai_catalog_items[project_id] (triangle)",
+   "duo_workflows_workflows[ai_catalog_item_version_id,ai_catalog_item_id] <= ai_catalog_item_versions[ai_catalog_item_id] (triangle)",
+   "duo_workflows_workflows[trigger_flow_schedule_id,project_id] <= ai_flow_schedules[project_id] (triangle)",
+   "fork_networks[root_project_id,organization_id] <= projects[organization_id] (triangle)",
+   "govern_policies[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "granular_scopes[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "incident_management_timeline_events[issue_id,author_id] <= issues[author_id] (triangle)",
+   "incident_management_timeline_events[issue_id,project_id] <= issues[project_id] (triangle)",
+   "issues[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "issues[project_id,namespace_id] <= projects[project_namespace_id] (assigned)",
+   "keys[user_id,organization_id] <= users[organization_id] (triangle)",
+   "members[user_id,created_by_id] <= users[created_by_id] (triangle)",
+   "merge_requests_closing_issues[issue_id,project_id] <= issues[project_id] (triangle)",
+   "namespace_template_settings[duo_template_project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "namespace_template_settings[file_template_project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "namespaces[owner_id,organization_id] <= users[organization_id] (triangle)",
+   "namespaces[parent_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "notes[author_id,organization_id] <= users[organization_id] (triangle)",
+   "notes[resolved_by_id,organization_id] <= users[organization_id] (triangle)",
+   "notes[updated_by_id,organization_id] <= users[organization_id] (triangle)",
+   "observability_logs_issues_connections[issue_id,project_id] <= issues[project_id] (triangle)",
+   "observability_metrics_issues_connections[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "observability_traces_issues_connections[issue_id,project_id] <= issues[project_id] (triangle)",
+   "organization_users[user_id,organization_id] <= users[organization_id] (triangle)",
+   "p_ci_build_needs[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_build_trace_metadata[build_id,project_id] <= p_ci_builds[project_id] (assigned)",
+   "p_ci_builds[auto_canceled_by_id,auto_canceled_by_partition_id] <= p_ci_pipelines[auto_canceled_by_partition_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_partition_id,auto_canceled_by_id] <= p_ci_pipelines[auto_canceled_by_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[commit_id,auto_canceled_by_id] <= p_ci_pipelines[auto_canceled_by_id] (triangle)",
+   "p_ci_builds[commit_id,auto_canceled_by_partition_id] <= p_ci_pipelines[auto_canceled_by_partition_id] (triangle)",
+   "p_ci_builds[commit_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "p_ci_builds[commit_id,user_id] <= p_ci_pipelines[user_id] (triangle)"
+  ],
+  "carried": [
+   "ai_catalog_item_consumers[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "ai_catalog_item_consumers[parent_item_consumer_id,group_id] <= ai_catalog_item_consumers[group_id] (triangle)",
+   "ai_catalog_item_consumers[parent_item_consumer_id,project_id] <= ai_catalog_item_consumers[project_id] (triangle)",
+   "ai_catalog_item_consumers[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "ai_catalog_item_versions[ai_catalog_item_id,organization_id] <= ai_catalog_items[organization_id] (triangle)",
+   "ai_catalog_items[latest_released_version_id,organization_id] <= ai_catalog_item_versions[organization_id] (triangle)",
+   "ai_catalog_items[latest_version_id,organization_id] <= ai_catalog_item_versions[organization_id] (triangle)",
+   "ai_catalog_mcp_servers_users[ai_catalog_mcp_server_id,organization_id] <= ai_catalog_mcp_servers[organization_id] (triangle)",
+   "ai_conversation_messages[thread_id,organization_id] <= ai_conversation_threads[organization_id] (assigned)",
+   "ai_suggested_reviewers[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "alert_management_alert_metric_images[alert_id,project_id] <= alert_management_alerts[project_id] (triangle)",
+   "alert_management_alerts[environment_id,project_id] <= environments[project_id] (triangle)",
+   "board_assignees[board_id,group_id] <= boards[group_id] (assigned)",
+   "board_assignees[board_id,project_id] <= boards[project_id] (assigned)",
+   "board_labels[board_id,group_id] <= boards[group_id] (assigned)",
+   "board_labels[board_id,project_id] <= boards[project_id] (assigned)",
+   "board_labels[label_id,group_id] <= labels[group_id] (triangle)",
+   "board_labels[label_id,project_id] <= labels[project_id] (triangle)",
+   "board_user_preferences[board_id,group_id] <= boards[group_id] (assigned)",
+   "board_user_preferences[board_id,project_id] <= boards[project_id] (assigned)",
+   "boards[iteration_cadence_id,group_id] <= iterations_cadences[group_id] (triangle)",
+   "bulk_import_entities[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,organization_id] <= bulk_import_entities[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "bulk_import_entities[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "bulk_import_failures[bulk_import_entity_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "catalog_resource_versions[release_id,released_at] <= releases[released_at] (assigned)",
+   "catalog_resources[project_id,description] <= projects[description] (assigned)",
+   "catalog_resources[project_id,name] <= projects[name] (assigned)",
+   "cd_application_links[application_id,organization_id] <= cd_applications[organization_id] (triangle)",
+   "cd_services[application_id,organization_id] <= cd_applications[organization_id] (triangle)",
+   "ci_resources[resource_group_id,project_id] <= ci_resource_groups[project_id] (triangle)",
+   "clusters[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "clusters[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "custom_field_select_options[custom_field_id,namespace_id] <= custom_fields[namespace_id] (assigned)",
+   "dast_profile_schedules[dast_profile_id,project_id] <= dast_profiles[project_id] (triangle)",
+   "dast_profiles[dast_scanner_profile_id,project_id] <= dast_scanner_profiles[project_id] (triangle)",
+   "dast_profiles[dast_site_profile_id,project_id] <= dast_site_profiles[project_id] (triangle)",
+   "dependency_list_exports[pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "deploy_tokens[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "description_versions[epic_id,namespace_id] <= epics[group_id] (triangle)",
+   "description_versions[issue_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "diff_note_positions[note_id,namespace_id] <= notes[namespace_id] (triangle)",
+   "draft_notes[merge_request_id,author_id] <= merge_requests[author_id] (triangle)",
+   "draft_notes[merge_request_id,project_id] <= merge_requests[target_project_id] (assigned)",
+   "duo_workflows_workflows[issue_id,namespace_id] <= issues[namespace_id] (triangle)",
+   "duo_workflows_workflows[issue_id,project_id] <= issues[project_id] (triangle)",
+   "duo_workflows_workflows[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "duo_workflows_workflows[parent_workflow_id,namespace_id] <= duo_workflows_workflows[namespace_id] (triangle)",
+   "duo_workflows_workflows[parent_workflow_id,project_id] <= duo_workflows_workflows[project_id] (triangle)",
+   "duo_workflows_workflows[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "environments[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "epic_issues[epic_id,work_item_parent_link_id] <= epics[work_item_parent_link_id] (triangle)",
+   "epics[due_date_sourcing_epic_id,group_id] <= epics[group_id] (triangle)",
+   "epics[due_date_sourcing_milestone_id,group_id] <= milestones[group_id] (triangle)",
+   "epics[issue_id,author_id] <= issues[author_id] (triangle)",
+   "epics[issue_id,closed_at] <= issues[closed_at] (created)",
+   "epics[issue_id,closed_by_id] <= issues[closed_by_id] (created)",
+   "epics[issue_id,group_id] <= issues[namespace_id] (triangle)",
+   "epics[issue_id,last_edited_by_id] <= issues[last_edited_by_id] (triangle)"
+  ]
+ },
+ "sharding_keys_modified": [
+  "ai_catalog_item_versions.organization_id",
+  "ai_catalog_items.organization_id",
+  "ai_conversation_messages.organization_id",
+  "ai_conversation_threads.organization_id",
+  "ai_suggested_reviewers.project_id",
+  "badges.group_id",
+  "board_assignees.group_id",
+  "board_assignees.project_id",
+  "board_labels.group_id",
+  "board_labels.project_id",
+  "board_user_preferences.group_id",
+  "board_user_preferences.project_id",
+  "bulk_import_entities.organization_id",
+  "bulk_import_entities.project_id",
+  "bulk_import_failures.project_id",
+  "cd_applications.organization_id",
+  "ci_build_pending_states.project_id",
+  "ci_build_trace_chunks.project_id",
+  "ci_job_variables.project_id",
+  "ci_minutes_additional_packs.namespace_id",
+  "ci_pipeline_schedule_inputs.project_id",
+  "compliance_management_frameworks.namespace_id",
+  "custom_field_select_options.namespace_id",
+  "dast_profile_schedules.project_id",
+  "dast_profiles.project_id",
+  "dependency_list_exports.group_id",
+  "dependency_list_exports.project_id",
+  "deploy_keys_projects.project_id",
+  "description_versions.namespace_id",
+  "draft_notes.project_id",
+  "events.personal_namespace_id",
+  "events.project_id",
+  "fork_network_members.project_id",
+  "fork_networks.organization_id",
+  "granular_scopes.organization_id",
+  "identities.user_id",
+  "import_export_uploads.project_id",
+  "integrations.group_id",
+  "integrations.organization_id",
+  "integrations.project_id",
+  "issues.namespace_id",
+  "job_environments.project_id",
+  "keys.organization_id",
+  "label_links.namespace_id",
+  "labels.group_id",
+  "labels.organization_id",
+  "labels.project_id",
+  "lfs_objects_projects.project_id",
+  "lists.group_id",
+  "lists.project_id",
+  "members.member_namespace_id",
+  "merge_request_diff_files.project_id",
+  "merge_request_diffs.project_id",
+  "merge_request_merge_schedules.project_id",
+  "merge_request_metrics.target_project_id",
+  "merge_requests.target_project_id",
+  "merge_requests_approval_rules_approver_users.group_id",
+  "merge_requests_approval_rules_approver_users.project_id",
+  "merge_requests_approval_rules_merge_requests.project_id",
+  "merge_requests_closing_issues.project_id",
+  "merge_requests_merge_data.project_id",
+  "namespaces.organization_id",
+  "notes.namespace_id",
+  "notes.organization_id",
+  "notes.project_id",
+  "observability_logs_issues_connections.project_id",
+  "observability_metrics_issues_connections.namespace_id",
+  "observability_traces_issues_connections.project_id",
+  "p_ci_build_needs.project_id",
+  "p_ci_build_trace_metadata.project_id",
+  "p_ci_builds.project_id",
+  "p_ci_job_annotations.project_id",
+  "p_ci_job_runtime_environments.project_id",
+  "p_ci_pipeline_variables.project_id",
+  "p_ci_pipelines.project_id",
+  "p_ci_runner_machine_builds.project_id",
+  "p_ci_stages.project_id",
+  "p_sent_notifications.namespace_id",
+  "packages_debian_project_component_file_states.project_id",
+  "packages_protection_rules.project_id",
+  "packages_tags.project_id",
+  "pool_repositories.organization_id",
+  "project_repository_states.project_id",
+  "projects.organization_id",
+  "release_links.project_id",
+  "resource_iteration_events.namespace_id",
+  "resource_label_events.namespace_id",
+  "resource_milestone_events.namespace_id",
+  "resource_state_events.namespace_id",
+  "routes.namespace_id",
+  "secret_detection_token_statuses.project_id",
+  "security_attributes.namespace_id",
+  "security_categories.namespace_id",
+  "security_finding_token_statuses.project_id",
+  "security_findings.project_id",
+  "security_scan_profiles.namespace_id",
+  "security_scans.project_id",
+  "slack_integrations_scopes.group_id",
+  "slack_integrations_scopes.organization_id",
+  "slack_integrations_scopes.project_id",
+  "timelogs.namespace_id",
+  "todos.group_id",
+  "todos.organization_id",
+  "todos.project_id",
+  "topics.organization_id",
+  "users.organization_id",
+  "users_star_projects.project_id",
+  "vulnerabilities.project_id",
+  "vulnerability_exports.organization_id",
+  "vulnerability_flags.project_id",
+  "vulnerability_occurrences.project_id",
+  "vulnerability_partial_scans.project_id",
+  "vulnerability_triggered_workflows.project_id",
+  "web_hooks.group_id",
+  "web_hooks.organization_id",
+  "web_hooks.project_id",
+  "webauthn_registrations.user_id",
+  "wiki_page_meta.namespace_id",
+  "wiki_page_meta.project_id",
+  "work_item_agent_plans.namespace_id",
+  "work_item_colors.namespace_id",
+  "work_item_custom_lifecycle_statuses.namespace_id",
+  "work_item_dates_sources.namespace_id",
+  "work_item_decision_options.namespace_id",
+  "work_item_decisions.namespace_id",
+  "work_item_positions.namespace_id",
+  "work_item_transitions.namespace_id",
+  "work_item_type_custom_fields.namespace_id",
+  "work_item_type_custom_lifecycles.namespace_id",
+  "work_item_weights_sources.namespace_id",
+  "workspace_tokens.project_id",
+  "workspaces.project_id",
+  "workspaces_agent_config_versions.project_id"
+ ],
+ "declared_sharding_keys": 1105,
+ "filtered": {
+  "copies": 1329,
+  "by_evidence": {
+   "triangle": 1234,
+   "assigned": 73,
+   "created": 19,
+   "pushed": 3
+  },
+  "by_source": {
+   "code": {
+    "copies": 95,
+    "violate_cond4": 7,
+    "violate_cond4_carried": 5,
+    "two_mutable": 6,
+    "two_mutable_carried": 4
+   },
+   "sk": {
+    "copies": 808,
+    "violate_cond4": 38,
+    "violate_cond4_carried": 30,
+    "two_mutable": 33,
+    "two_mutable_carried": 25
+   },
+   "heur": {
+    "copies": 426,
+    "violate_cond4": 51,
+    "violate_cond4_carried": 36,
+    "two_mutable": 29,
+    "two_mutable_carried": 22
+   }
+  },
+  "source_mutable": 428,
+  "copy_mutable": 115,
+  "pointer_mutable": 126,
+  "violate_cond4": 96,
+  "violate_cond4_carried": 71,
+  "two_mutable": 68,
+  "two_mutable_carried": 51,
+  "gap_only": 28,
+  "two_mutable_by_pair": [
+   [
+    "p_ci_builds->p_ci_pipelines",
+    6
+   ],
+   [
+    "integrations->integrations",
+    3
+   ],
+   [
+    "notes->projects",
+    3
+   ],
+   [
+    "web_hooks->integrations",
+    3
+   ],
+   [
+    "work_item_custom_lifecycles->work_item_custom_statuses",
+    3
+   ],
+   [
+    "bulk_import_entities->bulk_import_entities",
+    2
+   ],
+   [
+    "epics->issues",
+    2
+   ],
+   [
+    "p_ci_builds->p_ci_stages",
+    2
+   ],
+   [
+    "projects->namespaces",
+    2
+   ],
+   [
+    "todos->notes",
+    2
+   ],
+   [
+    "vulnerability_occurrences->p_ci_pipelines",
+    2
+   ],
+   [
+    "ai_catalog_items->projects",
+    1
+   ],
+   [
+    "bulk_import_entities->namespaces",
+    1
+   ],
+   [
+    "bulk_import_entities->projects",
+    1
+   ],
+   [
+    "bulk_import_failures->bulk_import_entities",
+    1
+   ],
+   [
+    "catalog_resources->projects",
+    1
+   ],
+   [
+    "dast_profile_schedules->dast_profiles",
+    1
+   ],
+   [
+    "dependency_list_exports->p_ci_pipelines",
+    1
+   ],
+   [
+    "deploy_tokens->projects",
+    1
+   ],
+   [
+    "draft_notes->merge_requests",
+    1
+   ],
+   [
+    "fork_networks->projects",
+    1
+   ],
+   [
+    "granular_scopes->namespaces",
+    1
+   ],
+   [
+    "integrations->namespaces",
+    1
+   ],
+   [
+    "integrations->projects",
+    1
+   ],
+   [
+    "issues->epics",
+    1
+   ],
+   [
+    "job_environments->p_ci_builds",
+    1
+   ],
+   [
+    "job_environments->p_ci_pipelines",
+    1
+   ],
+   [
+    "labels->namespaces",
+    1
+   ],
+   [
+    "labels->projects",
+    1
+   ],
+   [
+    "merge_requests->p_ci_pipelines",
+    1
+   ],
+   [
+    "merge_requests_closing_issues->merge_requests",
+    1
+   ],
+   [
+    "ml_candidates->ml_model_versions",
+    1
+   ],
+   [
+    "namespaces->namespaces",
+    1
+   ],
+   [
+    "notes->namespaces",
+    1
+   ],
+   [
+    "notes->vulnerabilities",
+    1
+   ],
+   [
+    "p_ci_pipelines->merge_requests",
+    1
+   ],
+   [
+    "p_ci_stages->p_ci_pipelines",
+    1
+   ],
+   [
+    "packages_packages->projects",
+    1
+   ],
+   [
+    "project_compliance_standards_adherence->projects",
+    1
+   ],
+   [
+    "security_attributes->security_categories",
+    1
+   ]
+  ],
+  "not_carried": [
+   "ai_catalog_items[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "fork_networks[root_project_id,organization_id] <= projects[organization_id] (triangle)",
+   "granular_scopes[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "namespaces[parent_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[commit_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "p_ci_builds[commit_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[partition_id,project_id] <= p_ci_stages[project_id] (triangle)",
+   "p_ci_builds[stage_id,project_id] <= p_ci_stages[project_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_stages[pipeline_id,project_id] <= p_ci_pipelines[project_id] (assigned)",
+   "projects[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "projects[project_namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "vulnerability_exports[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "vulnerability_exports[project_id,organization_id] <= projects[organization_id] (triangle)"
+  ],
+  "carried": [
+   "bulk_import_entities[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,organization_id] <= bulk_import_entities[organization_id] (triangle)",
+   "bulk_import_entities[parent_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "bulk_import_entities[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "bulk_import_failures[bulk_import_entity_id,project_id] <= bulk_import_entities[project_id] (triangle)",
+   "catalog_resources[project_id,name] <= projects[name] (assigned)",
+   "dast_profile_schedules[dast_profile_id,project_id] <= dast_profiles[project_id] (triangle)",
+   "dependency_list_exports[pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "deploy_tokens[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "draft_notes[merge_request_id,author_id] <= merge_requests[author_id] (triangle)",
+   "epics[issue_id,closed_at] <= issues[closed_at] (created)",
+   "epics[issue_id,closed_by_id] <= issues[closed_by_id] (created)",
+   "integrations[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "integrations[inherit_from_id,group_id] <= integrations[group_id] (triangle)",
+   "integrations[inherit_from_id,organization_id] <= integrations[organization_id] (triangle)",
+   "integrations[inherit_from_id,project_id] <= integrations[project_id] (triangle)",
+   "integrations[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "issues[promoted_to_epic_id,closed_by_id] <= epics[closed_by_id] (triangle)",
+   "job_environments[ci_job_id,project_id] <= p_ci_builds[project_id] (triangle)",
+   "job_environments[ci_pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "labels[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "labels[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "merge_requests[head_pipeline_id,target_project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "merge_requests_closing_issues[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "ml_candidates[model_version_id,package_id] <= ml_model_versions[package_id] (triangle)",
+   "notes[namespace_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "notes[noteable_id,project_id] <= vulnerabilities[project_id] (triangle)",
+   "notes[project_id,author_id] <= projects[creator_id] (created)",
+   "notes[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "notes[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "p_ci_pipelines[merge_request_id,project_id] <= merge_requests[target_project_id] (triangle)",
+   "packages_packages[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "project_compliance_standards_adherence[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "security_attributes[security_category_id,namespace_id] <= security_categories[namespace_id] (triangle)",
+   "todos[note_id,group_id] <= notes[namespace_id] (triangle)",
+   "todos[note_id,project_id] <= notes[project_id] (triangle)",
+   "vulnerabilities[finding_id,project_id] <= vulnerability_occurrences[project_id] (triangle)",
+   "vulnerability_feedback[pipeline_id,merge_request_id] <= p_ci_pipelines[merge_request_id] (triangle)",
+   "vulnerability_flags[vulnerability_occurrence_id,project_id] <= vulnerability_occurrences[project_id] (triangle)",
+   "vulnerability_occurrences[initial_pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "vulnerability_occurrences[latest_pipeline_id,project_id] <= p_ci_pipelines[project_id] (triangle)",
+   "vulnerability_occurrences[vulnerability_id,project_id] <= vulnerabilities[project_id] (triangle)",
+   "web_hooks[group_id,organization_id] <= namespaces[organization_id] (triangle)",
+   "web_hooks[integration_id,group_id] <= integrations[group_id] (triangle)",
+   "web_hooks[integration_id,organization_id] <= integrations[organization_id] (triangle)",
+   "web_hooks[integration_id,project_id] <= integrations[project_id] (triangle)",
+   "web_hooks[project_id,organization_id] <= projects[organization_id] (triangle)",
+   "wiki_page_meta[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "work_item_custom_lifecycles[default_closed_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)",
+   "work_item_custom_lifecycles[default_duplicate_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)",
+   "work_item_custom_lifecycles[default_open_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)"
+  ]
+ },
+ "filtered_sharding_keys_modified": [
+  "ai_catalog_items.organization_id",
+  "ai_conversation_messages.organization_id",
+  "bulk_import_entities.organization_id",
+  "bulk_import_entities.project_id",
+  "bulk_import_failures.project_id",
+  "cd_applications.organization_id",
+  "ci_minutes_additional_packs.namespace_id",
+  "compliance_management_frameworks.namespace_id",
+  "dast_profile_schedules.project_id",
+  "dast_profiles.project_id",
+  "dependency_list_exports.group_id",
+  "dependency_list_exports.project_id",
+  "deploy_keys_projects.project_id",
+  "events.personal_namespace_id",
+  "events.project_id",
+  "fork_network_members.project_id",
+  "fork_networks.organization_id",
+  "granular_scopes.organization_id",
+  "identities.user_id",
+  "import_export_uploads.project_id",
+  "integrations.group_id",
+  "integrations.organization_id",
+  "integrations.project_id",
+  "job_environments.project_id",
+  "keys.organization_id",
+  "labels.organization_id",
+  "lfs_objects_projects.project_id",
+  "merge_request_diff_files.project_id",
+  "merge_requests.target_project_id",
+  "merge_requests_closing_issues.project_id",
+  "namespaces.organization_id",
+  "notes.namespace_id",
+  "notes.organization_id",
+  "notes.project_id",
+  "p_ci_builds.project_id",
+  "p_ci_pipelines.project_id",
+  "p_ci_stages.project_id",
+  "packages_protection_rules.project_id",
+  "projects.organization_id",
+  "release_links.project_id",
+  "routes.namespace_id",
+  "security_attributes.namespace_id",
+  "security_categories.namespace_id",
+  "todos.group_id",
+  "todos.project_id",
+  "topics.organization_id",
+  "users_star_projects.project_id",
+  "vulnerabilities.project_id",
+  "vulnerability_exports.organization_id",
+  "vulnerability_flags.project_id",
+  "vulnerability_occurrences.project_id",
+  "web_hooks.group_id",
+  "web_hooks.organization_id",
+  "web_hooks.project_id",
+  "webauthn_registrations.user_id",
+  "wiki_page_meta.namespace_id",
+  "wiki_page_meta.project_id",
+  "work_item_positions.namespace_id",
+  "work_item_weights_sources.namespace_id"
+ ],
+ "frozen": {
+  "copies": 1329,
+  "by_evidence": {
+   "triangle": 1234,
+   "assigned": 73,
+   "created": 19,
+   "pushed": 3
+  },
+  "by_source": {
+   "code": {
+    "copies": 95,
+    "violate_cond4": 4,
+    "violate_cond4_carried": 4,
+    "two_mutable": 4,
+    "two_mutable_carried": 4
+   },
+   "sk": {
+    "copies": 808,
+    "violate_cond4": 0,
+    "violate_cond4_carried": 0,
+    "two_mutable": 0,
+    "two_mutable_carried": 0
+   },
+   "heur": {
+    "copies": 426,
+    "violate_cond4": 30,
+    "violate_cond4_carried": 17,
+    "two_mutable": 15,
+    "two_mutable_carried": 10
+   }
+  },
+  "source_mutable": 128,
+  "copy_mutable": 29,
+  "pointer_mutable": 107,
+  "violate_cond4": 34,
+  "violate_cond4_carried": 21,
+  "two_mutable": 19,
+  "two_mutable_carried": 14,
+  "gap_only": 15,
+  "two_mutable_by_pair": [
+   [
+    "p_ci_builds->p_ci_pipelines",
+    5
+   ],
+   [
+    "work_item_custom_lifecycles->work_item_custom_statuses",
+    3
+   ],
+   [
+    "epics->issues",
+    2
+   ],
+   [
+    "catalog_resources->projects",
+    1
+   ],
+   [
+    "deploy_tokens->projects",
+    1
+   ],
+   [
+    "draft_notes->merge_requests",
+    1
+   ],
+   [
+    "issues->epics",
+    1
+   ],
+   [
+    "ml_candidates->ml_model_versions",
+    1
+   ],
+   [
+    "notes->projects",
+    1
+   ],
+   [
+    "packages_packages->projects",
+    1
+   ],
+   [
+    "project_compliance_standards_adherence->projects",
+    1
+   ],
+   [
+    "vulnerability_feedback->p_ci_pipelines",
+    1
+   ]
+  ],
+  "not_carried": [
+   "p_ci_builds[auto_canceled_by_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[auto_canceled_by_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[commit_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_id,user_id] <= p_ci_pipelines[user_id] (triangle)",
+   "p_ci_builds[upstream_pipeline_partition_id,user_id] <= p_ci_pipelines[user_id] (triangle)"
+  ],
+  "carried": [
+   "catalog_resources[project_id,name] <= projects[name] (assigned)",
+   "deploy_tokens[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "draft_notes[merge_request_id,author_id] <= merge_requests[author_id] (triangle)",
+   "epics[issue_id,closed_at] <= issues[closed_at] (created)",
+   "epics[issue_id,closed_by_id] <= issues[closed_by_id] (created)",
+   "issues[promoted_to_epic_id,closed_by_id] <= epics[closed_by_id] (triangle)",
+   "ml_candidates[model_version_id,package_id] <= ml_model_versions[package_id] (triangle)",
+   "notes[project_id,author_id] <= projects[creator_id] (created)",
+   "packages_packages[project_id,creator_id] <= projects[creator_id] (triangle)",
+   "project_compliance_standards_adherence[project_id,namespace_id] <= projects[namespace_id] (triangle)",
+   "vulnerability_feedback[pipeline_id,merge_request_id] <= p_ci_pipelines[merge_request_id] (triangle)",
+   "work_item_custom_lifecycles[default_closed_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)",
+   "work_item_custom_lifecycles[default_duplicate_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)",
+   "work_item_custom_lifecycles[default_open_status_id,updated_by_id] <= work_item_custom_statuses[updated_by_id] (triangle)"
+  ]
+ },
+ "frozen_rows": [
+  {
+   "R": "catalog_resources",
+   "P": [
+    "project_id"
+   ],
+   "S": "projects",
+   "D": "name",
+   "C": "name",
+   "ev": "assigned",
+   "src": "code",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "dependency_list_exports",
+   "P": [
+    "pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "deploy_tokens",
+   "P": [
+    "project_id"
+   ],
+   "S": "projects",
+   "D": "creator_id",
+   "C": "creator_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "draft_notes",
+   "P": [
+    "merge_request_id"
+   ],
+   "S": "merge_requests",
+   "D": "author_id",
+   "C": "author_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": true,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "epic_issues",
+   "P": [
+    "epic_id"
+   ],
+   "S": "epics",
+   "D": "work_item_parent_link_id",
+   "C": "work_item_parent_link_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "epics",
+   "P": [
+    "issue_id"
+   ],
+   "S": "issues",
+   "D": "closed_at",
+   "C": "closed_at",
+   "ev": "created",
+   "src": "code",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "epics",
+   "P": [
+    "issue_id"
+   ],
+   "S": "issues",
+   "D": "closed_by_id",
+   "C": "closed_by_id",
+   "ev": "created",
+   "src": "code",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "issues",
+   "P": [
+    "promoted_to_epic_id"
+   ],
+   "S": "epics",
+   "D": "closed_by_id",
+   "C": "closed_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": true,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "merge_trains",
+   "P": [
+    "pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "merge_request_id",
+   "C": "merge_request_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "merge_trains",
+   "P": [
+    "pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "ml_candidates",
+   "P": [
+    "ci_build_id"
+   ],
+   "S": "p_ci_builds",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "ml_candidates",
+   "P": [
+    "model_version_id"
+   ],
+   "S": "ml_model_versions",
+   "D": "package_id",
+   "C": "package_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": true,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "namespace_template_settings",
+   "P": [
+    "duo_template_project_id"
+   ],
+   "S": "projects",
+   "D": "namespace_id",
+   "C": "namespace_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "namespace_template_settings",
+   "P": [
+    "file_template_project_id"
+   ],
+   "S": "projects",
+   "D": "namespace_id",
+   "C": "namespace_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "notes",
+   "P": [
+    "project_id"
+   ],
+   "S": "projects",
+   "D": "author_id",
+   "C": "creator_id",
+   "ev": "created",
+   "src": "code",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "auto_canceled_by_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "auto_canceled_by_partition_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "commit_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "auto_canceled_by_id",
+   "C": "auto_canceled_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "auto_canceled_by_partition_id",
+   "C": "auto_canceled_by_partition_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": true,
+   "viol": true,
+   "two": true,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_partition_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "auto_canceled_by_id",
+   "C": "auto_canceled_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_partition_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "auto_canceled_by_partition_id",
+   "C": "auto_canceled_by_partition_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "p_ci_builds",
+   "P": [
+    "upstream_pipeline_partition_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "user_id",
+   "C": "user_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": true,
+   "viol": true,
+   "two": true,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "packages_packages",
+   "P": [
+    "project_id"
+   ],
+   "S": "projects",
+   "D": "creator_id",
+   "C": "creator_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "project_compliance_standards_adherence",
+   "P": [
+    "project_id"
+   ],
+   "S": "projects",
+   "D": "namespace_id",
+   "C": "namespace_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "security_findings",
+   "P": [
+    "uuid"
+   ],
+   "S": "vulnerability_occurrences",
+   "D": "scanner_id",
+   "C": "scanner_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "security_orchestration_policy_configurations",
+   "P": [
+    "security_policy_management_project_id"
+   ],
+   "S": "projects",
+   "D": "namespace_id",
+   "C": "namespace_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": false,
+   "group": [
+    "namespaces",
+    "projects"
+   ]
+  },
+  {
+   "R": "vulnerability_feedback",
+   "P": [
+    "merge_request_id"
+   ],
+   "S": "merge_requests",
+   "D": "author_id",
+   "C": "author_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "vulnerability_feedback",
+   "P": [
+    "pipeline_id"
+   ],
+   "S": "p_ci_pipelines",
+   "D": "merge_request_id",
+   "C": "merge_request_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "projects",
+    "projects"
+   ]
+  },
+  {
+   "R": "work_item_custom_lifecycles",
+   "P": [
+    "default_closed_status_id"
+   ],
+   "S": "work_item_custom_statuses",
+   "D": "updated_by_id",
+   "C": "updated_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "work_item_custom_lifecycles",
+   "P": [
+    "default_duplicate_status_id"
+   ],
+   "S": "work_item_custom_statuses",
+   "D": "updated_by_id",
+   "C": "updated_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "work_item_custom_lifecycles",
+   "P": [
+    "default_open_status_id"
+   ],
+   "S": "work_item_custom_statuses",
+   "D": "updated_by_id",
+   "C": "updated_by_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": true,
+   "Pm": false,
+   "viol": true,
+   "two": true,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  },
+  {
+   "R": "work_item_decisions",
+   "P": [
+    "resolving_note_id"
+   ],
+   "S": "notes",
+   "D": "author_id",
+   "C": "author_id",
+   "ev": "triangle",
+   "src": "heur",
+   "Cm": true,
+   "Dm": false,
+   "Pm": true,
+   "viol": true,
+   "two": false,
+   "carries": true,
+   "group": [
+    "namespaces",
+    "namespaces"
+   ]
+  }
+ ]
+}

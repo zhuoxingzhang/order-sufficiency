@@ -1,0 +1,2644 @@
+{
+ "precise": {
+  "user_achievements": [
+   "award_message_html",
+   "show_on_profile"
+  ],
+  "broadcast_messages": [
+   "target_access_levels"
+  ],
+  "keys": [
+   "fingerprint",
+   "fingerprint_sha256",
+   "id",
+   "key",
+   "last_used_at",
+   "organization_id",
+   "title",
+   "user_id"
+  ],
+  "identities": [
+   "extern_uid",
+   "provider",
+   "saml_provider_id",
+   "secondary_extern_uid",
+   "user_id"
+  ],
+  "topics": [
+   "avatar",
+   "description",
+   "name",
+   "non_private_projects_count",
+   "organization_id",
+   "slug",
+   "title",
+   "total_projects_count"
+  ],
+  "users": [
+   "accepted_term_id",
+   "admin",
+   "auditor",
+   "confirmation_sent_at",
+   "confirmation_token",
+   "encrypted_otp_secret",
+   "encrypted_otp_secret_iv",
+   "encrypted_otp_secret_salt",
+   "external",
+   "last_activity_on",
+   "last_credential_check_at",
+   "name",
+   "notification_email",
+   "onboarding_in_progress",
+   "otp_backup_codes",
+   "otp_grace_period_started_at",
+   "otp_required_for_login",
+   "otp_secret",
+   "otp_secret_expires_at",
+   "remember_created_at",
+   "require_two_factor_authentication_from_group",
+   "reset_password_sent_at",
+   "reset_password_token",
+   "two_factor_grace_period",
+   "unconfirmed_email",
+   "unlock_token",
+   "username"
+  ],
+  "appearances": [
+   "description",
+   "email_header_and_footer_enabled",
+   "favicon",
+   "footer_message",
+   "header_logo",
+   "header_message",
+   "logo",
+   "member_guidelines",
+   "message_background_color",
+   "message_font_color",
+   "new_project_guidelines",
+   "profile_image_guidelines",
+   "pwa_description",
+   "pwa_icon",
+   "pwa_name",
+   "pwa_short_name",
+   "site_name",
+   "title",
+   "updated_by"
+  ],
+  "cd_applications": [
+   "last_rollout_iid",
+   "name",
+   "organization_id"
+  ],
+  "user_details": [
+   "enterprise_group_associated_at",
+   "enterprise_group_id",
+   "webauthn_xid"
+  ],
+  "merge_requests": [
+   "author_id",
+   "description",
+   "head_pipeline_id",
+   "in_progress_merge_commit_sha",
+   "merge_commit_sha",
+   "merge_error",
+   "merge_jid",
+   "merge_params",
+   "merge_ref_sha",
+   "merge_user_id",
+   "merged_commit_sha",
+   "milestone_id",
+   "prepared_at",
+   "rebase_commit_sha",
+   "rebase_jid",
+   "retargeted",
+   "source_branch",
+   "source_project_id",
+   "squash",
+   "state_id",
+   "target_project_id",
+   "title"
+  ],
+  "project_settings": [
+   "duo_dependency_bump_breaking_changes_enabled",
+   "duo_dependency_bump_breaking_changes_enabled_by_id",
+   "has_vulnerabilities",
+   "legacy_open_source_license_available",
+   "merge_commit_template",
+   "pages_primary_domain",
+   "pages_unique_domain",
+   "pages_unique_domain_enabled",
+   "push_rule_id",
+   "squash_commit_template",
+   "target_platforms"
+  ],
+  "draft_notes": [
+   "author_id",
+   "commit_id",
+   "internal",
+   "line_code",
+   "merge_request_id",
+   "note",
+   "position",
+   "resolve_discussion"
+  ],
+  "integrations": [
+   "active",
+   "group_id",
+   "inherit_from_id",
+   "instance",
+   "job_events",
+   "organization_id",
+   "pipeline_events",
+   "project_id"
+  ],
+  "slack_integrations": [
+   "alias"
+  ],
+  "design_management_designs": [
+   "description"
+  ],
+  "projects": [
+   "archived",
+   "avatar",
+   "creator_id",
+   "detected_repository_languages",
+   "has_external_issue_tracker",
+   "has_external_wiki",
+   "import_type",
+   "import_url",
+   "jobs_cache_index",
+   "last_activity_at",
+   "last_repository_check_at",
+   "last_repository_check_failed",
+   "last_repository_updated_at",
+   "lfs_enabled",
+   "marked_for_deletion_at",
+   "merge_requests_ff_only_enabled",
+   "merge_requests_rebase_enabled",
+   "mirror",
+   "mirror_overwrites_diverged_branches",
+   "mirror_trigger_builds",
+   "mirror_user_id",
+   "name",
+   "namespace_id",
+   "only_allow_merge_if_all_discussions_are_resolved",
+   "only_mirror_protected_branches",
+   "organization_id",
+   "packages_enabled",
+   "pages_https_only",
+   "path",
+   "pending_delete",
+   "pool_repository_id",
+   "repository_size_limit",
+   "repository_storage",
+   "require_password_to_approve",
+   "shared_runners_enabled",
+   "star_count",
+   "storage_version",
+   "visibility_level"
+  ],
+  "terraform_states": [
+   "deleted_at",
+   "lock_xid",
+   "locked_at",
+   "locked_by_user_id",
+   "versioning_enabled"
+  ],
+  "issues": [
+   "blocking_issues_count",
+   "closed_at",
+   "closed_by_id",
+   "confidential",
+   "due_date",
+   "duplicated_to_id",
+   "milestone_id",
+   "moved_to_id",
+   "promoted_to_epic_id",
+   "sprint_id",
+   "start_date",
+   "title",
+   "upvotes_count",
+   "work_item_type_id"
+  ],
+  "application_settings": [
+   "ai_gateway_url",
+   "compliance_frameworks",
+   "database_reindexing",
+   "default_branch_name",
+   "default_branch_protection_defaults",
+   "duo_auto_mode_enabled",
+   "duo_features_enabled",
+   "duo_foundational_flows_enabled",
+   "duo_remote_flows_enabled",
+   "duo_workflows_default_image_registry",
+   "elasticsearch_url",
+   "enabled_instance_verbose_ai_logs",
+   "future_subscriptions",
+   "gitaly_timeout_default",
+   "instance_level_ai_beta_features_enabled",
+   "license_trial_ends_on",
+   "local_markdown_version",
+   "lock_duo_auto_mode_enabled",
+   "lock_duo_features_enabled",
+   "lock_duo_foundational_flows_enabled",
+   "lock_duo_remote_flows_enabled",
+   "lock_tool_approval_for_session_enabled",
+   "outbound_local_requests_whitelist",
+   "repository_size_limit",
+   "tool_approval_for_session_enabled",
+   "workspaces_oauth_application_id"
+  ],
+  "bulk_imports": [
+   "has_failures",
+   "source_enterprise",
+   "source_version"
+  ],
+  "chat_names": [
+   "last_used_at"
+  ],
+  "p_ci_builds": [
+   "allow_failure",
+   "artifacts_expire_at",
+   "coverage",
+   "description",
+   "erased_at",
+   "erased_by_id",
+   "exit_code",
+   "failure_reason",
+   "processed",
+   "project_id",
+   "queued_at",
+   "scheduled_at",
+   "started_at",
+   "token_encrypted",
+   "upstream_pipeline_id",
+   "upstream_pipeline_partition_id",
+   "user_id",
+   "waiting_for_resource_at",
+   "when"
+  ],
+  "container_expiration_policies": [
+   "enabled"
+  ],
+  "container_repositories": [
+   "expiration_policy_cleanup_status",
+   "expiration_policy_started_at",
+   "last_cleanup_deleted_tags_count"
+  ],
+  "deployments": [
+   "archived",
+   "finished_at"
+  ],
+  "deploy_tokens": [
+   "creator_id",
+   "expires_at",
+   "revoked",
+   "username"
+  ],
+  "emails": [
+   "detumbled_email",
+   "email"
+  ],
+  "environments": [
+   "auto_delete_at",
+   "auto_stop_at",
+   "cluster_agent_id",
+   "external_url",
+   "flux_resource_path",
+   "kubernetes_namespace",
+   "merge_request_id",
+   "slug",
+   "tier"
+  ],
+  "gpg_keys": [
+   "fingerprint",
+   "primary_keyid"
+  ],
+  "namespace_settings": [
+   "admin_locked_duo_features_enabled",
+   "archived",
+   "duo_auto_mode_enabled",
+   "duo_custom_agents_enabled",
+   "duo_custom_flows_enabled",
+   "duo_external_agents_enabled",
+   "duo_features_enabled",
+   "duo_foundational_flows_enabled",
+   "duo_remote_flows_enabled",
+   "enable_duo_code_review_by_default",
+   "enterprise_users_extensions_marketplace_opt_in_status",
+   "experiment_features_enabled",
+   "last_dormant_member_review_at",
+   "lock_duo_auto_mode_enabled",
+   "lock_duo_custom_agents_enabled",
+   "lock_duo_custom_flows_enabled",
+   "lock_duo_external_agents_enabled",
+   "lock_duo_features_enabled",
+   "lock_duo_foundational_flows_enabled",
+   "lock_duo_remote_flows_enabled",
+   "lock_tool_approval_for_session_enabled",
+   "mcp_server_enabled",
+   "new_user_signups_cap",
+   "prevent_sharing_groups_outside_hierarchy",
+   "repository_read_only",
+   "seat_control",
+   "tool_approval_for_session_enabled"
+  ],
+  "namespaces": [
+   "allow_descendants_override_disabled_shared_runners",
+   "extra_shared_runners_minutes_limit",
+   "ldap_sync_error",
+   "ldap_sync_status",
+   "membership_lock",
+   "organization_id",
+   "parent_id",
+   "require_two_factor_authentication",
+   "share_with_group_lock",
+   "shared_runners_enabled",
+   "state",
+   "visibility_level"
+  ],
+  "work_item_positions": [
+   "namespace_id",
+   "relative_position"
+  ],
+  "jira_connect_installations": [
+   "instance_url"
+  ],
+  "label_priorities": [
+   "label_id",
+   "priority"
+  ],
+  "lfs_objects_projects": [
+   "oid",
+   "project_id"
+  ],
+  "members": [
+   "access_level",
+   "created_by_id",
+   "expires_at",
+   "expiry_notified_at",
+   "invite_accepted_at",
+   "invite_email_success",
+   "invite_token",
+   "ldap",
+   "request_accepted_at",
+   "requested_at",
+   "source_id",
+   "source_type",
+   "state",
+   "user_id"
+  ],
+  "merge_requests_merge_data": [
+   "merge_jid",
+   "merge_ref_sha"
+  ],
+  "merge_request_diffs": [
+   "base_commit_sha",
+   "external_diff_store",
+   "head_commit_sha",
+   "sorted",
+   "start_commit_sha",
+   "stored_externally"
+  ],
+  "merge_request_diff_files": [
+   "new_path",
+   "project_id"
+  ],
+  "merge_request_reviewers": [
+   "state"
+  ],
+  "namespace_statistics": [
+   "dependency_proxy_size",
+   "shared_runners_seconds",
+   "shared_runners_seconds_last_reset",
+   "storage_size",
+   "wiki_size"
+  ],
+  "notes": [
+   "author_id",
+   "change_position",
+   "commit_id",
+   "confidential",
+   "id",
+   "last_edited_at",
+   "line_code",
+   "namespace_id",
+   "note",
+   "noteable_id",
+   "organization_id",
+   "position",
+   "project_id",
+   "type",
+   "updated_by_id"
+  ],
+  "pages_deployments": [
+   "deleted_at",
+   "upload_ready"
+  ],
+  "pages_domains": [
+   "auto_ssl_failed",
+   "certificate",
+   "certificate_source",
+   "certificate_valid_not_after",
+   "certificate_valid_not_before"
+  ],
+  "personal_access_tokens": [
+   "last_used_at",
+   "revoked"
+  ],
+  "plans": [
+   "name",
+   "title"
+  ],
+  "plan_limits": [
+   "plan_id"
+  ],
+  "remote_mirrors": [
+   "error_notification_sent",
+   "last_error",
+   "last_successful_update_at",
+   "last_update_at",
+   "last_update_started_at",
+   "update_status"
+  ],
+  "project_features": [
+   "builds_access_level",
+   "container_registry_access_level",
+   "issues_access_level",
+   "merge_requests_access_level",
+   "snippets_access_level",
+   "wiki_access_level"
+  ],
+  "project_ci_cd_settings": [
+   "pipeline_variables_minimum_override_role"
+  ],
+  "project_mirror_data": [
+   "correlation_id_value",
+   "jid",
+   "last_error",
+   "next_execution_timestamp",
+   "retry_count"
+  ],
+  "project_statistics": [
+   "commit_count",
+   "container_registry_size",
+   "lfs_objects_size",
+   "repository_size",
+   "snippets_size",
+   "uploads_size",
+   "wiki_size"
+  ],
+  "resource_label_events": [
+   "label_id",
+   "reference"
+  ],
+  "snippet_repositories": [
+   "disk_path"
+  ],
+  "snippet_statistics": [
+   "commit_count",
+   "file_count",
+   "repository_size"
+  ],
+  "uploads": [
+   "checksum",
+   "model_id"
+  ],
+  "notification_settings": [
+   "level"
+  ],
+  "user_preferences": [
+   "default_duo_add_on_assignment_id",
+   "orbit_settings",
+   "roadmap_epics_state",
+   "text_editor_type"
+  ],
+  "user_statuses": [
+   "clear_status_at"
+  ],
+  "alert_management_alerts": [
+   "events"
+  ],
+  "alert_management_http_integrations": [
+   "encrypted_token",
+   "encrypted_token_iv",
+   "endpoint_identifier"
+  ],
+  "analytics_cycle_analytics_aggregations": [
+   "enabled",
+   "last_full_issues_id",
+   "last_full_issues_updated_at",
+   "last_full_merge_requests_id",
+   "last_full_merge_requests_updated_at"
+  ],
+  "analytics_cycle_analytics_stage_aggregations": [
+   "last_completed_at",
+   "last_run_at"
+  ],
+  "bulk_import_entities": [
+   "has_failures",
+   "organization_id",
+   "project_id"
+  ],
+  "bulk_import_exports": [
+   "batched",
+   "batches_count",
+   "error",
+   "jid",
+   "status",
+   "total_objects_count"
+  ],
+  "p_ci_job_artifacts": [
+   "expire_at",
+   "locked"
+  ],
+  "ci_build_trace_chunks": [
+   "checksum",
+   "data_store",
+   "raw_data"
+  ],
+  "p_ci_build_trace_metadata": [
+   "archival_attempts",
+   "archived_at",
+   "checksum",
+   "trace_artifact_id"
+  ],
+  "p_ci_job_messages": [
+   "content"
+  ],
+  "p_ci_pipelines": [
+   "auto_canceled_by_id",
+   "auto_canceled_by_partition_id",
+   "before_sha",
+   "duration",
+   "external_pull_request_id",
+   "failure_reason",
+   "finished_at",
+   "locked",
+   "merge_request_id",
+   "partition_id",
+   "pipeline_schedule_id",
+   "project_id",
+   "protected",
+   "ref",
+   "sha",
+   "source",
+   "source_sha",
+   "tag",
+   "target_sha",
+   "trigger_id",
+   "user_id"
+  ],
+  "ci_pipeline_messages": [
+   "content"
+  ],
+  "ci_pipeline_schedules": [
+   "active",
+   "owner_id",
+   "ref"
+  ],
+  "ci_runner_taggings": [
+   "tag_name"
+  ],
+  "ci_secure_files": [
+   "expires_at",
+   "file",
+   "key_data",
+   "metadata"
+  ],
+  "p_ci_stages": [
+   "pipeline_id",
+   "position",
+   "project_id",
+   "status"
+  ],
+  "catalog_resources": [
+   "description",
+   "latest_released_at",
+   "name",
+   "state",
+   "verification_level",
+   "visibility_level"
+  ],
+  "catalog_resource_versions": [
+   "released_at"
+  ],
+  "cluster_agent_tokens": [
+   "status"
+  ],
+  "clusters": [
+   "cleanup_status_reason",
+   "cluster_type"
+  ],
+  "cluster_platforms_kubernetes": [
+   "namespace"
+  ],
+  "cluster_providers_aws": [
+   "access_key_id",
+   "session_token"
+  ],
+  "cluster_providers_gcp": [
+   "operation_id"
+  ],
+  "gpg_signatures": [
+   "gpg_key_subkey_id"
+  ],
+  "routes": [
+   "name",
+   "namespace_id",
+   "path"
+  ],
+  "subscriptions": [
+   "subscribable_id",
+   "subscribed"
+  ],
+  "web_hooks": [
+   "enable_ssl_verification",
+   "group_id",
+   "organization_id",
+   "project_id"
+  ],
+  "error_tracking_errors": [
+   "description",
+   "last_seen_at"
+  ],
+  "web_hook_logs_daily": [
+   "url"
+  ],
+  "import_placeholder_user_details": [
+   "deletion_attempts"
+  ],
+  "import_offline_configurations": [
+   "export_prefix",
+   "object_storage_credentials",
+   "source_hostname"
+  ],
+  "import_offline_exports": [
+   "has_failures"
+  ],
+  "merge_request_cleanup_schedules": [
+   "completed_at",
+   "failed_count"
+  ],
+  "namespaces_consents": [
+   "user_id"
+  ],
+  "namespace_descendants": [
+   "outdated_at"
+  ],
+  "namespace_state_propagations": [
+   "started_at",
+   "status"
+  ],
+  "project_relation_exports": [
+   "export_error",
+   "jid"
+  ],
+  "tag_gpg_signatures": [
+   "gpg_key_subkey_id"
+  ],
+  "supply_chain_signing_certificates": [
+   "expires_at"
+  ],
+  "wiki_page_meta": [
+   "deleted_at",
+   "namespace_id",
+   "project_id"
+  ],
+  "wiki_page_slugs": [
+   "canonical"
+  ],
+  "issuable_slas": [
+   "issuable_closed"
+  ],
+  "todos": [
+   "group_id",
+   "project_id",
+   "resolved_by_action",
+   "snoozed_until",
+   "state"
+  ],
+  "x509_commit_signatures": [
+   "verification_status"
+  ],
+  "webauthn_registrations": [
+   "authentication_mode",
+   "counter",
+   "credential_xid",
+   "last_used_at",
+   "name",
+   "passkey_eligible",
+   "public_key",
+   "user_id"
+  ],
+  "granular_scopes": [
+   "organization_id"
+  ],
+  "lists": [
+   "custom_status_id",
+   "position",
+   "user_id"
+  ],
+  "ci_variables": [
+   "hidden",
+   "key",
+   "masked"
+  ],
+  "job_environments": [
+   "deployment_id",
+   "project_id"
+  ],
+  "ci_pipeline_artifacts": [
+   "locked"
+  ],
+  "catalog_bundled_resources": [
+   "latest_released_at"
+  ],
+  "catalog_bundled_resource_components": [
+   "file"
+  ],
+  "p_ci_finished_pipeline_ch_sync_events": [
+   "processed"
+  ],
+  "ci_partitions": [
+   "pipelines_id_range"
+  ],
+  "ci_triggers": [
+   "expires_at"
+  ],
+  "ci_runners": [
+   "active",
+   "allowed_plan_name_uids",
+   "token_rotation_deadline"
+  ],
+  "p_ci_job_runtime_environments": [
+   "runtime_environment_id"
+  ],
+  "clusters_managed_resources": [
+   "deletion_strategy",
+   "status",
+   "template_name",
+   "tracked_objects"
+  ],
+  "group_repository_storage_moves": [
+   "error_message"
+  ],
+  "group_crm_settings": [
+   "enabled",
+   "source_group_id"
+  ],
+  "group_import_states": [
+   "jid"
+  ],
+  "import_source_users": [
+   "placeholder_user_id",
+   "reassign_to_user_id",
+   "reassigned_by_user_id"
+  ],
+  "issue_metrics": [
+   "first_mentioned_in_commit_at"
+  ],
+  "labels": [
+   "organization_id",
+   "template"
+  ],
+  "lfs_objects": [
+   "file"
+  ],
+  "merge_request_merge_schedules": [
+   "merge_after"
+  ],
+  "merge_requests_closing_issues": [
+   "from_mr_description",
+   "project_id"
+  ],
+  "events": [
+   "fingerprint",
+   "id",
+   "personal_namespace_id",
+   "project_id",
+   "target_id"
+  ],
+  "ml_model_versions": [
+   "package_id"
+  ],
+  "ml_candidates": [
+   "ci_build_id",
+   "end_time",
+   "experiment_id",
+   "model_version_id",
+   "package_id",
+   "status"
+  ],
+  "packages_packages": [
+   "creator_id",
+   "name",
+   "status",
+   "status_message",
+   "version"
+  ],
+  "ml_models": [
+   "description",
+   "name"
+  ],
+  "fork_networks": [
+   "deleted_root_project_name",
+   "organization_id",
+   "root_project_id"
+  ],
+  "project_topics": [
+   "topic_id"
+  ],
+  "packages_package_files": [
+   "file",
+   "file_name",
+   "file_sha256",
+   "package_id",
+   "size",
+   "status"
+  ],
+  "packages_conan_package_references": [
+   "info"
+  ],
+  "import_export_uploads": [
+   "project_id"
+  ],
+  "deploy_keys_projects": [
+   "project_id"
+  ],
+  "fork_network_members": [
+   "forked_from_project_id",
+   "project_id"
+  ],
+  "release_links": [
+   "project_id"
+  ],
+  "users_star_projects": [
+   "project_id"
+  ],
+  "project_relation_export_uploads": [
+   "export_file"
+  ],
+  "saved_replies": [
+   "content",
+   "name"
+  ],
+  "service_desk_settings": [
+   "custom_email",
+   "custom_email_enabled"
+  ],
+  "snippets": [
+   "author_id"
+  ],
+  "user_agent_details": [
+   "submitted"
+  ],
+  "spam_logs": [
+   "submitted_as_ham"
+  ],
+  "suggestions": [
+   "applied",
+   "commit_id",
+   "outdated"
+  ],
+  "abuse_reports": [
+   "reporter_id"
+  ],
+  "term_agreements": [
+   "accepted"
+  ],
+  "namespace_commit_emails": [
+   "email_id"
+  ],
+  "user_highest_roles": [
+   "highest_access_level"
+  ],
+  "vs_code_settings": [
+   "content"
+  ],
+  "x509_certificates": [
+   "certificate_status"
+  ],
+  "bulk_import_trackers": [
+   "batched",
+   "fetched_objects_count",
+   "has_next_page",
+   "imported_objects_count",
+   "jid",
+   "next_page",
+   "source_objects_count"
+  ],
+  "bulk_import_export_batches": [
+   "error"
+  ],
+  "project_export_jobs": [
+   "jid"
+  ],
+  "elastic_reindexing_tasks": [
+   "delete_original_index_at"
+  ],
+  "virtual_registries_packages_maven_registries": [
+   "description",
+   "name"
+  ],
+  "designated_beneficiaries": [
+   "email",
+   "name",
+   "relationship"
+  ],
+  "onboarding_progresses": [
+   "ended_at"
+  ],
+  "vulnerability_occurrences": [
+   "details",
+   "location_fingerprint",
+   "project_id",
+   "scanner_id",
+   "vulnerability_id"
+  ],
+  "work_item_agent_plans": [
+   "ai_planning_enabled",
+   "readiness_score"
+  ],
+  "dast_profiles": [
+   "project_id"
+  ],
+  "dast_profile_schedules": [
+   "active",
+   "project_id"
+  ],
+  "bulk_import_failures": [
+   "project_id"
+  ],
+  "approval_merge_request_rule_sources": [
+   "approval_project_rule_id"
+  ],
+  "approval_merge_request_rules": [
+   "modified_from_project_rule"
+  ],
+  "merge_requests_approval_rules": [
+   "approvals_required"
+  ],
+  "geo_nodes": [
+   "clone_url_prefix",
+   "oauth_application_id"
+  ],
+  "geo_node_statuses": [
+   "cursor_last_event_date",
+   "cursor_last_event_id",
+   "db_replication_lag_seconds",
+   "last_event_date",
+   "last_event_id",
+   "last_successful_status_check_at",
+   "replication_slots_count",
+   "replication_slots_max_retained_wal_bytes",
+   "replication_slots_used_count",
+   "revision",
+   "status_message",
+   "storage_configuration_digest",
+   "version"
+  ],
+  "gitlab_subscriptions": [
+   "hosted_plan_id",
+   "max_seats_used_changed_at"
+  ],
+  "group_merge_request_approval_settings": [
+   "require_password_to_approve",
+   "require_reauthentication_to_approve"
+  ],
+  "group_wiki_repositories": [
+   "disk_path",
+   "last_repository_updated_at"
+  ],
+  "sprints": [
+   "due_date",
+   "start_date",
+   "state_enum",
+   "title"
+  ],
+  "licenses": [
+   "data",
+   "last_synced_at"
+  ],
+  "push_rules": [
+   "branch_name_regex",
+   "commit_message_negative_regex",
+   "commit_message_regex",
+   "regexp_uses_re2",
+   "reject_unsigned_commits"
+  ],
+  "saml_group_links": [
+   "provider",
+   "saml_group_name",
+   "scim_group_uid"
+  ],
+  "ai_flow_schedules": [
+   "active",
+   "consecutive_failure_count",
+   "cron",
+   "cron_timezone",
+   "last_run_at",
+   "last_run_error",
+   "last_run_status"
+  ],
+  "ai_flow_triggers": [
+   "active",
+   "autonomous_service_account_id",
+   "goals"
+  ],
+  "ai_usage_events": [
+   "timestamp"
+  ],
+  "ai_active_context_collections": [
+   "metadata",
+   "options"
+  ],
+  "ai_active_context_connections": [
+   "active",
+   "options",
+   "prefix"
+  ],
+  "ai_active_context_migrations": [
+   "completed_at",
+   "error_message",
+   "retries_left",
+   "started_at",
+   "status"
+  ],
+  "ai_active_context_tasks": [
+   "completed_at",
+   "error_message",
+   "retries_left",
+   "started_at",
+   "status"
+  ],
+  "p_ai_active_context_code_repositories": [
+   "last_queried_at",
+   "metadata",
+   "state"
+  ],
+  "ai_catalog_items": [
+   "deleted_at",
+   "description",
+   "foundational_flow_reference",
+   "item_type",
+   "latest_released_version_id",
+   "name",
+   "organization_id",
+   "project_id",
+   "star_count",
+   "verification_level",
+   "visibility"
+  ],
+  "ai_conversation_messages": [
+   "organization_id",
+   "referer_url"
+  ],
+  "p_duo_workflows_checkpoints": [
+   "checkpoint_ns"
+  ],
+  "p_duo_workflows_checkpoint_headers": [
+   "checkpoint_ns"
+  ],
+  "duo_workflows_workflows": [
+   "agent_privileges",
+   "drop_reason",
+   "issue_id",
+   "messaging_callback_context",
+   "pre_approved_agent_privileges",
+   "summary",
+   "title",
+   "tool_call_approvals",
+   "web_search_enabled"
+  ],
+  "ai_agent_identities": [
+   "revoked_at"
+  ],
+  "ldap_admin_role_links": [
+   "last_successful_sync_at",
+   "sync_ended_at",
+   "sync_error",
+   "sync_started_at",
+   "sync_status"
+  ],
+  "cd_application_flow_definitions": [
+   "file"
+  ],
+  "cd_rollouts": [
+   "finished_at",
+   "workflow_ref"
+  ],
+  "cd_rollout_environments": [
+   "finished_at"
+  ],
+  "cd_version_sets": [
+   "entries_digest"
+  ],
+  "ci_runner_controller_tokens": [
+   "status"
+  ],
+  "cluster_agents": [
+   "has_vulnerabilities",
+   "is_receptive"
+  ],
+  "pipl_users": [
+   "initial_email_sent_at"
+  ],
+  "zoekt_tasks": [
+   "perform_at",
+   "retries_left",
+   "state"
+  ],
+  "dast_profiles_tags": [
+   "tag_id",
+   "tag_name"
+  ],
+  "dependency_list_exports": [
+   "expires_at",
+   "file",
+   "group_id",
+   "pipeline_id",
+   "project_id"
+  ],
+  "dependency_proxy_packages_settings": [
+   "encrypted_maven_external_registry_password_iv",
+   "encrypted_maven_external_registry_username_iv"
+  ],
+  "description_versions": [
+   "deleted_at"
+  ],
+  "epics": [
+   "closed_at",
+   "closed_by_id",
+   "parent_id",
+   "relative_position",
+   "title",
+   "work_item_parent_link_id"
+  ],
+  "namespace_template_settings": [
+   "duo_template_project_id",
+   "file_template_project_id"
+  ],
+  "user_member_roles": [
+   "ldap"
+  ],
+  "label_links": [
+   "target_id",
+   "target_type"
+  ],
+  "merge_requests_compliance_violations": [
+   "title"
+  ],
+  "security_inventory_filters": [
+   "archived",
+   "project_name",
+   "traversal_ids"
+  ],
+  "namespace_ci_cd_settings": [
+   "allow_stale_runner_pruning"
+  ],
+  "group_features": [
+   "wiki_access_level"
+  ],
+  "import_sync_repositories": [
+   "authority_state",
+   "consecutive_auth_failures",
+   "disconnect_reason",
+   "provider_default_branch",
+   "provider_full_name",
+   "provider_repository_node_id",
+   "provider_webhook_xid",
+   "restore_authority_state",
+   "webhook_secret"
+  ],
+  "iterations_cadences": [
+   "duration_in_weeks",
+   "iterations_in_advance",
+   "next_run_date",
+   "roll_over"
+  ],
+  "merge_trains": [
+   "duration",
+   "merged_at",
+   "pipeline_id"
+  ],
+  "namespace_limits": [
+   "first_enforced_at",
+   "last_enforced_at",
+   "last_seat_all_used_seats_notification_at",
+   "pre_enforcement_notification_at"
+  ],
+  "workspaces": [
+   "actual_state",
+   "actual_state_updated_at",
+   "deployment_resource_version",
+   "desired_state",
+   "desired_state_updated_at"
+  ],
+  "zoekt_enabled_namespaces": [
+   "last_rollout_failed_at",
+   "metadata",
+   "search"
+  ],
+  "zoekt_indices": [
+   "last_indexed_at",
+   "reserved_storage_bytes",
+   "state",
+   "used_storage_bytes",
+   "used_storage_bytes_updated_at",
+   "watermark_level"
+  ],
+  "zoekt_repositories": [
+   "index_file_count",
+   "indexed_at",
+   "retries_left",
+   "schema_version",
+   "size_bytes",
+   "state"
+  ],
+  "security_attributes": [
+   "deleted_at",
+   "name",
+   "namespace_id"
+  ],
+  "security_categories": [
+   "deleted_at",
+   "description",
+   "editable_state",
+   "multiple_selection",
+   "name",
+   "namespace_id",
+   "template_type"
+  ],
+  "security_policy_dismissals": [
+   "status"
+  ],
+  "security_scan_profiles": [
+   "deleted_at"
+  ],
+  "security_scheduled_pipeline_execution_policy_test_runs": [
+   "error_message",
+   "state"
+  ],
+  "sbom_vulnerability_scans": [
+   "error_message"
+  ],
+  "virtual_registries_container_upstreams": [
+   "auth_url"
+  ],
+  "virtual_registries_packages_maven_upstreams": [
+   "password",
+   "url",
+   "username"
+  ],
+  "virtual_registries_packages_npm_upstreams": [
+   "auth_token",
+   "url"
+  ],
+  "vulnerability_archived_records": [
+   "date"
+  ],
+  "vulnerability_exports": [
+   "expires_at",
+   "file",
+   "group_id",
+   "organization_id",
+   "project_id"
+  ],
+  "work_item_weights_sources": [
+   "namespace_id"
+  ],
+  "work_item_current_statuses": [
+   "custom_status_id",
+   "system_defined_status_id"
+  ],
+  "work_item_custom_types": [
+   "name"
+  ],
+  "ai_settings": [
+   "amazon_q_oauth_application_id",
+   "amazon_q_ready",
+   "amazon_q_role_arn",
+   "amazon_q_service_account_user_id",
+   "duo_core_features_enabled",
+   "duo_workflow_oauth_application_id",
+   "duo_workflow_service_account_user_id"
+  ],
+  "ai_catalog_mcp_servers": [
+   "oauth_client_secret"
+  ],
+  "ai_catalog_mcp_servers_users": [
+   "expires_at",
+   "refresh_token",
+   "token"
+  ],
+  "instance_model_selection_feature_settings": [
+   "offered_model_ref"
+  ],
+  "dast_sites": [
+   "dast_site_validation_id"
+  ],
+  "ci_pending_builds": [
+   "minutes_exceeded"
+  ],
+  "ci_minutes_additional_packs": [
+   "expires_at",
+   "namespace_id",
+   "number_of_minutes"
+  ],
+  "p_ci_finished_build_ch_sync_events": [
+   "processed"
+  ],
+  "cluster_agent_url_configurations": [
+   "client_cert",
+   "client_key",
+   "public_key"
+  ],
+  "compliance_management_frameworks": [
+   "color",
+   "description",
+   "name",
+   "namespace_id",
+   "pipeline_configuration_full_path",
+   "template_id",
+   "template_version"
+  ],
+  "country_access_logs": [
+   "access_count",
+   "first_access_at",
+   "last_access_at"
+  ],
+  "packages_protection_rules": [
+   "project_id"
+  ],
+  "vulnerability_export_parts": [
+   "file"
+  ],
+  "boards": [
+   "milestone_id"
+  ],
+  "project_compliance_standards_adherence": [
+   "namespace_id"
+  ],
+  "protected_branches": [
+   "code_owner_approval_required"
+  ],
+  "epic_issues": [
+   "epic_id",
+   "relative_position"
+  ],
+  "work_item_parent_links": [
+   "relative_position"
+  ],
+  "subscription_add_on_purchases": [
+   "expires_on",
+   "last_assigned_users_refreshed_at"
+  ],
+  "subscription_seat_assignments": [
+   "last_activity_on"
+  ],
+  "member_approvals": [
+   "reviewed_by_id",
+   "status"
+  ],
+  "custom_fields": [
+   "archived_at",
+   "updated_by_id"
+  ],
+  "namespace_root_storage_statistics": [
+   "notification_level"
+  ],
+  "zoekt_nodes": [
+   "used_bytes"
+  ],
+  "secrets_manager_namespace_enrollments": [
+   "add_on_requested_at",
+   "beta",
+   "disabled_at"
+  ],
+  "security_findings": [
+   "context_unaware_uuid",
+   "overridden_uuid",
+   "severity",
+   "uuid"
+  ],
+  "security_scans": [
+   "findings_partition_number",
+   "status"
+  ],
+  "vulnerability_partial_scans": [
+   "mode"
+  ],
+  "security_trainings": [
+   "is_primary",
+   "training_provider_id"
+  ],
+  "analyzer_project_statuses": [
+   "archived",
+   "traversal_ids"
+  ],
+  "project_to_security_attributes": [
+   "traversal_ids"
+  ],
+  "project_security_settings": [
+   "license_configuration_source"
+  ],
+  "vulnerabilities": [
+   "author_id",
+   "auto_resolved",
+   "confirmed_by_id",
+   "dismissed_at",
+   "dismissed_by_id",
+   "finding_id",
+   "present_on_default_branch",
+   "project_id",
+   "report_type",
+   "resolved_at",
+   "resolved_by_id",
+   "resolved_on_default_branch",
+   "severity",
+   "severity_overridden",
+   "solution",
+   "state",
+   "title"
+  ],
+  "security_orchestration_policy_configurations": [
+   "security_policy_management_project_id"
+  ],
+  "sbom_vulnerability_scan_results": [
+   "result_file"
+  ],
+  "compromised_password_detections": [
+   "resolved_at"
+  ],
+  "vulnerability_reads": [
+   "dismissal_reason",
+   "has_issues"
+  ],
+  "vulnerability_statistics": [
+   "archived",
+   "traversal_ids"
+  ],
+  "vulnerability_archives": [
+   "archived_records_count"
+  ],
+  "vulnerability_archive_exports": [
+   "file"
+  ],
+  "vulnerability_flags": [
+   "confidence_score",
+   "description",
+   "project_id",
+   "status",
+   "workflow_id"
+  ],
+  "vulnerability_remediations": [
+   "file",
+   "summary"
+  ],
+  "vulnerability_external_issue_links": [
+   "external_issue_key"
+  ],
+  "vulnerability_feedback": [
+   "issue_id",
+   "merge_request_id"
+  ],
+  "work_item_colors": [
+   "color"
+  ],
+  "work_item_decisions": [
+   "archived_at",
+   "resolution_rationale",
+   "resolved_at",
+   "resolved_by_id",
+   "resolving_note_id"
+  ],
+  "work_item_custom_lifecycles": [
+   "updated_by_id"
+  ],
+  "work_item_custom_status_mappings": [
+   "new_status_id",
+   "valid_until"
+  ],
+  "work_item_custom_statuses": [
+   "updated_by_id"
+  ],
+  "work_item_type_visibilities": [
+   "enabled",
+   "propagate"
+  ],
+  "work_item_progresses": [
+   "last_reminder_sent_at",
+   "progress",
+   "reminder_frequency"
+  ],
+  "zoekt_replicas": [
+   "state"
+  ],
+  "orbit_namespace_enrollments": [
+   "trial_ended_at"
+  ],
+  "software_license_policies": [
+   "custom_software_license_id",
+   "software_license_spdx_identifier"
+  ],
+  "ai_conversation_threads": [
+   "last_updated_at"
+  ],
+  "user_synced_attributes_metadata": [
+   "provider"
+  ],
+  "dependency_proxy_blobs": [
+   "status"
+  ],
+  "milestones": [
+   "iid"
+  ]
+ },
+ "init_only": {
+  "badges": [
+   "group_id"
+  ],
+  "p_ci_builds": [
+   "commit_id",
+   "finished_at",
+   "partition_id",
+   "resource_group_id",
+   "runner_id",
+   "stage_id",
+   "status"
+  ],
+  "container_expiration_policies": [
+   "next_run_at"
+  ],
+  "container_repositories": [
+   "delete_started_at",
+   "failed_deletion_count",
+   "next_delete_attempt_at",
+   "status",
+   "status_updated_at"
+  ],
+  "description_versions": [
+   "namespace_id"
+  ],
+  "notes": [
+   "internal",
+   "st_diff"
+  ],
+  "draft_notes": [
+   "project_id"
+  ],
+  "environments": [
+   "auto_stop_setting",
+   "environment_type"
+  ],
+  "issues": [
+   "discussion_locked",
+   "health_status",
+   "namespace_id",
+   "namespace_traversal_ids",
+   "time_estimate",
+   "weight"
+  ],
+  "jira_imports": [
+   "error_message"
+  ],
+  "labels": [
+   "group_id",
+   "project_id"
+  ],
+  "label_links": [
+   "namespace_id"
+  ],
+  "lists": [
+   "group_id",
+   "project_id"
+  ],
+  "members": [
+   "member_namespace_id",
+   "member_role_id"
+  ],
+  "merge_requests_merge_data": [
+   "merge_request_id",
+   "project_id"
+  ],
+  "merge_requests": [
+   "draft",
+   "target_branch"
+  ],
+  "merge_request_diffs": [
+   "commits_count",
+   "external_diff",
+   "files_count",
+   "patch_id_sha",
+   "project_id"
+  ],
+  "namespace_settings": [
+   "pipeline_variables_default_role"
+  ],
+  "pages_deployments": [
+   "size"
+  ],
+  "pages_domains": [
+   "verification_code"
+  ],
+  "personal_access_tokens": [
+   "group_id",
+   "scopes",
+   "user_type"
+  ],
+  "plans": [
+   "plan_name_uid"
+  ],
+  "pool_repositories": [
+   "disk_path",
+   "organization_id"
+  ],
+  "projects": [
+   "external_webhook_token",
+   "pull_mirror_available_overridden",
+   "remote_mirror_available_overridden"
+  ],
+  "project_features": [
+   "package_registry_access_level",
+   "pages_access_level"
+  ],
+  "project_authorizations": [
+   "is_unique"
+  ],
+  "project_ci_cd_settings": [
+   "default_git_depth"
+  ],
+  "releases": [
+   "released_at"
+  ],
+  "resource_label_events": [
+   "namespace_id"
+  ],
+  "resource_milestone_events": [
+   "namespace_id"
+  ],
+  "resource_state_events": [
+   "namespace_id"
+  ],
+  "p_sent_notifications": [
+   "namespace_id"
+  ],
+  "service_desk_settings": [
+   "project_key_address_slug"
+  ],
+  "timelogs": [
+   "namespace_id",
+   "project_id"
+  ],
+  "todos": [
+   "organization_id"
+  ],
+  "namespaces": [
+   "name",
+   "path"
+  ],
+  "user_details": [
+   "bio",
+   "bluesky",
+   "company",
+   "discord",
+   "email_otp_required_after",
+   "github",
+   "linkedin",
+   "location",
+   "mastodon",
+   "orcid",
+   "twitter",
+   "website_url"
+  ],
+  "alert_management_http_integrations": [
+   "payload_example"
+  ],
+  "analytics_cycle_analytics_stage_aggregations": [
+   "processed_records",
+   "runtimes_in_seconds"
+  ],
+  "aws_roles": [
+   "role_external_id"
+  ],
+  "p_ci_build_needs": [
+   "project_id"
+  ],
+  "ci_build_pending_states": [
+   "project_id"
+  ],
+  "ci_build_trace_chunks": [
+   "project_id"
+  ],
+  "p_ci_build_trace_metadata": [
+   "project_id"
+  ],
+  "p_ci_job_annotations": [
+   "project_id"
+  ],
+  "p_ci_job_artifacts": [
+   "size"
+  ],
+  "p_ci_job_runtime_environments": [
+   "project_id"
+  ],
+  "ci_job_variables": [
+   "project_id"
+  ],
+  "ci_partitions": [
+   "current_from"
+  ],
+  "p_ci_pipelines": [
+   "ci_ref_id",
+   "started_at",
+   "status"
+  ],
+  "ci_pipeline_schedules": [
+   "next_run_at"
+  ],
+  "ci_pipeline_schedule_inputs": [
+   "project_id"
+  ],
+  "p_ci_pipeline_variables": [
+   "project_id"
+  ],
+  "ci_runners": [
+   "uuid"
+  ],
+  "p_ci_runner_machine_builds": [
+   "project_id"
+  ],
+  "ci_runner_taggings": [
+   "runner_type"
+  ],
+  "ci_secure_files": [
+   "checksum"
+  ],
+  "p_ci_stages": [
+   "partition_id"
+  ],
+  "ci_sources_pipelines": [
+   "source_partition_id"
+  ],
+  "security_findings": [
+   "project_id",
+   "scanner_id"
+  ],
+  "integrations": [
+   "archive_trace_events"
+  ],
+  "error_tracking_client_keys": [
+   "public_key"
+  ],
+  "project_error_tracking_settings": [
+   "sentry_project_id"
+  ],
+  "web_hook_logs_daily": [
+   "url_hash"
+  ],
+  "import_source_users": [
+   "reassignment_expires_at"
+  ],
+  "import_source_user_placeholder_references": [
+   "expires_at"
+  ],
+  "import_placeholder_memberships": [
+   "retention_expires_at"
+  ],
+  "slack_integrations_scopes": [
+   "group_id",
+   "organization_id",
+   "project_id"
+  ],
+  "merge_request_metrics": [
+   "target_project_id"
+  ],
+  "merge_request_merge_schedules": [
+   "project_id"
+  ],
+  "note_metadata": [
+   "email_participant"
+  ],
+  "packages_tags": [
+   "project_id"
+  ],
+  "packages_cleanup_policies": [
+   "next_run_at"
+  ],
+  "packages_helm_metadata_caches": [
+   "object_storage_key"
+  ],
+  "packages_npm_metadata_caches": [
+   "object_storage_key"
+  ],
+  "packages_nuget_symbols": [
+   "object_storage_key"
+  ],
+  "packages_protection_rules": [
+   "pattern_type",
+   "target_field"
+  ],
+  "packages_rubygems_spec_files": [
+   "object_storage_key"
+  ],
+  "terraform_state_versions": [
+   "is_encrypted"
+  ],
+  "user_credit_card_validations": [
+   "expiration_date_hash",
+   "holder_name_hash",
+   "last_digits_hash",
+   "network_hash"
+  ],
+  "ghost_user_migrations": [
+   "user_type"
+  ],
+  "work_item_dates_sources": [
+   "due_date",
+   "namespace_id",
+   "start_date"
+  ],
+  "work_item_transitions": [
+   "namespace_id"
+  ],
+  "users": [
+   "confirmed_at",
+   "organization_id",
+   "state"
+  ],
+  "uploads": [
+   "secret",
+   "store",
+   "uploaded_by_user_id"
+  ],
+  "bulk_import_entities": [
+   "source_xid"
+  ],
+  "security_scan_profiles": [
+   "namespace_id"
+  ],
+  "approval_project_rules": [
+   "scanners"
+  ],
+  "board_assignees": [
+   "group_id",
+   "project_id"
+  ],
+  "board_labels": [
+   "group_id",
+   "project_id"
+  ],
+  "board_user_preferences": [
+   "group_id",
+   "project_id"
+  ],
+  "dast_site_profiles": [
+   "scan_file_path"
+  ],
+  "dast_site_validations": [
+   "url_base"
+  ],
+  "epic_issues": [
+   "work_item_parent_link_id"
+  ],
+  "geo_nodes": [
+   "access_key"
+  ],
+  "gitlab_subscriptions": [
+   "hosted_plan_name_uid"
+  ],
+  "sprints": [
+   "iterations_cadence_id"
+  ],
+  "project_security_settings": [
+   "container_scanning_for_registry_enabled",
+   "continuous_vulnerability_scans_enabled",
+   "cvs_for_container_scanning_enabled",
+   "cvs_for_dependency_scanning_enabled",
+   "fast_dependency_paths_enabled",
+   "license_scanning_for_cyclonedx_enabled",
+   "secret_push_protection_enabled",
+   "validity_checks_enabled"
+  ],
+  "resource_iteration_events": [
+   "namespace_id"
+  ],
+  "saml_providers": [
+   "enabled"
+  ],
+  "ai_tool_rules": [
+   "tool_source"
+  ],
+  "p_ai_active_context_code_repositories": [
+   "last_commit"
+  ],
+  "ai_catalog_items": [
+   "latest_version_id"
+  ],
+  "ai_catalog_item_versions": [
+   "organization_id"
+  ],
+  "ai_conversation_threads": [
+   "organization_id"
+  ],
+  "cd_application_flow_definitions": [
+   "version"
+  ],
+  "cd_environment_driver_bindings": [
+   "version"
+  ],
+  "cd_rollouts": [
+   "iid",
+   "started_at"
+  ],
+  "cd_rollout_environments": [
+   "started_at"
+  ],
+  "cd_rollout_workflow_tokens": [
+   "token_binding"
+  ],
+  "cd_version_set_entries": [
+   "artifact_source_id",
+   "service_id"
+  ],
+  "ci_runner_controller_runner_level_scopings": [
+   "runner_type"
+  ],
+  "compliance_requirements_controls": [
+   "expression"
+  ],
+  "dast_profile_schedules": [
+   "cron",
+   "next_run_at"
+  ],
+  "epics": [
+   "end_date",
+   "start_date"
+  ],
+  "release_links": [
+   "link_type"
+  ],
+  "packages_debian_project_component_file_states": [
+   "project_id"
+  ],
+  "project_repository_states": [
+   "project_id"
+  ],
+  "subscription_add_on_purchases": [
+   "subscription_add_on_id"
+  ],
+  "custom_field_select_options": [
+   "namespace_id"
+  ],
+  "member_roles": [
+   "occupies_seat"
+  ],
+  "ai_suggested_reviewers": [
+   "project_id"
+  ],
+  "merge_requests_approval_rules_approver_users": [
+   "group_id",
+   "project_id"
+  ],
+  "merge_requests_approval_rules_merge_requests": [
+   "project_id"
+  ],
+  "observability_logs_issues_connections": [
+   "project_id"
+  ],
+  "observability_metrics_issues_connections": [
+   "namespace_id",
+   "project_id"
+  ],
+  "observability_traces_issues_connections": [
+   "project_id"
+  ],
+  "workspaces": [
+   "devfile",
+   "devfile_path",
+   "name",
+   "namespace",
+   "personal_access_token_id",
+   "processed_devfile",
+   "project_id",
+   "project_ref",
+   "url_prefix",
+   "url_query_string",
+   "user_id",
+   "workspaces_agent_config_version"
+  ],
+  "workspaces_agent_config_versions": [
+   "project_id"
+  ],
+  "workspace_tokens": [
+   "project_id"
+  ],
+  "elastic_reindexing_tasks": [
+   "in_progress"
+  ],
+  "zoekt_nodes": [
+   "index_base_url",
+   "indexed_bytes",
+   "last_seen_at",
+   "schema_version",
+   "search_base_url",
+   "services",
+   "total_bytes",
+   "usable_storage_bytes",
+   "webserver_last_seen_at"
+  ],
+  "zoekt_repositories": [
+   "project_identifier"
+  ],
+  "zoekt_tasks": [
+   "project_identifier"
+  ],
+  "group_secrets_managers": [
+   "organization_id",
+   "root_namespace_id"
+  ],
+  "project_secrets_managers": [
+   "organization_id",
+   "root_namespace_id"
+  ],
+  "security_finding_token_statuses": [
+   "project_id"
+  ],
+  "security_policy_settings": [
+   "csp_namespace_locked_until"
+  ],
+  "security_project_tracked_contexts": [
+   "traversal_ids"
+  ],
+  "security_scans": [
+   "latest",
+   "pipeline_id",
+   "project_id"
+  ],
+  "virtual_registries_cleanup_policies": [
+   "next_run_at"
+  ],
+  "virtual_registries_packages_maven_upstreams": [
+   "cache_validity_hours"
+  ],
+  "virtual_registries_packages_maven_cache_remote_entries": [
+   "object_storage_key"
+  ],
+  "virtual_registries_packages_npm_cache_remote_entries": [
+   "object_storage_key"
+  ],
+  "secret_detection_token_statuses": [
+   "project_id"
+  ],
+  "vulnerability_partial_scans": [
+   "pipeline_id",
+   "project_id",
+   "scan_type"
+  ],
+  "vulnerability_reads": [
+   "owasp_top_10"
+  ],
+  "vulnerability_statistics": [
+   "letter_grade"
+  ],
+  "vulnerability_triggered_workflows": [
+   "project_id"
+  ],
+  "work_item_agent_plans": [
+   "namespace_id"
+  ],
+  "work_item_colors": [
+   "namespace_id"
+  ],
+  "work_item_decisions": [
+   "namespace_id"
+  ],
+  "work_item_decision_options": [
+   "namespace_id"
+  ],
+  "work_item_type_custom_fields": [
+   "namespace_id"
+  ],
+  "work_item_type_custom_lifecycles": [
+   "namespace_id"
+  ],
+  "work_item_custom_lifecycle_statuses": [
+   "namespace_id"
+  ],
+  "application_settings": [
+   "allow_local_requests_from_web_hooks_and_services",
+   "check_namespace_plan",
+   "duo_workflow",
+   "web_ide_oauth_application_id"
+  ],
+  "work_item_progresses": [
+   "current_value",
+   "end_value",
+   "start_value"
+  ],
+  "issuable_slas": [
+   "label_applied"
+  ]
+ },
+ "not_in_sites": {
+  "user_achievements": [
+   "*"
+  ],
+  "cd_applications": [
+   "*"
+  ],
+  "keys": [
+   "*"
+  ],
+  "identities": [
+   "*"
+  ],
+  "plan_limits": [
+   "*"
+  ],
+  "topics": [
+   "*"
+  ],
+  "users": [
+   "*"
+  ],
+  "appearances": [
+   "*"
+  ],
+  "user_preferences": [
+   "*"
+  ],
+  "integrations": [
+   "*"
+  ],
+  "dependency_proxy_manifests": [
+   "*"
+  ],
+  "environments": [
+   "*"
+  ],
+  "projects": [
+   "*"
+  ],
+  "merge_requests": [
+   "*"
+  ],
+  "project_settings": [
+   "*"
+  ],
+  "terraform_states": [
+   "*"
+  ],
+  "issues": [
+   "*"
+  ],
+  "application_settings": [
+   "*"
+  ],
+  "badges": [
+   "*"
+  ],
+  "p_ci_builds": [
+   "*"
+  ],
+  "container_expiration_policies": [
+   "*"
+  ],
+  "notes": [
+   "*"
+  ],
+  "diff_note_positions": [
+   "*"
+  ],
+  "events": [
+   "*"
+  ],
+  "namespaces": [
+   "*"
+  ],
+  "internal_ids": [
+   "*"
+  ],
+  "jira_connect_installations": [
+   "*"
+  ],
+  "jira_imports": [
+   "*"
+  ],
+  "labels": [
+   "*"
+  ],
+  "lists": [
+   "*"
+  ],
+  "merge_request_diffs": [
+   "*"
+  ],
+  "personal_access_tokens": [
+   "*"
+  ],
+  "remote_mirrors": [
+   "*"
+  ],
+  "project_features": [
+   "*"
+  ],
+  "work_item_settings": [
+   "*"
+  ],
+  "project_statistics": [
+   "*"
+  ],
+  "releases": [
+   "*"
+  ],
+  "service_desk_settings": [
+   "*"
+  ],
+  "uploads": [
+   "*"
+  ],
+  "notification_settings": [
+   "*"
+  ],
+  "user_statuses": [
+   "*"
+  ],
+  "alert_management_alerts": [
+   "*"
+  ],
+  "analytics_cycle_analytics_aggregations": [
+   "*"
+  ],
+  "aws_roles": [
+   "*"
+  ],
+  "bulk_import_exports": [
+   "*"
+  ],
+  "ml_models": [
+   "*"
+  ],
+  "p_ci_pipelines": [
+   "*"
+  ],
+  "ci_resources": [
+   "*"
+  ],
+  "ci_runners": [
+   "*"
+  ],
+  "ci_runner_machines": [
+   "*"
+  ],
+  "clusters": [
+   "*"
+  ],
+  "operations_scopes": [
+   "*"
+  ],
+  "error_tracking_errors": [
+   "*"
+  ],
+  "import_source_users": [
+   "*"
+  ],
+  "merge_request_metrics": [
+   "*"
+  ],
+  "namespace_root_storage_statistics": [
+   "*"
+  ],
+  "packages_package_files": [
+   "*"
+  ],
+  "packages_protection_rules": [
+   "*"
+  ],
+  "wiki_page_meta": [
+   "*"
+  ],
+  "work_item_dates_sources": [
+   "*"
+  ],
+  "achievements": [
+   "*"
+  ],
+  "boards": [
+   "*"
+  ],
+  "ci_variables": [
+   "*"
+  ],
+  "issue_metrics": [
+   "*"
+  ],
+  "ci_pipeline_metadata": [
+   "*"
+  ],
+  "ci_triggers": [
+   "*"
+  ],
+  "container_registry_protection_rules": [
+   "*"
+  ],
+  "container_registry_protection_tag_rules": [
+   "*"
+  ],
+  "customer_relations_contacts": [
+   "*"
+  ],
+  "organizations": [
+   "*"
+  ],
+  "ai_settings": [
+   "*"
+  ],
+  "govern_policies": [
+   "*"
+  ],
+  "operations_feature_flags": [
+   "*"
+  ],
+  "release_links": [
+   "*"
+  ],
+  "incident_management_timeline_events": [
+   "*"
+  ],
+  "value_stream_dashboard_counts": [
+   "*"
+  ],
+  "merge_request_saved_views": [
+   "*"
+  ],
+  "milestones": [
+   "*"
+  ],
+  "namespace_package_settings": [
+   "*"
+  ],
+  "mobile_device_push_subscriptions": [
+   "*"
+  ],
+  "organization_users": [
+   "*"
+  ],
+  "namespace_details": [
+   "*"
+  ],
+  "protected_branches": [
+   "*"
+  ],
+  "protected_tags": [
+   "*"
+  ],
+  "snippets": [
+   "*"
+  ],
+  "cd_services": [
+   "*"
+  ],
+  "system_access_microsoft_applications": [
+   "*"
+  ],
+  "onboarding_progresses": [
+   "*"
+  ],
+  "namespace_ci_cd_settings": [
+   "*"
+  ],
+  "project_security_exclusions": [
+   "*"
+  ],
+  "dast_profiles": [
+   "*"
+  ],
+  "security_categories": [
+   "*"
+  ],
+  "security_attributes": [
+   "*"
+  ],
+  "board_user_preferences": [
+   "*"
+  ],
+  "dast_site_profiles": [
+   "*"
+  ],
+  "geo_nodes": [
+   "*"
+  ],
+  "geo_node_statuses": [
+   "*"
+  ],
+  "gitlab_subscriptions": [
+   "*"
+  ],
+  "sprints": [
+   "*"
+  ],
+  "push_rules": [
+   "*"
+  ],
+  "saml_group_links": [
+   "*"
+  ],
+  "saml_providers": [
+   "*"
+  ],
+  "ai_flow_schedules": [
+   "*"
+  ],
+  "ai_active_context_connections": [
+   "*"
+  ],
+  "ai_catalog_items": [
+   "*"
+  ],
+  "ai_catalog_item_versions": [
+   "*"
+  ],
+  "ai_conversation_messages": [
+   "*"
+  ],
+  "duo_workflows_workflows": [
+   "*"
+  ],
+  "ldap_admin_role_links": [
+   "*"
+  ],
+  "work_item_custom_types": [
+   "*"
+  ],
+  "epics": [
+   "*"
+  ],
+  "namespace_template_settings": [
+   "*"
+  ],
+  "merge_requests_compliance_violations": [
+   "*"
+  ],
+  "subscription_add_on_purchases": [
+   "*"
+  ],
+  "import_sync_repositories": [
+   "*"
+  ],
+  "iterations_cadences": [
+   "*"
+  ],
+  "workspaces": [
+   "*"
+  ],
+  "zoekt_enabled_namespaces": [
+   "*"
+  ],
+  "zoekt_repositories": [
+   "*"
+  ],
+  "security_policy_settings": [
+   "*"
+  ],
+  "virtual_registries_cleanup_policies": [
+   "*"
+  ],
+  "vulnerability_feedback": [
+   "*"
+  ],
+  "vulnerability_reads": [
+   "*"
+  ],
+  "work_item_decisions": [
+   "*"
+  ],
+  "ai_catalog_item_consumers": [
+   "*"
+  ],
+  "ai_catalog_mcp_servers_users": [
+   "*"
+  ],
+  "ai_catalog_mcp_servers": [
+   "*"
+  ],
+  "ai_feature_settings": [
+   "*"
+  ],
+  "ai_self_hosted_models": [
+   "*"
+  ],
+  "custom_dashboards": [
+   "*"
+  ],
+  "analytics_cycle_analytics_group_value_streams": [
+   "*"
+  ],
+  "analytics_devops_adoption_snapshots": [
+   "*"
+  ],
+  "dast_scanner_profiles": [
+   "*"
+  ],
+  "audit_events_streaming_headers": [
+   "*"
+  ],
+  "cd_application_links": [
+   "*"
+  ],
+  "ci_runner_controllers": [
+   "*"
+  ],
+  "requirements": [
+   "*"
+  ],
+  "compliance_management_frameworks": [
+   "*"
+  ],
+  "project_compliance_standards_adherence": [
+   "*"
+  ],
+  "external_status_checks": [
+   "*"
+  ],
+  "incident_management_escalation_policies": [
+   "*"
+  ],
+  "incident_management_oncall_rotations": [
+   "*"
+  ],
+  "incident_management_oncall_schedules": [
+   "*"
+  ],
+  "custom_fields": [
+   "*"
+  ],
+  "targeted_messages": [
+   "*"
+  ],
+  "sbom_occurrences": [
+   "*"
+  ],
+  "checkpoints": [
+   "*"
+  ],
+  "protected_environments": [
+   "*"
+  ],
+  "secrets_manager_namespace_enrollments": [
+   "*"
+  ],
+  "vulnerability_scanners": [
+   "*"
+  ],
+  "dependency_firewall_activity_stats": [
+   "*"
+  ],
+  "vulnerabilities": [
+   "*"
+  ],
+  "scan_result_policies": [
+   "*"
+  ],
+  "virtual_registries_registries": [
+   "*"
+  ],
+  "virtual_registries_upstreams": [
+   "*"
+  ],
+  "work_item_custom_lifecycles": [
+   "*"
+  ],
+  "work_item_custom_statuses": [
+   "*"
+  ],
+  "upcoming_reconciliations": [
+   "*"
+  ],
+  "merge_requests_risk_assessments": [
+   "*"
+  ],
+  "issuable_metric_images": [
+   "*"
+  ],
+  "elastic_group_index_statuses": [
+   "*"
+  ],
+  "alert_management_alert_metric_images": [
+   "*"
+  ],
+  "operations_user_lists": [
+   "*"
+  ],
+  "ci_freeze_periods": [
+   "*"
+  ],
+  "ci_resource_groups": [
+   "*"
+  ],
+  "activation_metrics": [
+   "*"
+  ]
+ }
+}
