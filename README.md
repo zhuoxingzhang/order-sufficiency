@@ -9,7 +9,6 @@ It contains the code, the inputs and the results behind the figures and numbers 
 | Section 6.2, readers of the templates that need atomic visibility | [`corpus/`](corpus) | reading of the code | `atomic_audit.md` |
 | Sections 6.1 and 6.2, static analyzer, Figure 4b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
-| Sections 6.1 and 6.2, second annotator | [`corpus/annotator/`](corpus/annotator) | `templates.csv`, `sites.csv` | `agreement.py` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
 | Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Vitess on four shards | [`engines/`](engines) | `run_vt4.sh` | `analyze.py` -> `results/vitess4.md` |
@@ -37,7 +36,6 @@ Every directory holds the results of the paper, so each analysis script runs wit
 
 ```bash
 cd corpus && python -I summarize.py
-cd corpus/annotator && python -I agreement.py
 cd apps && python -I validate.py out && python -I fig_apps.py out fig_apps.tex
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
 cd engines/results && python -I ../analyze.py --json=vitess4.json vitess4.jsonl
@@ -131,21 +129,6 @@ python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 
 It names, for each template, the reader with the most severe consequence and further readers by file and line (for GitLab file and line only), and what the reader decides.
 Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
 
-### Second annotator (Sections 6.1 and 6.2)
-
-A second annotator, who saw neither our labels nor the paper, labelled the 97 templates and the 181 read-path sites of both audits (Sentry and the GitLab sample) independently; `annotator/instructions.md` gives the instructions.
-`annotator/templates.csv` and `annotator/sites.csv` hold the returned labels, one per item, with the template or the code location.
-`agreement.py` compares them with our labels in `out/templates.csv`, `out/readpath_sites.json` (a batch fetch counts as tolerant) and `gitlab_readpath_review.json`.
-
-- Templates: 88% agreement (Cohen's kappa 0.71), and 94 of the 97 agree on whether order suffices.
-  The annotator labelled 8 templates `serial`, citing values read from another database that a concurrent update may change; Section 5.3 handles these conflicts with a lock.
-- Read-path sites: 93% agreement (kappa 0.88) over the 181 sites, 97% (kappa 0.94) over the 125 sites of Sentry.
-
-```bash
-cd corpus/annotator
-python -I agreement.py
-```
-
 ## Static analyzer (Sections 6.1 and 6.2, Figure 4b)
 
 The analyzer in `apps/analyzer` reads the code of Rails and Django applications statically.
@@ -157,8 +140,7 @@ The analyzer in `apps/analyzer` reads the code of Rails and Django applications 
 - `run_gitlab.py` and `run_sentry.py` add the partitions of GitLab (databases and gitlab_schemas, loose foreign keys, the exemptions from its guard) and the silos of Sentry (hybrid-cloud foreign keys, remote calls, outboxes), and count only constraints across partitions or silos.
 
 `run_all.sh` runs the analyzer over the ten applications, GitLab and Sentry; the outputs of the paper are in `out/` (gzipped).
-`validate.py` compares the analyzer with the 97 hand labels of `corpus/`: it finds 72 of the templates and agrees with 54 labels (57 under the one-way reading), and under the one-way reading 11 of its 12 verdicts of atomic visibility are right and it reports 11 of the 15 found templates that need atomic visibility.
-On the ten applications it prints the verdicts of their 6,033 templates that write several tables outside test and development code: 5,049 of them are constrained, and 99% of these need only order under the one-way reading and 78% under the strict one.
+`validate.py` prints the verdicts of the 6,033 templates of the ten applications that write several tables outside test and development code: 5,049 of them are constrained, and 99% of these need only order under the one-way reading and 78% under the strict one.
 `fig_apps.py` writes Figure 4b.
 
 ```bash
