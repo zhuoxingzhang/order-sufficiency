@@ -3,28 +3,30 @@
 This repository accompanies a paper on when write order, rather than atomic visibility, keeps the constraints of a schema satisfied on sharded SQL engines.
 It contains the code, the inputs and the results behind the figures and numbers of the experiments (Section 6) and the checks of the appendix.
 
+[`appendix.pdf`](appendix.pdf) is the appendix of the paper, with the proofs (Appendix A) and further experimental results (Appendix B); the submitted paper holds only the body and the references.
+
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
-| Section 6.2, Figure 4a | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
+| Section 6.2, Figure 3a | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
 | Section 6.2, readers of the templates that need atomic visibility | [`corpus/`](corpus) | reading of the code | `atomic_audit.md` |
-| Sections 6.1 and 6.2, static analyzer, Figure 4b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
+| Sections 6.1 and 6.2, static analyzer, Figure 3b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
-| Section 6.3, Figure 6 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
+| Section 6.3, Figure 5 | [`engines/`](engines) | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Vitess on four shards | [`engines/`](engines) | `run_vt4.sh` | `analyze.py` -> `results/vitess4.md` |
 | Section 6.3, injected commit delay from 0 to 10 ms | [`engines/`](engines) | `run_delay.sh` | `analyze_delay.py` -> `results/citus_delay.md` |
-| Section 6.3, Figure 5 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
-| Section 6.3, Figure 5f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
+| Section 6.3, Figure 4 | [`cost/`](cost) | `run_cost.sh` | `fig_cost.py`, `gen_fig_cost.py` |
+| Section 6.3, Figure 4f | [`cost/`](cost) | `run_depth.sh` | `depth_analyze.py` -> `results/depth.md` |
 | Section 6.3, fault and fence runs | [`cost/`](cost) | `run_cost.sh` | `summarize_fault_fence.py` |
 | Section 6.3, ordered two-phase commit | [`cost/`](cost) | `run_ordered2pc.sh` | `analyze_ordered2pc.py` -> `results/ordered2pc.md` |
 | Section 6.3, entry through the coordinator, default mode of Vitess | [`cost/`](cost) | `run_z1.sh` | `z1_ratios.py` |
 | Section 6.3, every node on cores of its own, 0.5 ms on every path | [`cost/`](cost) | `run_hardening.sh` | `z1_ratios.py` |
 | Section 6.3, execution and commit phases | [`cost/`](cost) | `run_hardening.sh` (`PARTS=split`) | `split_phases.py` |
 | Section 6.3 and Appendix B, recovery (Proposition A.13) and deadlocks (Lemma A.14) | [`recovery/`](recovery) | `run_recovery.sh` | `w6_analyze.py` -> `results/w6_summary.md` |
-| Section 6.3, Figure 7 | [`engines/`](engines) | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
-| Section 6.3, Figure 7, Proposition 5.8 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
+| Section 6.3, Figure 6 | [`engines/`](engines) | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
+| Section 6.3, Figure 6, Proposition 5.8 | [`engines/`](engines) | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 | Section 6.4, decision time | [`deciders/`](deciders) | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.4, Figure 8 and Appendix B, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
+| Section 6.4, Figure 7 and Appendix B, shard keys, unique keys and freezing on GitLab | [`deciders/`](deciders) | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
 | Appendix A.3, Proposition 4.7 | [`deciders/`](deciders) | `run_all.sh`, step 6 | `results/fresh_k*` |
 | Appendix A.3, Theorem 4.9 | [`deciders/`](deciders) | `run_all.sh`, step 9 | `cind_analyze.py` |
 | Appendix A.3, Proposition A.8 | [`deciders/`](deciders) | `run_all.sh`, step 7 | `uk_tally.py` |
@@ -69,7 +71,7 @@ All experiments ran on one server with two 64-core AMD EPYC 7742 processors and 
 - The clusters run on one host on fixed local ports (Citus 29700-29703 and 29800-29803, Vitess the ports of the upstream examples shifted by +20000 and +30000).
   Their data go to `engines/work` and `cost/work`, or to `X2_WORK` and `X7_WORK` if set.
 
-## Corpus (Section 6.2, Figure 4a)
+## Corpus (Section 6.2, Figure 3a)
 
 The corpus consists of the cross-database write templates of GitLab (commit 9d4cbde6, 2026-10-15) and Sentry (commit 13ccaecc, 2026-10-16).
 Both code bases are read statically; no application code is run.
@@ -77,7 +79,7 @@ Both code bases are read statically; no application code is run.
 - `sentry_corpus.py` and `sentry_rpc.py` scan `src/sentry` of the Sentry checkout for silo models, foreign keys, hybrid-cloud foreign keys, outbox replication and remote procedure calls (`out/sentry_models.json`, `out/sentry_rpc.json`).
 - `sentry_classify.py` holds the hand classification of the 65 Sentry templates (42 outbox replications, 23 synchronous remote writes) with their constraints and code locations, and prints the census of the Sentry schema used in Section 6.2.
 - `gitlab_classify.py` holds the classification of the 32 GitLab templates: the 15 transactions that GitLab exempts from its guard against cross-database writes, and the deletions of the 17 parents whose loose foreign keys cross databases (from `deciders/data/gitlab_schema.json`).
-- `summarize.py` prints Figure 4a and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
+- `summarize.py` prints Figure 3a and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
 
 ```bash
 cd corpus
@@ -129,7 +131,7 @@ python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 
 It names, for each template, the reader with the most severe consequence and further readers by file and line (for GitLab file and line only), and what the reader decides.
 Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
 
-## Static analyzer (Sections 6.1 and 6.2, Figure 4b)
+## Static analyzer (Sections 6.1 and 6.2, Figure 3b)
 
 The analyzer in `apps/analyzer` reads the code of Rails and Django applications statically.
 
@@ -141,7 +143,7 @@ The analyzer in `apps/analyzer` reads the code of Rails and Django applications 
 
 `run_all.sh` runs the analyzer over the ten applications, GitLab and Sentry; the outputs of the paper are in `out/` (gzipped).
 `validate.py` prints the verdicts of the 6,033 templates of the ten applications that write several tables outside test and development code: 5,049 of them are constrained, and 99% of these need only order under the one-way reading and 78% under the strict one.
-`fig_apps.py` writes Figure 4b.
+`fig_apps.py` writes Figure 3b.
 
 ```bash
 cd apps
@@ -150,7 +152,7 @@ python -I validate.py out
 python -I fig_apps.py out fig_apps.tex
 ```
 
-## Engines (Section 6.3, Figure 6)
+## Engines (Section 6.3, Figure 5)
 
 The engine runs test whether one distributed transaction exposes orphans and inconsistent copies to readers.
 
@@ -162,14 +164,14 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - A reader reads the child and then, in the next statement, the parent it points to; an absent parent is an orphan.
   Copy readers read the source and the copy in one statement (Citus) or one scatter query (Vitess).
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
-  `analyze.py` reports the pooled rate per cell; the interval in Figure 6 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
+  `analyze.py` reports the pooled rate per cell; the interval in Figure 5 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
 - Four shards (`run_vt4.sh`): the Vitess cells on a cluster with four shards instead of two (`vitess4_up.sh`, the same ports, `VT_SHARDS=4` for `vt_exp.py`), 10 batches.
   One TwoPC exposed an orphan in 88% of the runs that wrote the child first and in none of those that wrote the parent first, and two ordered commits in none (`results/vitess4.md`).
   The fixed MySQL ports of the tablets lie in the ephemeral port range of Linux, so an outgoing connection can hold one at start-up and leave a shard without a primary; `run_vt4.sh` then restarts the cluster, up to three times.
 - Commit delay (`run_delay.sh`): the Citus foreign-key cells with the `commit_delay` of worker 29701 swept over 0, 1, 2, 5 and 10 ms, three batches each.
   One 2PC exposed orphans in 34% of the runs from 1 ms on, all with the parent on the delayed worker, and in 0.1% without a delay; two ordered commits exposed none (`results/citus_delay.md`).
 
-### Read direction (Section 6.3, Figure 7)
+### Read direction (Section 6.3, Figure 6)
 
 `run_direction.sh` runs `direction.py` on the Citus cluster above in its uniform configuration (no slow worker), 2,000 runs per configuration.
 
@@ -179,10 +181,10 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
 - A run counts as anomalous if some iteration sees the child but not the parent.
   `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
-  Figure 7 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
+  Figure 6 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
   The fill also reran 0, 1 and 10 ms: 48.8%, 86.0% and 100%, against 47.8%, 86.1% and 100% in the first grid (`results/direction_fill.md`).
 
-### Grace period (Section 6.3, Figure 7, Proposition 5.8)
+### Grace period (Section 6.3, Figure 6, Proposition 5.8)
 
 `run_grace.sh` runs `grace.py` on the same cluster and configuration, 2,000 runs per configuration.
 
@@ -190,9 +192,9 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - The reader reads in the direction that write order does not protect (`c2p` for deletions, `p2c` for insertions) and pauses 0, 1, 2, 5, 10 or 20 ms between its two reads.
   Every iteration records its span, from the start of the first read to the end of the second, which bounds the distance between the two snapshots from above.
 - `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.8, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
-  It is 0 among 700,952 such iterations; Figure 7 shows the deletion cells.
+  It is 0 among 700,952 such iterations; Figure 6 shows the deletion cells.
 
-## Cost of write order (Section 6.3, Figure 5, fault and fence runs)
+## Cost of write order (Section 6.3, Figure 4, fault and fence runs)
 
 `run_cost.sh` runs every cost cell in three blocks; within each block the compared ways of writing run back to back in a random order.
 `x7bench.py` is the benchmark client; its docstring defines every method.
@@ -210,7 +212,7 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   A third Citus configuration places relays (`x7_proxy.py`) that add 0.5 ms in each direction in front of every node.
 - Durability is the engine default: fsync, synchronous commit and full-page writes on Citus, semi-synchronous replication on Vitess.
 - `fig_cost.py` divides the median latency (one client) or the throughput (64 clients) of each way of writing by that of the fastest two-phase commit of the same block and cell, averages geometrically over the three templates, and reports a 95% t-interval over the blocks.
-  `gen_fig_cost.py` writes Figure 5 as LaTeX.
+  `gen_fig_cost.py` writes Figure 4 as LaTeX.
 - Every block of a cell that lacks a method is rerun with all methods (`x7_refill.py`).
   During our Vitess runs, vtgate was occasionally stopped by an external signal and restarted by a watchdog; the blocks that ran against a restarted vtgate were rerun the same way.
 - Fault runs (`x7_fault.py`): 4 writers run the move template and 2 readers check for orphans for 12 s, while a relay in front of worker 29802 is armed every 0.5 s and then drops the next commit message to that worker.
@@ -218,33 +220,33 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - Fence runs (`x7_fence.py`): 4 clients add children to groups (5 ms think time) while 2 clients merge groups, over 16 active groups for 12 s, with and without a lock on the merged group.
 - Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and one commit per row commit without two-phase commit.
 
-### Number of rounds (Section 6.3, Figure 5f)
+### Number of rounds (Section 6.3, Figure 4f)
 
 `run_depth.sh` runs the `chain` workload of `x7bench.py`: an insertion of a path of k = 2, 3, 4, 5, 6 or 8 rows, row i referencing row i - 1, with consecutive rows on different nodes.
 Every hop changes nodes, so leveled commits need k rounds, whereas one two-phase commit keeps its prepare and commit rounds; a node with several transactions of one update gets one connection per transaction.
-Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 5 except the outbox; Figure 5f shows Citus without relays, and `results/depth.md` holds all three.
+Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 4 except the outbox; Figure 4f shows Citus without relays, and `results/depth.md` holds all three.
 `depth_analyze.py` divides the median latency of each method by that of the fastest two-phase commit of the same block and reports the geometric mean over the blocks with its range (`results/depth.md`).
 
 ### Ordered two-phase commit (Section 6.3)
 
-`run_ordered2pc.sh` compares an ordered two-phase commit with leveled commits on Citus, with the templates, sizes, blocks and windows of Figure 5 and the one 2PC baselines rerun in the same blocks.
+`run_ordered2pc.sh` compares an ordered two-phase commit with leveled commits on Citus, with the templates, sizes, blocks and windows of Figure 4 and the one 2PC baselines rerun in the same blocks.
 
 - `Ps@d` prepares every single-node transaction of leveled commits at the end of the message that executes it, so that all of them are prepared before any commits, and then commits the prepared transactions level by level with `COMMIT PREPARED`.
 - Citus refuses `PREPARE TRANSACTION` after a statement on a distributed table name, so `Ps@d` writes the shard tables by name (`probe_prepare.sh` checks this).
-  `Lt@d` is the same on the shard tables without `PREPARE`, so the paired ratio `Ps@d / Lt@d` isolates the cost of the prepares; `Ls@d` are the leveled commits of Figure 5.
+  `Lt@d` is the same on the shard tables without `PREPARE`, so the paired ratio `Ps@d / Lt@d` isolates the cost of the prepares; `Ls@d` are the leveled commits of Figure 4.
 - `analyze_ordered2pc.py` reports every method relative to the fastest one 2PC of the same block and the paired ratios (`results/ordered2pc.md`).
   With one client, the prepares raise the median latency by 6% to 26%; with 64 clients they raise it by 34% to 102% and cut the throughput by a fifth to a half.
 - The stored run was stopped from outside during its last part (one client behind 1 ms proxies, 53 of 252 runs), and `Lt@d` ran out of keys in a few cells (deletions at 128 rows, and insertions and deletions at 32 rows with 64 clients); the analysis lists the missing pairs.
 
 ### Entry through the coordinator and the default mode of Vitess (Section 6.3)
 
-`run_z1.sh` reruns, with 1 and 64 clients, three blocks and the templates, sizes and windows of Figure 5, leveled commits against the fastest two-phase commit in two further settings.
+`run_z1.sh` reruns, with 1 and 64 clients, three blocks and the templates, sizes and windows of Figure 4, leveled commits against the fastest two-phase commit in two further settings.
 
 - On Citus, `Ls` enters at the coordinator instead of the workers (`Ls@d`).
 - On Vitess, `ms` is one transaction in the default mode of Vitess (`transaction_mode = 'multi'`), which commits the shards one after the other in the order in which the transaction touched them and gives up atomicity; its statements are those of `Ls` in the order of the levels, sent as one message.
 - `z1_ratios.py` computes the ratios as `fig_cost.py` does.
   Through the coordinator, `Ls` takes 0.95, 0.87, 0.76 and 0.47 of the time of the fastest two-phase commit at 2 or 3, 8, 32 and 128 rows; on Vitess, `ms` takes 0.44, 0.49, 0.53 and 0.62, and `Ls` 0.40, 0.42, 0.44 and 0.49.
-- With 64 clients (`z1_ratios.py results 64`) and one client behind the 0.5 ms relays of Figure 5 (`z1_ratios.py results rtt`), the results are in `results/z1_64_*.jsonl` and `results/z1_rtt_citus.jsonl`.
+- With 64 clients (`z1_ratios.py results 64`) and one client behind the 0.5 ms relays of Figure 4 (`z1_ratios.py results rtt`), the results are in `results/z1_64_*.jsonl` and `results/z1_rtt_citus.jsonl`.
   These runs share cores between the servers and the clients.
   The paper takes its statements about 64 clients from the runs below, in which every node has cores of its own: there the coordinator becomes the bottleneck of `Ls` (0.61 of the throughput of the fastest two-phase commit at 8 rows), which the unpinned runs hide (1.12).
 
@@ -292,8 +294,8 @@ cd deciders && PROCS=64 sh run_all.sh
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
 - Step 4 compares the shard keys of Theorem 5.2 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source.
   `x4_unique.py` counts the tables with a single-column shard key that makes every fresh update executable and under which a shard checks every unique key (1,040 of 1,127); the rule of Citus leaves 600 tables without such a key (`none_citus` in `results/x4_shardkey.json`), so it admits one for 527.
-  `x4_shardk.py` checks Theorem 5.3 on the 903 copies that GitLab maintains, 808 of sharding keys and 95 that callbacks write, under co-location by the declared sharding keys (Figure 8a): the copies whose IND violates condition (4), and how many of them co-location carries, are 126 and 93 if every write counts as a modification, 45 and 35 without the initialisations of new rows, and 4 and 4 with frozen sharding keys.
-  `x4_freq.py` draws template frequencies from four distributions and reports the weight that the optimal freeze saves over freezing every copied source (Figure 8b; medians 18%, 54%, 36% and 70%).
+  `x4_shardk.py` checks Theorem 5.3 on the 903 copies that GitLab maintains, 808 of sharding keys and 95 that callbacks write, under co-location by the declared sharding keys (Figure 7a): the copies whose IND violates condition (4), and how many of them co-location carries, are 126 and 93 if every write counts as a modification, 45 and 35 without the initialisations of new rows, and 4 and 4 with frozen sharding keys.
+  `x4_freq.py` draws template frequencies from four distributions and reports the weight that the optimal freeze saves over freezing every copied source (Figure 7b; medians 18%, 54%, 36% and 70%).
 - Step 5 runs the checks of Appendix A.3 beyond the exact classes; it needs pycosat, as do steps 6 to 9.
 - Step 6 checks Proposition 4.7 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.
 - Step 7 checks Proposition A.8 (unique keys that no IND references) by the same search on 4,172 pairs of random schemas of class K with one or two unique keys of one or two non-key attributes and freezes, with 5 entities and 5 values (`fresh_k_uk.py`).
