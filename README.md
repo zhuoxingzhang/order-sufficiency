@@ -8,7 +8,6 @@ It contains the code, the inputs and the results behind the figures and numbers 
 | Section 6.2, Figure 4a | [`corpus/`](corpus) | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
 | Section 6.2, readers of the templates that need atomic visibility | [`corpus/`](corpus) | reading of the code | `atomic_audit.md` |
 | Sections 6.1 and 6.2, static analyzer, Figure 4b | [`apps/`](apps) | `run_all.sh` | `validate.py`, `fig_apps.py` |
-| Section 6.2, blind hand labels of 135 templates | [`apps/`](apps) | `sample_blind.py` | `blind/estimate.py` |
 | Section 6.2, read-path audit (Sentry) | [`corpus/`](corpus) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Sections 6.1 and 6.2, second annotator | [`corpus/annotator/`](corpus/annotator) | `templates.csv`, `sites.csv` | `agreement.py` |
 | Section 6.2, read-path audit (GitLab) | [`corpus/`](corpus) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
@@ -40,7 +39,6 @@ Every directory holds the results of the paper, so each analysis script runs wit
 cd corpus && python -I summarize.py
 cd corpus/annotator && python -I agreement.py
 cd apps && python -I validate.py out && python -I fig_apps.py out fig_apps.tex
-cd apps/blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 cd engines/results && python -I ../analyze.py citus.jsonl vitess.jsonl
 cd engines/results && python -I ../analyze.py --json=vitess4.json vitess4.jsonl
 cd engines && python -I analyze_delay.py results/citus_delay.jsonl
@@ -168,41 +166,6 @@ cd apps
 SRC=<directory of the checkouts> sh run_all.sh
 python -I validate.py out
 python -I fig_apps.py out fig_apps.tex
-```
-
-### Blind hand labels (Section 6.2)
-
-The share of order among the constrained templates is an upper bound, since the analyzer recognizes only the copies that it can parse.
-Templates sampled from the ten applications were therefore labelled by hand, blind to the verdicts of the analyzer.
-
-- `sample_blind.py` draws, per application and strict verdict of the analyzer, a fixed number of templates with a fixed seed.
-  The sheet shows the repository, the commit, the kind of template and a link to its code; the key (`key_*.json`) holds the verdicts.
-- Sample 1 (`blind/sample1`) draws 2 templates per application and verdict (seed 20261019) from the output of an earlier version of the analyzer, which handled copies along reversed references differently.
-  On the stored output, parts a and b are drawn again identically, and part c differs in 3 templates of Canvas; `key_c.json` holds the sample as labelled.
-  Of its 56 templates, the 5 in test or development code (A06, A16, B02, C11, C12) were left out before labelling, so 51 carry labels.
-- Sample 2 (`blind/sample2`) draws 3 templates per application and verdict (seed 20261020) outside test and development code and outside sample 1: 84 templates.
-- The labelling instructions set the premise that every table may lie on its own shard, that shards commit separately and that there is no global snapshot.
-  They define the scope of the three kinds of template (including callbacks, cascades, counter caches and queued jobs), the three constraints to consider (references, copies of a column of the referenced row, and derived values such as counts, sums and flags aggregated from other rows), and the labels: `none` if no such constraint relates rows of different tables, `order` if some commit order keeps every constraint satisfied after every commit, and `atomic` if no order does.
-  The column `derived` is `yes` if the label is `atomic` only because of a derived value.
-  Four practice examples outside the sample illustrate the labels: creating a group and its first project (order), renaming a group whose path the projects cache (atomic, not derived), creating a comment counted in a counter of its post (atomic, derived), and writing an audit log next to an unrelated row (none).
-  The instructions ask for independent work, without the paper or our labels.
-- `labels_*.csv` hold the labels (columns `item`, `app`, `kind`, `origin`, `label`, `derived`).
-- `estimate.py` weighs the labelled templates of each stratum (application and strict verdict of the analyzer on the stored output) by the size of the stratum, reads the labels one way (atomic and derived counts as order), and resamples within the strata (2,000 rounds) for a 95% interval.
-  Both samples pooled (135 templates) put the share of order among the constrained templates at 81.9% (73.8-89.6%).
-
-```bash
-cd apps
-python -I sample_blind.py out sheet_a.csv key_a.json zulip,makeplane,saleor,openedx A
-python -I sample_blind.py out sheet_b.csv key_b.json PostHog,chatwoot,mastodon B
-python -I sample_blind.py out sheet_c.csv key_c.json discourse,spree,instructure C
-X=--exclude=blind/sample1/key_a.json,blind/sample1/key_b.json,blind/sample1/key_c.json
-python -I sample_blind.py out sheet_u.csv key_u.json zulip,makeplane U --seed=20261020 --per=3 $X --skip-testdev
-python -I sample_blind.py out sheet_v.csv key_v.json saleor,openedx V --seed=20261020 --per=3 $X --skip-testdev
-python -I sample_blind.py out sheet_w.csv key_w.json PostHog,mastodon W --seed=20261020 --per=3 $X --skip-testdev
-python -I sample_blind.py out sheet_x.csv key_x.json chatwoot,spree X --seed=20261020 --per=3 $X --skip-testdev
-python -I sample_blind.py out sheet_y.csv key_y.json discourse Y --seed=20261020 --per=3 $X --skip-testdev
-python -I sample_blind.py out sheet_z.csv key_z.json instructure Z --seed=20261020 --per=3 $X --skip-testdev
-cd blind && python -I estimate.py ../out sample1:a,b,c sample2:u,v,w,x,y,z
 ```
 
 ## Engines (Section 6.3, Figure 6)
