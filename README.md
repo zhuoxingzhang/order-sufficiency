@@ -3,7 +3,7 @@
 This repository accompanies a paper on when write order, rather than atomic visibility, keeps the constraints of a schema satisfied on sharded SQL engines.
 It contains the code, the inputs and the results behind the figures and numbers of the experiments (Section 6) and the checks of the appendix.
 
-[`order-sufficiency.pdf`](order-sufficiency.pdf) is the full version of the paper, whose appendix holds the proofs (Appendix A) and further experimental results (Appendix B); the submitted paper holds only the body and the references.
+[`order-sufficiency-full.pdf`](order-sufficiency-full.pdf) is the full version of the paper, whose appendix holds the proofs (Appendix A) and further experimental results (Appendix B); the submitted paper holds only the body and the references.
 
 | Paper | Directory | Produces the results | Numbers and figure from |
 |---|---|---|---|
