@@ -12,8 +12,8 @@ import fig_cost as F  # noqa: E402
 
 ORDER = ('b', 'L', 'Lo', 'E')
 COL = {'b': 'cMany', 'L': 'cOrder', 'Lo': 'cDeep', 'E': 'cSet'}
-MARK = {'b': '*', 'L': '*', 'Lo': 'square*', 'E': 'triangle*'}
-NAME = {'b': 'one commit per row', 'L': 'leveled commits', 'Lo': 'leveled commits with an outbox',
+MARK = {'b': 'x', 'L': '*', 'Lo': 'square*', 'E': 'triangle*'}
+NAME = {'b': 'ordered commits of one row each', 'L': 'leveled commits', 'Lo': 'leveled commits with an outbox',
         'E': 'leveled commits with an eager first round'}
 PANELS = [('citus', 'final_citus.jsonl', 1, 'p50_ms', r'(a) Citus latency\\one client'),
           ('vitess', 'final_vitess.jsonl', 1, 'p50_ms', r'(b) Vitess latency\\one client'),

@@ -28,7 +28,7 @@ python -I split_phases.py results/split_citus.jsonl
 | Paper | Code | Meaning |
 |---|---|---|
 | fastest two-phase commit | best of `h`, `hA`, `h@d`, `hA@d` (Citus), `h`, `hA` (Vitess) | one distributed transaction, one statement per row (`h`) or one statement per shard (`hA`), entering at the coordinator or at a worker (`@d`) |
-| one commit per row | best of `b`, `b@d` (Citus), `b` (Vitess) | one single-shard transaction per row, committed in the required order |
+| ordered commits of one row each | best of `b`, `b@d` (Citus), `b` (Vitess) | one single-shard transaction per row, committed in the required order |
 | leveled commits | `Ls@d` (Citus), `Ls` (Vitess) | one transaction per node, executed in parallel and committed level by level |
 | leveled commits with an outbox | `Los@d`, `Los` | the transactions of the first level also write an outbox row that lists the update |
 | leveled commits with an eager first round | `Es@d`, `Es` | the first level commits in its first message |
@@ -44,7 +44,7 @@ python -I split_phases.py results/split_citus.jsonl
 - Fault runs (`x7_fault.py`): 4 writers run the move template and 2 readers check for orphans for 12 s, while a relay in front of worker 29802 is armed every 0.5 s and then drops the next commit message to that worker.
   The run sets `citus.node_conninfo = sslmode=disable` on all nodes so that the relay sees the commit messages, and resets it afterwards.
 - Fence runs (`x7_fence.py`): 4 clients add children to groups (5 ms think time) while 2 clients merge groups, over 16 active groups for 12 s, with and without a lock on the merged group.
-- Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and one commit per row commit without two-phase commit.
+- Before the runs, `x7_check_plan.py` checks the commit levels of every operation, `check_keymap.py` checks the key placement, and `x7_probe_2pc.py` checks that leveled commits and ordered commits of one row each commit without two-phase commit.
 
 ## Number of rounds (Section 6.3, Figure 5f)
 
