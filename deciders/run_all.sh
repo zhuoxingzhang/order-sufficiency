@@ -32,7 +32,7 @@ $P -I x3_gitlab.py 20 results/x3_gitlab.json > /dev/null
 # 3. MIN-FREEZE: minimum cut vs 2-approximation
 $P -I x3_m2.py $N 5 results/x3_m2.jsonl > results/x3_m2_summary.jsonl
 # 4. design gains on GitLab: shard keys (Theorem 5.2), frozen attributes (Theorem 5.1), fresh updates,
-#    unique keys, shard keys for the copies of the code (Theorem 5.3, Figure 8a), frequencies (Figure 8b)
+#    unique keys, shard keys for the copies of the code (Theorem 5.3, Figure 8), frequencies (Figure 9)
 $P -I x4_design.py results/x4_design.json > /dev/null
 $P -I x4_shardkey.py results/x4_shardkey.json > /dev/null
 $P -I x4_fresh.py results/x4_fresh.json > /dev/null

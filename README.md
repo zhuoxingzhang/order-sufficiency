@@ -6,12 +6,12 @@ The repository holds the code, the inputs and the stored results behind the figu
 
 | Directory | Paper | Contents |
 |---|---|---|
-| [`corpus/`](corpus) | Sections 6.1 and 6.2, Figure 3a | Cross-database write templates of GitLab and Sentry, classified by hand and by a second annotator, and audits of their readers |
-| [`apps/`](apps) | Sections 6.1 and 6.2, Figure 3b | Static analyzer for Rails and Django applications, run on ten applications, GitLab and Sentry; its agreement with the hand labels; blind hand labels of 135 sampled templates |
-| [`engines/`](engines) | Section 6.3, Figures 5 and 6 | Orphans and inconsistent copies on Citus and Vitess under one two-phase commit and under ordered commits, by read direction and pause |
-| [`cost/`](cost) | Section 6.3, Figure 4 | Latency and throughput of leveled commits relative to the fastest two-phase commit |
+| [`corpus/`](corpus) | Sections 6.1 and 6.2, Figure 4a | Cross-database write templates of GitLab and Sentry, classified by hand and by a second annotator, and audits of their readers |
+| [`apps/`](apps) | Sections 6.1 and 6.2, Figure 4b | Static analyzer for Rails and Django applications, run on ten applications, GitLab and Sentry; its agreement with the hand labels; blind hand labels of 135 sampled templates |
+| [`engines/`](engines) | Section 6.3, Figures 6 and 7 | Orphans and inconsistent copies on Citus and Vitess under one two-phase commit and under ordered commits, by read direction and pause |
+| [`cost/`](cost) | Section 6.3, Figure 5 | Latency and throughput of leveled commits relative to the fastest two-phase commit |
 | [`recovery/`](recovery) | Section 6.3, Appendix B | Recovery of a stopped update (Proposition A.13) and deadlocks across workers (Lemma A.14) |
-| [`deciders/`](deciders) | Section 6.4, Figure 7, Appendices A and B | Deciders of order-sufficiency, freezing and shard keys on GitLab, and the bounded searches that check the appendix |
+| [`deciders/`](deciders) | Section 6.4, Figure 8, Appendices A and B | Deciders of order-sufficiency, freezing and shard keys on GitLab, and the bounded searches that check the appendix |
 
 The README of each directory describes its runs and lists the commands that recompute the numbers of the paper from the stored results, without a database.
 

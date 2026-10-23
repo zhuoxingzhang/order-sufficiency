@@ -1,8 +1,8 @@
-# Static analyzer (Sections 6.1 and 6.2, Figure 3b)
+# Static analyzer (Sections 6.1 and 6.2, Figure 4b)
 
 | Paper | Produces the results | Numbers and figure from |
 |---|---|---|
-| Sections 6.1 and 6.2, static analyzer, Figure 3b | `run_all.sh` | `validate.py`, `fig_apps.py` |
+| Sections 6.1 and 6.2, static analyzer, Figure 4b | `run_all.sh` | `validate.py`, `fig_apps.py` |
 | Section 6.2, agreement with the 97 hand labels of `corpus/` | `run_all.sh` | `validate.py` |
 | Section 6.2, blind hand labels of 135 templates | `sample_blind.py` | `blind/estimate.py` |
 
@@ -24,7 +24,7 @@ The analyzer in `apps/analyzer` reads the code of Rails and Django applications 
 `run_all.sh` runs the analyzer over the ten applications, GitLab and Sentry; the outputs of the paper are in `out/` (gzipped).
 `validate.py` first compares the analyzer with the 97 hand labels of `corpus/`: it finds 72 of the templates and agrees with 57 of their labels under the one-way reading (54 under the strict one); it calls 9 order-only templates unconstrained and misses the copies of 4 templates that need atomic visibility, and 11 of its 12 verdicts of atomic visibility are right.
 It then prints the verdicts of the 6,033 templates of the ten applications that write several tables outside test and development code: 5,049 of them are constrained, and 99% of these need only order under the one-way reading and 78% under the strict one.
-`fig_apps.py` writes Figure 3b.
+`fig_apps.py` writes Figure 4b.
 
 ```bash
 SRC=<directory of the checkouts> sh run_all.sh

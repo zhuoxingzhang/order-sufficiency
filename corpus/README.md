@@ -1,8 +1,8 @@
-# Corpus (Sections 6.1 and 6.2, Figure 3a)
+# Corpus (Sections 6.1 and 6.2, Figure 4a)
 
 | Paper | Produces the results | Numbers and figure from |
 |---|---|---|
-| Section 6.2, Figure 3a | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
+| Section 6.2, Figure 4a | `sentry_classify.py`, `gitlab_classify.py` | `summarize.py` -> `out/templates.csv` |
 | Section 6.2, readers of the templates that need atomic visibility | reading of the code | `atomic_audit.md` |
 | Section 6.2, read-path audit (Sentry) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.2, read-path audit (GitLab) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
@@ -21,7 +21,7 @@ Both code bases are read statically; no application code is run.
 - `sentry_corpus.py` and `sentry_rpc.py` scan `src/sentry` of the Sentry checkout for silo models, foreign keys, hybrid-cloud foreign keys, outbox replication and remote procedure calls (`out/sentry_models.json`, `out/sentry_rpc.json`).
 - `sentry_classify.py` holds the hand classification of the 65 Sentry templates (42 outbox replications, 23 synchronous remote writes) with their constraints and code locations, and prints the census of the Sentry schema used in Section 6.2.
 - `gitlab_classify.py` holds the classification of the 32 GitLab templates: the 15 transactions that GitLab exempts from its guard against cross-database writes, and the deletions of the 17 parents whose loose foreign keys cross databases (from `deciders/data/gitlab_schema.json`).
-- `summarize.py` prints Figure 3a and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
+- `summarize.py` prints Figure 4a and writes `out/templates.csv`, which lists for every template the rows it writes, the constraint between them, the label and the code locations.
 
 ```bash
 python -I sentry_corpus.py <sentry>/src/sentry out/sentry_models.json

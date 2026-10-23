@@ -3,7 +3,7 @@
 | Paper | Produces the results | Numbers and figure from |
 |---|---|---|
 | Section 6.4, decision time | `run_all.sh`, steps 1-3 | `results/selfcheck_*`, `results/x3_*` |
-| Section 6.4, Figure 7, Appendix B and Figure 9, shard keys, unique keys and freezing on GitLab | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
+| Section 6.4, Figure 8, Appendix B and Figure 9, shard keys, unique keys and freezing on GitLab | `run_all.sh`, step 4 | `x4_shardk.py`, `x4_unique.py`, `x4_freq.py`, `results/x4_*` |
 | Appendix A.3, Proposition 4.7 | `run_all.sh`, step 6 | `results/fresh_k*` |
 | Appendix A.3, Theorem 4.9 | `run_all.sh`, step 9 | `cind_analyze.py` |
 | Appendix A.3, Proposition A.8 | `run_all.sh`, step 7 | `uk_tally.py` |
@@ -34,7 +34,7 @@ PROCS=64 sh run_all.sh
 - Steps 2 and 3 time the deciders single-threaded on random schemas with 10 attributes, 10 FDs and 2 INDs per relation (median of 5 seeds) and on the schema of GitLab (median of 20 runs), and compare the minimum cut with the 2-approximation.
 - Step 4 compares the shard keys of Theorem 5.2 with containment rules and with the keys that GitLab declares, and the optimal freeze with freezing every copied source.
   `x4_unique.py` counts the tables with a single-column shard key that makes every fresh update executable and under which a shard checks every unique key (1,040 of 1,127); the rule of Citus leaves 600 tables without such a key (`none_citus` in `results/x4_shardkey.json`), so it admits one for 527.
-  `x4_shardk.py` checks Theorem 5.3 on the 903 copies that GitLab maintains, 808 of sharding keys and 95 that callbacks write, under co-location by the declared sharding keys (Figure 7): the copies whose IND violates condition (4) of Theorem 4.5, and how many of them co-location carries, are 126 and 93 if every write counts as a modification, 45 and 35 without the initialisations of new rows, and 4 and 4 with frozen sharding keys.
+  `x4_shardk.py` checks Theorem 5.3 on the 903 copies that GitLab maintains, 808 of sharding keys and 95 that callbacks write, under co-location by the declared sharding keys (Figure 8): the copies whose IND violates condition (4) of Theorem 4.5, and how many of them co-location carries, are 126 and 93 if every write counts as a modification, 45 and 35 without the initialisations of new rows, and 4 and 4 with frozen sharding keys.
   `x4_freq.py` draws template frequencies from four distributions and reports the weight that the optimal freeze saves over freezing every copied source (Figure 9 in Appendix B; medians 18%, 54%, 36% and 70%).
 - Step 5 runs the checks of Appendix A.3 beyond the exact classes; it needs pycosat, as do steps 6 to 9.
 - Step 6 checks Proposition 4.7 (fresh updates on class K) on 403 random schemas of class K by a bounded SAT search that admits only fresh updates (`fresh_k.py`, `fsat.py`), including the order that writes referencing relations first; `seq_sanity.py` confirms that the order check detects violations. It needs pycosat.

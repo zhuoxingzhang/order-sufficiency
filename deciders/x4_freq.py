@@ -1,4 +1,4 @@
-"""E4 (Figure 8b): sensitivity of optimal freezing (Theorem 5.1) to template frequencies and fan-out.
+"""E4 (Figure 9): sensitivity of optimal freezing (Theorem 5.1) to template frequencies and fan-out.
 
 Same conflict graph H as x4_design.m2_study on the class-K fragment of GitLab (179 sharding-key
 copies), with pointers frozen, which is also the graph for fresh updates (Proposition 4.7 drops the

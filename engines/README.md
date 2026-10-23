@@ -1,12 +1,12 @@
-# Engines (Section 6.3, Figures 5 and 6)
+# Engines (Section 6.3, Figures 6 and 7)
 
 | Paper | Produces the results | Numbers and figure from |
 |---|---|---|
-| Section 6.3, Figure 5 | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
+| Section 6.3, Figure 6 | `run_citus.sh`, `run_vt.sh` | `analyze.py` -> `results/summary.md` |
 | Section 6.3, Vitess on four shards | `run_vt4.sh` | `analyze.py` -> `results/vitess4.md` |
 | Section 6.3, injected commit delay from 0 to 10 ms | `run_delay.sh` | `analyze_delay.py` -> `results/citus_delay.md` |
-| Section 6.3, Figure 6 | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
-| Section 6.3, Figure 6, Proposition 5.8 | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
+| Section 6.3, Figure 7 | `run_direction.sh`, `run_direction_fill.sh` | `analyze_direction.py` -> `results/direction.md`, `results/direction_gap.md`, `results/direction_fill.md` |
+| Section 6.3, Figure 7, Proposition 5.8 | `run_grace.sh` | `analyze_grace.py` -> `results/grace.md` |
 
 The stored results reproduce the numbers of the paper without a database:
 
@@ -38,14 +38,14 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - A reader reads the child and then, in the next statement, the parent it points to; an absent parent is an orphan.
   Copy readers read the source and the copy in one statement (Citus) or one scatter query (Vitess).
 - The stored results hold 10 batches per Citus cell and 8 per Vitess cell.
-  `analyze.py` reports the pooled rate per cell; the interval in Figure 5 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
+  `analyze.py` reports the pooled rate per cell; the interval in Figure 6 spans the pooled Wilson interval and a batch bootstrap interval, and a cell without events reports the Wilson upper bound.
 - Four shards (`run_vt4.sh`): the Vitess cells on a cluster with four shards instead of two (`vitess4_up.sh`, the same ports, `VT_SHARDS=4` for `vt_exp.py`), 10 batches.
   One TwoPC exposed an orphan in 88% of the runs that wrote the child first and in none of those that wrote the parent first, and two ordered commits in none (`results/vitess4.md`).
   The fixed MySQL ports of the tablets lie in the ephemeral port range of Linux, so an outgoing connection can hold one at start-up and leave a shard without a primary; `run_vt4.sh` then restarts the cluster, up to three times.
 - Commit delay (`run_delay.sh`): the Citus foreign-key cells with the `commit_delay` of worker 29701 swept over 0, 1, 2, 5 and 10 ms, three batches each.
   One 2PC exposed orphans in 34% of the runs from 1 ms on, all with the parent on the delayed worker, and in 0.1% without a delay; two ordered commits exposed none (`results/citus_delay.md`).
 
-## Read direction (Section 6.3, Figure 6)
+## Read direction (Section 6.3, Figure 7)
 
 `run_direction.sh` runs `direction.py` on the Citus cluster above in its uniform configuration (no slow worker), 2,000 runs per configuration.
 
@@ -55,10 +55,10 @@ The engine runs test whether one distributed transaction exposes orphans and inc
   It stops at the final state (both rows present after an insertion, both absent after a deletion) or after 200 ms.
 - A run counts as anomalous if some iteration sees the child but not the parent.
   `analyze_direction.py` reports the share of anomalous runs with a Wilson 95% interval (`results/direction.md`, `results/direction_gap.md`).
-  Figure 6 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
+  Figure 7 takes the line of one two-phase commit (`atomic`, `c2p`) from the deletion runs of the first grid at 0, 1 and 10 ms and from `run_direction_fill.sh` at 2, 5 and 20 ms, the pauses of the grace grid; the protected reader (`ordered`, `p2c`) saw no orphan in its 6,000 deletion runs.
   The fill also reran 0, 1 and 10 ms: 48.8%, 86.0% and 100%, against 47.8%, 86.1% and 100% in the first grid (`results/direction_fill.md`).
 
-## Grace period (Section 6.3, Figure 6, Proposition 5.8)
+## Grace period (Section 6.3, Figure 7, Proposition 5.8)
 
 `run_grace.sh` runs `grace.py` on the same cluster and configuration, 2,000 runs per configuration.
 
@@ -66,4 +66,4 @@ The engine runs test whether one distributed transaction exposes orphans and inc
 - The reader reads in the direction that write order does not protect (`c2p` for deletions, `p2c` for insertions) and pauses 0, 1, 2, 5, 10 or 20 ms between its two reads.
   Every iteration records its span, from the start of the first read to the end of the second, which bounds the distance between the two snapshots from above.
 - `analyze_grace.py` reports the anomalous runs per cell with a Wilson 95% interval and, as the check of Proposition 5.8, the number of anomalous iterations whose span is at most the pause between the commits (`results/grace.md`).
-  It is 0 among 700,952 such iterations; Figure 6 shows the deletion cells.
+  It is 0 among 700,952 such iterations; Figure 7 shows the deletion cells.

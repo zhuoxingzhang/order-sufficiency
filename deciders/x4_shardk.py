@@ -1,4 +1,4 @@
-"""E4: Theorem 5.3 (admissible shard keys for class K) on the copies of GitLab (Figure 8a).
+"""E4: Theorem 5.3 (admissible shard keys for class K) on the copies of GitLab (Figure 8).
 
 Copies are the INDs R[P D] <= S[L C] that GitLab maintains: the attribute copies that the static
 analyzer of apps/ finds in the code (evidence assigned, created, pushed; 'code') and the sharding-key
@@ -161,7 +161,7 @@ for k in ('precise', 'with_star', 'filtered', 'frozen'):
                                  'violate_cond4', 'violate_cond4_carried', 'two_mutable', 'two_mutable_carried',
                                  'gap_only')})
 print('sharding keys modified by code:', len(sk_mut), 'of', res['declared_sharding_keys'], sk_mut[:20])
-print('Figure 8a (code + sk copies): violating, carried')
+print('Figure 8 (code + sk copies): violating, carried')
 for k, name in (('precise', 'every write'), ('filtered', 'no initial writes'), ('frozen', 'frozen sharding keys')):
     b = res[k]['by_source']
     print('  %-22s %4d %4d' % (name, b['code']['violate_cond4'] + b['sk']['violate_cond4'],
