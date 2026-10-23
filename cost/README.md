@@ -38,7 +38,7 @@ python -I split_phases.py results/split_citus.jsonl
   A third Citus configuration places relays (`x7_proxy.py`) that add 0.5 ms in each direction in front of every node.
 - Durability is the engine default: fsync, synchronous commit and full-page writes on Citus, semi-synchronous replication on Vitess.
 - `fig_cost.py` divides the median latency (one client) or the throughput (64 clients) of each way of writing by that of the fastest two-phase commit of the same block and cell, averages geometrically over the three templates, and reports a 95% t-interval over the blocks.
-  `gen_fig_cost.py` writes Figure 5 as LaTeX.
+  `gen_fig_cost.py` writes panels (a) to (e) of Figure 5 as LaTeX, including the eager first round, which the paper reports in Appendix B instead.
 - Every block of a cell that lacks a method is rerun with all methods (`x7_refill.py`).
   During our Vitess runs, vtgate was occasionally stopped by an external signal and restarted by a watchdog; the blocks that ran against a restarted vtgate were rerun the same way.
 - Fault runs (`x7_fault.py`): 4 writers run the move template and 2 readers check for orphans for 12 s, while a relay in front of worker 29802 is armed every 0.5 s and then drops the next commit message to that worker.
@@ -50,7 +50,8 @@ python -I split_phases.py results/split_citus.jsonl
 
 `run_depth.sh` runs the `chain` workload of `x7bench.py`: an insertion of a path of k = 2, 3, 4, 5, 6 or 8 rows, row i referencing row i - 1, with consecutive rows on different nodes.
 Every hop changes nodes, so leveled commits need k rounds, whereas one two-phase commit keeps its prepare and commit rounds; a node with several transactions of one update gets one connection per transaction.
-Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with the methods of Figure 5 except the outbox; Figure 5f shows Citus without relays, and `results/depth.md` holds all three.
+Three blocks, one client, 2 s of warm-up and 8 s of measurement, on Citus without and with the relays above and on Vitess, with every method of the table above except the outbox.
+Figure 5f shows the leveled commits of all three settings, and `results/depth.md` holds every method.
 `depth_analyze.py` divides the median latency of each method by that of the fastest two-phase commit of the same block and reports the geometric mean over the blocks with its range (`results/depth.md`).
 
 ## Ordered two-phase commit (Section 6.3)
