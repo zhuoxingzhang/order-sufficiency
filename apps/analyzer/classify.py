@@ -5,7 +5,7 @@ modification of named attributes.  Constraints between two written tables decide
   reference R.P -> S.L   order, if a row of R or S is inserted or deleted or a pointer of R changes
                          (Prop. 5.4: insertions parent first, deletions child first, moves between)
   copy R[P D] <= S[L C]  atomic visibility if a source C_i and its copy D_i both change
-                         (Cor. 4.8: two mutable copies of one value); order if the source changes
+                         (Thm. 4.8: two mutable copies of one value); order if the source changes
                          while the pointer moves, or if rows are inserted or deleted
   derived S.A from R     atomic visibility if S.A changes together with rows of R (strict reading:
                          the value equals its definition); order under the one-way reading, in

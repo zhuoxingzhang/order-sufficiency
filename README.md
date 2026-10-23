@@ -137,7 +137,7 @@ The analyzer in `apps/analyzer` reads the code of Rails and Django applications 
 
 - It collects the references (declared foreign keys and the associations that the code relies on), the copies that callbacks keep equal to a column of the referenced row, and the derived values such as counter caches (`rails_*.py`, `django_front.py`, `schema.py`).
 - It groups the writes into templates: transaction blocks, methods, and the creation, modification or deletion of a row of a model with its callbacks, cascades, counter caches and queued jobs.
-- `classify.py` labels every template that writes several tables, assuming that every table may lie on a shard of its own: it needs only order if it inserts or deletes rows or moves pointers along references (Proposition 5.4), and atomic visibility if it changes a source and its copy (Corollary 4.8).
+- `classify.py` labels every template that writes several tables, assuming that every table may lie on a shard of its own: it needs only order if it inserts or deletes rows or moves pointers along references (Proposition 5.4), and atomic visibility if it changes a source and its copy (Theorem 4.8).
   Under the strict reading, a derived value must equal its definition in every state, so changing it together with its rows needs atomic visibility; under the one-way reading, readers accept a derived value that lags behind its rows, so order suffices.
 - `run_gitlab.py` and `run_sentry.py` add the partitions of GitLab (databases and gitlab_schemas, loose foreign keys, the exemptions from its guard) and the silos of Sentry (hybrid-cloud foreign keys, remote calls, outboxes), and count only constraints across partitions or silos.
 
