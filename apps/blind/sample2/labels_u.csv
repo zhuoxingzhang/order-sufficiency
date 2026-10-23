@@ -1,0 +1,16 @@
+item,app,kind,origin,label,derived
+U12,makeplane,event,IssueType#destroy,order,no
+U01,zulip,method,zproject/backends.py:1471,atomic,no
+U02,zulip,transaction,zerver/actions/create_user.py:721,atomic,no
+U06,zulip,transaction,zerver/actions/channel_folders.py:86,order,no
+U10,makeplane,method,apps/api/plane/api/views/project.py:673,order,no
+U07,zulip,method,zerver/views/navigation_views.py:115,none,no
+U14,makeplane,method,apps/api/plane/app/views/project/member.py:320,none,no
+U08,zulip,method,zerver/webhooks/redmine/view.py:107,atomic,yes
+U11,makeplane,method,apps/api/plane/app/views/issue/comment.py:143,atomic,no
+U09,zulip,method,zerver/webhooks/jira/view.py:354,atomic,yes
+U05,zulip,transaction,zerver/actions/message_edit.py:1779,atomic,yes
+U13,makeplane,method,apps/api/plane/app/views/project/member.py:90,none,no
+U03,zulip,transaction,zerver/views/registration.py:855,atomic,no
+U04,zulip,event,LicenseLedger#destroy,atomic,no
+U15,makeplane,method,apps/api/plane/app/views/project/base.py:362,atomic,no

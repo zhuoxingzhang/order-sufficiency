@@ -1,0 +1,182 @@
+item,application,file,line,foreign key,label
+S001,Sentry,src/sentry/workflow_engine/handlers/condition/assigned_to_handler.py,189,"child model GroupAssignee, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",FP
+S002,Sentry,src/sentry/integrations/github/tasks/query_commit_author_public_emails.py,64,"child model ExternalActor, column integration_id, references Integration in the other silo",FP
+S003,Sentry,src/sentry/sentry_apps/api/bases/sentryapps.py,542,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S004,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/discord_issue_alert_handler.py,34,"child model Action, column integration_id, references Integration in the other silo",T
+S005,Sentry,src/sentry/sentry_apps/api/bases/sentryapps.py,250,"child model SentryApp, column owner_id, references Organization in the other silo",E
+S006,Sentry,src/sentry/data_export/models.py,176,"child model ExportedData, column user_id, references User in the other silo",T
+S007,Sentry,src/sentry/notifications/platform/templates/activity/base.py,377,"child model Activity, column user_id, references User in the other silo",T
+S008,Sentry,src/sentry/tasks/auth/auth.py,157,"child model OrganizationMember, column user_id, references User in the other silo",T
+S009,Sentry,src/sentry/integrations/github/webhook.py,761,"child model Activity, column user_id, references User in the other silo; child model ExternalActor, column user_id, references User in the other silo",FP
+S010,Sentry,src/sentry/rules/filters/assigned_to.py,33,"child model OrganizationMember, column user_id, references User in the other silo",FP
+S011,Sentry,src/sentry/notifications/platform/templates/activity/base.py,336,"child model Activity, column user_id, references User in the other silo",T
+S012,Sentry,src/sentry/integrations/vsts/issues.py,451,"child model Activity, column user_id, references User in the other silo",T
+S013,Sentry,src/sentry/tasks/auth/auth.py,50,"child model OrganizationMember, column user_id, references User in the other silo",FP
+S014,Sentry,src/sentry/seer/autofix/commit_author.py,208,"child model ExternalActor, column user_id, references User in the other silo",FP
+S015,GitLab,ee/app/models/security/scan.rb,207,"child table security_scans, column build_id (association build), references p_ci_builds in another database",E
+S016,GitLab,lib/gitlab/observability/pipeline_converter_base.rb,183,"child table p_ci_pipelines, column merge_request_id (association merge_request), references merge_requests in another database",T
+S017,Sentry,src/sentry/models/organizationmember.py,461,"child model OrganizationMember, column user_id, references User in the other silo",T
+S018,GitLab,ee/app/serializers/vulnerabilities/feedback_entity.rb,41,"child table vulnerability_feedback, column merge_request_id (association merge_request), references merge_requests in another database",T
+S019,GitLab,app/models/ci/namespace_mirror.rb,60,"child table ci_namespace_mirrors, column namespace_id (association namespace), references namespaces in another database",FP
+S020,GitLab,ee/lib/gitlab/data_builder/vulnerability.rb,63,"child table vulnerability_issue_links, column issue_id (association issue), references issues in another database",E
+S021,Sentry,src/sentry/issues/endpoints/group_details.py,138,"child model Activity, column user_id, references User in the other silo; child model GroupSeen, column user_id, references User in the other silo",T
+S022,GitLab,ee/app/models/dependencies/dependency_list_export.rb,122,"child table dependency_list_exports, column pipeline_id (association pipeline), references p_ci_pipelines in another database",T
+S023,GitLab,app/services/system_hooks_service.rb,31,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S024,GitLab,ee/app/models/ee/ci/pipeline.rb,261,"child table p_ci_pipelines, column merge_request_id (association merge_request), references merge_requests in another database",E
+S025,GitLab,ee/app/services/ai/duo_workflows/code_review/mention/assistant_flow_handler.rb,52,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",FP
+S026,Sentry,src/sentry/integrations/msteams/webhook.py,597,"child model Action, column integration_id, references Integration in the other silo",FP
+S027,GitLab,ee/lib/security/security_orchestration_policies/pipeline_auditor.rb,114,"child table p_ci_pipelines, column user_id (association user), references users in another database",T
+S028,Sentry,src/sentry/integrations/notifications.py,95,"child model ExternalActor, column integration_id, references Integration in the other silo",T
+S029,Sentry,src/sentry/integrations/utils/source_context.py,66,"child model RepositoryProjectPathConfig, column organization_integration_id, references OrganizationIntegration in the other silo",T
+S030,Sentry,src/sentry/sentry_apps/api/bases/sentryapps.py,573,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S031,Sentry,src/sentry/web/frontend/js_sdk_loader.py,311,"child model ProjectKeyMapping, column public_key, references ProjectKey in the other silo",FP
+S032,Sentry,src/sentry/models/organizationmember.py,440,"child model OrganizationMember, column user_id, references User in the other silo",T
+S033,Sentry,src/sentry/api/authentication.py,580,"child model ApiKey, column organization_id, references Organization in the other silo; child model ApiToken, column scoping_organization_id, references Organization in the other silo; child model ApiTokenReplica, column scoping_organization_id, references Organization in the other silo; child model OrgAuthToken, column organization_id, references Organization in the other silo; child model SentryAppInstallation, column organization_id, references Organization in the other silo",T
+S034,Sentry,src/sentry/api/serializers/models/organization.py,595,"child model OrganizationOnboardingTask, column user_id, references User in the other silo",T
+S035,Sentry,src/sentry/api/serializers/models/release.py,589,"child model Release, column owner_id, references User in the other silo",T
+S036,Sentry,src/sentry/rules/actions/sentry_apps/notify_event.py,55,"child model Action, column config.sentryAppInstallationUuid, references SentryAppInstallation in the other silo",T
+S037,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/slack_issue_alert_handler.py,32,"child model Action, column integration_id, references Integration in the other silo",T
+S038,Sentry,src/sentry/sentry_apps/tasks/sentry_apps.py,754,"child model Activity, column user_id, references User in the other silo",FP
+S039,Sentry,src/sentry/issues/services/issue/impl.py,35,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S040,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/pagerduty_issue_alert_handler.py,30,"child model Action, column integration_id, references Integration in the other silo",T
+S041,Sentry,src/sentry/incidents/endpoints/serializers/workflow_engine_detector.py,156,"child model Detector, column created_by_id, references User in the other silo",T
+S042,Sentry,src/sentry/api/serializers/models/dashboard.py,595,"child model Dashboard, column created_by_id, references User in the other silo; child model DashboardRevision, column created_by_id, references User in the other silo",T
+S043,GitLab,ee/app/services/security/security_orchestration_policies/persist_policy_service.rb,257,"child table security_scan_profile_configurations, column namespace_id (association namespace), references namespaces in another database",FP
+S044,GitLab,ee/app/services/ai/flow_triggers/destroy_service.rb,15,"child table ci_triggers, column project_id (association project), references projects in another database",FP
+S045,GitLab,app/models/ci/pipeline.rb,990,"child table p_ci_pipelines, column user_id (association user), references users in another database",FP
+S046,Sentry,src/sentry/seer/smart_assignment/scoring.py,92,"child model Activity, column user_id, references User in the other silo; child model GroupAssignee, column user_id, references User in the other silo",T
+S047,Sentry,src/sentry/utils/sentry_apps/webhooks.py,332,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S048,GitLab,ee/app/serializers/vulnerabilities/issue_link_entity.rb,12,"child table vulnerability_issue_links, column issue_id (association issue), references issues in another database",T
+S049,Sentry,src/sentry/integrations/vsts/issues.py,465,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S050,Sentry,src/sentry/api/serializers/models/exploresavedquery.py,126,"child model ExploreSavedQuery, column created_by_id, references User in the other silo",T
+S051,Sentry,src/sentry/api/serializers/models/groupsearchview.py,63,"child model GroupSearchView, column user_id, references User in the other silo; child model GroupSearchViewLastVisited, column user_id, references User in the other silo; child model GroupSearchViewStarred, column user_id, references User in the other silo",T
+S052,Sentry,src/sentry/integrations/tasks/sync_status_inbound.py,223,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S053,GitLab,app/helpers/projects/ml/experiments_helper.rb,91,"child table ml_candidates, column ci_build_id (association ci_build), references p_ci_builds in another database",T
+S054,Sentry,src/sentry/integrations/utils/scm_actors.py,50,"child model ExternalActor, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",T
+S055,GitLab,ee/lib/api/entities/vulnerability_issue_link.rb,9,"child table vulnerability_issue_links, column issue_id (association issue), references issues in another database",T
+S056,GitLab,app/views/projects/jobs/_user.html.haml,7,"child table p_ci_builds, column user_id (association user), references users in another database",E
+S057,GitLab,app/events/members/base_event.rb,15,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S058,Sentry,src/sentry/issues/endpoints/group_integration_details.py,285,"child model Action, column integration_id, references Integration in the other silo; child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S059,GitLab,app/mailers/previews/notify_preview.rb,271,"child table p_ci_pipelines, column user_id (association user), references users in another database",T
+S060,Sentry,src/sentry/api/authentication.py,663,"child model ApiTokenReplica, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",FP
+S061,Sentry,src/sentry/sentry_apps/api/endpoints/sentry_app_details.py,138,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S062,Sentry,src/sentry/api/serializers/models/organizationmemberinvite.py,26,"child model OrganizationMemberInvite, column inviter_id, references User in the other silo",T
+S063,Sentry,src/sentry/api/serializers/models/exporteddata.py,13,"child model ExportedData, column user_id, references User in the other silo",T
+S064,GitLab,ee/app/models/ee/note.rb,118,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",FP
+S065,Sentry,src/sentry/core/endpoints/scim/members.py,226,"child model OrganizationMember, column user_id, references User in the other silo",T
+S066,GitLab,ee/app/models/ee/project.rb,977,"child table vulnerability_statistics, column latest_pipeline_id (association pipeline), references p_ci_pipelines in another database",T
+S067,GitLab,ee/app/models/security/scan.rb,63,"child table security_scans, column build_id (association build), references p_ci_builds in another database",E
+S068,Sentry,src/sentry/issues/endpoints/group_integration_details.py,652,"child model Action, column integration_id, references Integration in the other silo; child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S069,GitLab,ee/app/serializers/vulnerabilities/feedback_entity.rb,33,"child table vulnerability_feedback, column issue_id (association issue), references issues in another database",T
+S070,Sentry,src/sentry/api/serializers/models/dashboard.py,690,"child model Dashboard, column created_by_id, references User in the other silo; child model DashboardRevision, column created_by_id, references User in the other silo",T
+S071,Sentry,src/sentry/seer/autofix/pr_iteration/cap_exhausted.py,182,"child model SeerRun, column user_id, references User in the other silo",T
+S072,GitLab,app/models/ci/pipeline_schedule.rb,164,"child table ci_pipeline_schedules, column project_id (association project), references projects in another database",E
+S073,Sentry,src/sentry/investigations/endpoints/serializers/comment.py,40,"child model InvestigationComment, column author_id, references User in the other silo",T
+S074,Sentry,src/sentry/seer/smart_assignment/completion.py,76,"child model Activity, column user_id, references User in the other silo; child model GroupOwner, column user_id, references User in the other silo",FP
+S075,Sentry,src/sentry/sentry_apps/tasks/sentry_apps.py,233,"child model Action, column config.sentry_app_id, references SentryApp in the other silo",FP
+S076,Sentry,src/sentry/models/organizationmember.py,447,"child model OrganizationMember, column user_id, references User in the other silo",T
+S077,Sentry,src/sentry/tempest/serializers.py,21,"child model TempestCredentials, column created_by_id, references User in the other silo",T
+S078,Sentry,src/sentry/integrations/jira_server/integration.py,645,"child model ExternalActor, column user_id, references User in the other silo",FP
+S079,GitLab,app/helpers/notes_helper.rb,115,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",T
+S080,Sentry,src/sentry/sentry_apps/api/endpoints/sentry_app_rotate_secret.py,39,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S081,GitLab,app/models/ci/pipeline.rb,1721,"child table p_ci_pipelines, column merge_request_id (association merge_request), references merge_requests in another database",E
+S082,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/opsgenie_issue_alert_handler.py,30,"child model Action, column integration_id, references Integration in the other silo",T
+S083,Sentry,src/sentry/integrations/api/serializers/models/integration.py,240,"child model OrganizationIntegration, column organization_id, references Organization in the other silo",T
+S084,GitLab,app/mailers/emails/members.rb,36,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S085,Sentry,src/sentry/integrations/messaging/linkage.py,364,"child model ExternalActor, column integration_id, references Integration in the other silo",FP
+S086,GitLab,ee/app/helpers/vulnerabilities_helper.rb,151,"child table vulnerability_occurrences, column project_id (association project), references projects in another database",E
+S087,GitLab,app/helpers/invites_helper.rb,38,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S088,GitLab,app/views/shared/_merge_request_pipeline_status.html.haml,3,"child table merge_requests, column head_pipeline_id (association head_pipeline), references p_ci_pipelines in another database",T
+S089,GitLab,app/workers/ci/unlock_pipelines_in_queue_worker.rb,26,"child table p_ci_pipelines, column project_id (association project, project_mirror), references projects in another database",E
+S090,Sentry,src/sentry/sentry_apps/api/endpoints/sentry_app_authorizations.py,58,"child model SentryAppInstallation, column organization_id, references Organization in the other silo",E
+S091,Sentry,src/sentry/api/serializers/models/dashboard.py,739,"child model Dashboard, column created_by_id, references User in the other silo; child model DashboardRevision, column created_by_id, references User in the other silo",T
+S092,Sentry,src/sentry/issues/endpoints/group_integration_details.py,463,"child model Action, column integration_id, references Integration in the other silo; child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S093,Sentry,src/sentry/integrations/models/external_actor.py,77,"child model ExternalActor, column integration_id, references Integration in the other silo",T
+S094,Sentry,src/sentry/api/validators/project_codeowners.py,48,"child model ExternalActor, column integration_id, references Integration in the other silo",FP
+S095,Sentry,src/sentry/integrations/github/webhook.py,1200,"child model Activity, column user_id, references User in the other silo; child model ExternalActor, column user_id, references User in the other silo",FP
+S096,GitLab,ee/app/models/ee/ci/pipeline.rb,328,"child table p_ci_pipelines, column merge_request_id (association merge_request), references merge_requests in another database",E
+S097,Sentry,src/sentry/api/serializers/models/activity.py,123,"child model Activity, column user_id, references User in the other silo",T
+S098,Sentry,src/sentry/models/organizationaccessrequest.py,35,"child model OrganizationMember, column user_id, references User in the other silo",T
+S099,GitLab,app/services/environments/create_for_job_service.rb,34,"child table p_ci_pipelines, column merge_request_id (association merge_request), references merge_requests in another database",T
+S100,Sentry,src/sentry/models/organizationmember.py,468,"child model OrganizationMember, column user_id, references User in the other silo",T
+S101,Sentry,src/sentry/tasks/seer/investigation.py,467,"child model InvestigationBlockExecution, column triggered_by_id, references User in the other silo",T
+S102,Sentry,src/sentry/api/serializers/models/organization_member/expand/roles.py,54,"child model OrganizationMember, column user_id, references User in the other silo",T
+S103,Sentry,src/sentry/notifications/notifications/activity/base.py,101,"child model Activity, column user_id, references User in the other silo",T
+S104,Sentry,src/sentry/integrations/tasks/sync_status_outbound.py,49,"child model ExternalIssue, column integration_id, references Integration in the other silo",T
+S105,Sentry,src/sentry/models/organizationaccessrequest.py,54,"child model OrganizationAccessRequest, column requester_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",T
+S106,Sentry,src/sentry/api/authentication.py,542,"child model ApiTokenReplica, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",T
+S107,Sentry,src/sentry/integrations/jira/utils/api.py,175,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S108,Sentry,src/sentry/api/serializers/models/discoversavedquery.py,121,"child model DiscoverSavedQuery, column created_by_id, references User in the other silo; child model ExploreSavedQuery, column created_by_id, references User in the other silo",T
+S109,Sentry,src/sentry/integrations/api/serializers/models/external_issue.py,30,"child model ExternalIssue, column integration_id, references Integration in the other silo",T
+S110,GitLab,app/models/ci/pipeline.rb,1978,"child table p_ci_pipelines, column user_id (association user), references users in another database",E
+S111,Sentry,src/sentry/rules/actions/sentry_apps/notify_event.py,98,"child model Action, column config.sentryAppInstallationUuid, references SentryAppInstallation in the other silo",FP
+S112,Sentry,src/sentry/sentry_apps/api/serializers/sentry_app.py,116,"child model SentryApp, column owner_id, references Organization in the other silo",T
+S113,Sentry,src/sentry/integrations/tasks/sync_assignee_outbound.py,70,"child model ExternalIssue, column integration_id, references Integration in the other silo",T
+S114,GitLab,app/views/search/results/_note.html.haml,6,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",T
+S115,GitLab,ee/app/services/sbom/create_vulnerabilities_service.rb,142,"child table p_ci_pipelines, column project_id (association project, project_mirror), references projects in another database",E
+S116,Sentry,src/sentry/rules/actions/integrations/create_ticket/utils.py,152,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S117,GitLab,ee/app/services/merge_requests/merge_strategies/from_train_ref.rb,22,"child table merge_trains, column pipeline_id (association pipeline), references p_ci_pipelines in another database",T
+S118,Sentry,src/sentry/utils/committers.py,238,"child model GroupOwner, column user_id, references User in the other silo",T
+S119,GitLab,ee/app/models/requirements_management/test_report.rb,46,"child table requirements_management_test_reports, column build_id (association build), references p_ci_builds in another database",FP
+S120,Sentry,src/sentry/integrations/api/endpoints/organization_code_mapping_codeowners.py,22,"child model RepositoryProjectPathConfig, column integration_id, references OrganizationIntegration in the other silo",T
+S121,Sentry,src/sentry/types/actor.py,269,"child model OrganizationMember, column user_id, references User in the other silo",FP
+S122,GitLab,ee/app/models/dast/profile_tag.rb,12,"child table dast_profiles_tags, column tag_id (association tag), references tags in another database",FP
+S123,Sentry,src/sentry/integrations/gitlab/integration.py,334,"child model OrganizationIntegration, column organization_id, references Organization in the other silo",E
+S124,Sentry,src/sentry/integrations/models/external_issue.py,97,"child model ExternalIssue, column integration_id, references Integration in the other silo",E
+S125,Sentry,src/sentry/sentry_apps/models/servicehook.py,95,"child model ServiceHook, column application_id, references ApiApplication in the other silo",T
+S126,Sentry,src/sentry/api/authentication.py,954,"child model ApiTokenReplica, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",FP
+S127,Sentry,src/sentry/integrations/source_code_management/sync_repos.py,398,"child model OrganizationIntegration, column organization_id, references Organization in the other silo",T
+S128,GitLab,app/models/notes/note_metadata.rb,33,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",FP
+S129,Sentry,src/sentry/issues/endpoints/group_integration_details.py,196,"child model Action, column integration_id, references Integration in the other silo; child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S130,Sentry,src/sentry/api/serializers/models/groupseen.py,10,"child model GroupSeen, column user_id, references User in the other silo",T
+S131,GitLab,app/models/note.rb,426,"child table notes, column noteable_id (association noteable), references vulnerabilities in another database",T
+S132,GitLab,ee/app/serializers/vulnerabilities/feedback_entity.rb,29,"child table vulnerability_feedback, column issue_id (association issue), references issues in another database",T
+S133,Sentry,src/sentry/integrations/base.py,421,"child model OrganizationIntegration, column organization_id, references Organization in the other silo",E
+S134,Sentry,src/sentry/data_export/models.py,112,"child model ExportedData, column user_id, references User in the other silo",T
+S135,GitLab,ee/app/services/ci/test_balancing/initialize_service.rb,36,"child table job_environments, column ci_pipeline_id (association pipeline), references p_ci_pipelines in another database",FP
+S136,GitLab,ee/app/models/dast/profile_tag.rb,19,"child table dast_profiles_tags, column tag_id (association tag), references tags in another database",FP
+S137,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/msteams_issue_alert_handler.py,24,"child model Action, column integration_id, references Integration in the other silo",T
+S138,GitLab,lib/api/helpers.rb,667,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S139,GitLab,ee/app/serializers/vulnerabilities/feedback_entity.rb,28,"child table vulnerability_feedback, column issue_id (association issue), references issues in another database",T
+S140,Sentry,src/sentry/notifications/notifications/activity/assigned.py,19,"child model Activity, column user_id, references User in the other silo",FP
+S141,Sentry,src/sentry/preprod/api/endpoints/snapshots/preprod_artifact_snapshot.py,586,"child model PreprodComparisonApproval, column approved_by_id, references User in the other silo",T
+S142,Sentry,src/sentry/api/authentication.py,198,"child model ApiTokenReplica, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",T
+S143,Sentry,src/sentry/seer/autofix/pr_iteration/reviewer_candidates.py,235,"child model ExternalActor, column user_id, references User in the other silo; child model GroupOwner, column user_id, references User in the other silo; child model SeerRun, column user_id, references User in the other silo",T
+S144,Sentry,src/sentry/api/serializers/models/apiauthorization.py,28,"child model ApiAuthorization, column organization_id, references Organization in the other silo",T
+S145,Sentry,src/sentry/rules/actions/sentry_apps/notify_event.py,156,"child model Action, column config.sentryAppInstallationUuid, references SentryAppInstallation in the other silo",E
+S146,Sentry,src/sentry/core/endpoints/project_index.py,57,"child model SentryAppInstallation, column organization_id, references Organization in the other silo",FP
+S147,GitLab,app/mailers/members/access_granted_mailer.rb,38,"child table sbom_sources, column organization_id (association organization), references organizations in another database",FP
+S148,GitLab,ee/app/models/security/scan.rb,220,"child table security_scans, column build_id (association build), references p_ci_builds in another database",FP
+S149,GitLab,ee/app/services/ci/minutes/track_live_consumption_service.rb,120,"child table p_ci_builds, column user_id (association user), references users in another database",T
+S150,Sentry,src/sentry/notifications/notifications/organization_request/abstract_invite_request.py,62,"child model OrganizationMember, column inviter_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo; child model OrganizationMemberInvite, column inviter_id, references User in the other silo",T
+S151,GitLab,ee/app/views/groups/settings/_delete_button_with_security_policies.html.haml,13,"child table security_scan_profile_configurations, column namespace_id (association namespace), references namespaces in another database",FP
+S152,Sentry,src/sentry/api/authentication.py,671,"child model ApiKey, column organization_id, references Organization in the other silo; child model OrgAuthToken, column organization_id, references Organization in the other silo; child model SentryAppInstallation, column organization_id, references Organization in the other silo",FP
+S153,Sentry,src/sentry/notifications/notifications/strategies/role_based_recipient_strategy.py,55,"child model OrganizationMember, column user_id, references User in the other silo",T
+S154,Sentry,src/sentry/sentry_apps/api/bases/sentryapps.py,516,"child model SentryApp, column owner_id, references Organization in the other silo",E
+S155,Sentry,src/sentry/integrations/slack/utils/notifications.py,300,"child model Action, column integration_id, references Integration in the other silo",T
+S156,GitLab,ee/lib/gitlab/ci/job_telemetry/span_emitter.rb,65,"child table job_environments, column ci_pipeline_id (association pipeline), references p_ci_pipelines in another database",FP
+S157,Sentry,src/sentry/tasks/auth/auth.py,117,"child model OrganizationMember, column user_id, references User in the other silo",FP
+S158,Sentry,src/sentry/issues/action_log/base.py,93,"child model ApiTokenReplica, column application_id, references ApiApplication in the other silo",T
+S159,Sentry,src/sentry/issues/endpoints/group_integrations.py,71,"child model ExternalIssue, column integration_id, references Integration in the other silo",FP
+S160,Sentry,src/sentry/seer/autofix/pr_iteration/reviewer_candidates.py,197,"child model ExternalActor, column user_id, references User in the other silo; child model GroupOwner, column user_id, references User in the other silo; child model SeerRun, column user_id, references User in the other silo",T
+S161,Sentry,src/sentry/api/serializers/models/organization_member/base.py,39,"child model OrganizationMember, column inviter_id, references User in the other silo",T
+S162,Sentry,src/sentry/api/serializers/models/organization_access_request.py,9,"child model OrganizationAccessRequest, column requester_id, references User in the other silo",T
+S163,Sentry,src/sentry/notifications/notification_action/issue_alert_registry/handlers/sentry_app_issue_alert_handler.py,95,"child model Action, column config.sentryAppInstallationUuid, references SentryAppInstallation in the other silo",E
+S164,GitLab,ee/app/workers/security/scan_result_policies/audit_warn_mode_group_protected_branches_overrides_worker.rb,30,"child table security_scan_profile_configurations, column namespace_id (association namespace), references namespaces in another database",FP
+S165,Sentry,src/sentry/models/organizationmember.py,407,"child model OrganizationMember, column user_id, references User in the other silo",T
+S166,GitLab,ee/app/models/dependencies/dependency_list_export.rb,122,"child table dependency_list_exports, column project_id (association project), references projects in another database",T
+S167,Sentry,src/sentry/sentry_apps/tasks/sentry_apps.py,544,"child model Activity, column user_id, references User in the other silo",FP
+S168,Sentry,src/sentry/notifications/notification_action/activity_registry/sentry_app.py,118,"child model Activity, column user_id, references User in the other silo",T
+S169,GitLab,ee/app/services/security/categories/update_service.rb,49,"child table security_categories, column namespace_id (association namespace), references namespaces in another database",E
+S170,Sentry,src/sentry/api/authentication.py,200,"child model ApiTokenReplica, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",FP
+S171,Sentry,src/sentry/integrations/github/integration.py,549,"child model OrganizationIntegration, column organization_id, references Organization in the other silo",E
+S172,Sentry,src/sentry/notifications/utils/participants.py,468,"child model GroupAssignee, column user_id, references User in the other silo; child model GroupSubscription, column user_id, references User in the other silo; child model OrganizationMember, column user_id, references User in the other silo",T
+S173,Sentry,src/sentry/api/endpoints/secret_scanning/github.py,128,"child model OrgAuthToken, column organization_id, references Organization in the other silo",T
+S174,Sentry,src/sentry/models/organizationaccessrequest.py,87,"child model OrganizationMember, column user_id, references User in the other silo",T
+S175,Sentry,src/sentry/notifications/api/serializers/notification_action_request.py,164,"child model Action, column integration_id, references Integration in the other silo; child model NotificationAction, column integration_id, references Integration in the other silo",FP
+S176,GitLab,ee/app/models/govern/policy.rb,89,"child table govern_policies, column namespace_id (association namespace), references namespaces in another database",T
+S177,Sentry,src/sentry/users/api/bases/user.py,126,"child model OrganizationMemberMapping, column organization_id, references Organization in the other silo",T
+S178,Sentry,src/sentry/integrations/utils/stacktrace_link.py,41,"child model RepositoryProjectPathConfig, column organization_integration_id, references OrganizationIntegration in the other silo",T
+S179,Sentry,src/sentry/integrations/api/bases/external_actor.py,179,"child model ExternalActor, column user_id, references User in the other silo",FP
+S180,Sentry,src/sentry/notifications/notification_action/types.py,405,"child model Action, column integration_id, references Integration in the other silo",T
+S181,GitLab,app/presenters/ml/candidate_details_presenter.rb,53,"child table ml_candidates, column ci_build_id (association ci_build), references p_ci_builds in another database",T

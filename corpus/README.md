@@ -1,4 +1,4 @@
-# Corpus (Section 6.2, Figure 3a)
+# Corpus (Sections 6.1 and 6.2, Figure 3a)
 
 | Paper | Produces the results | Numbers and figure from |
 |---|---|---|
@@ -6,11 +6,13 @@
 | Section 6.2, readers of the templates that need atomic visibility | reading of the code | `atomic_audit.md` |
 | Section 6.2, read-path audit (Sentry) | `readpath_probe.py`, `readpath_tolerance.py` | `readpath_audit.md`, `out/readpath_sites.json` |
 | Section 6.2, read-path audit (GitLab) | `gitlab_readpath_probe.py`, `gitlab_readpath_sample.py` | `gitlab_readpath_audit.md`, `gitlab_readpath_review.json` |
+| Sections 6.1 and 6.2, second annotator | `annotator/templates.csv`, `annotator/sites.csv` | `annotator/agreement.py` |
 
 The stored results reproduce the numbers of the paper without a database:
 
 ```bash
 python -I summarize.py
+cd annotator && python -I agreement.py
 ```
 
 The corpus consists of the cross-database write templates of GitLab (commit 9d4cbde6, 2026-10-15) and Sentry (commit 13ccaecc, 2026-10-16).
@@ -67,3 +69,15 @@ python -I gitlab_readpath_sample.py <gitlab> out/gitlab_readpath_probe.json 6 9 
 `atomic_audit.md` asks, for each of the 16 templates that need atomic visibility (G12, G13 and G14 of GitLab and 13 of Sentry), whether some reader relies on the copy agreeing with its source.
 It names, for each template, the reader with the most severe consequence and further readers by file and line (for GitLab file and line only), and what the reader decides.
 Each of the 16 templates has such a reader, and for 13 of them the reader decides authentication or authorization.
+
+## Second annotator (Sections 6.1 and 6.2)
+
+A second annotator, who saw neither our labels nor the paper, labelled the 97 templates and the 181 read-path sites of both audits (Sentry and the GitLab sample) independently from the instructions in `annotator/instructions.md`.
+`annotator/templates.csv` and `annotator/sites.csv` hold the returned labels, one per item, with the template or the code location.
+`annotator/agreement.py` compares them with our labels in `out/templates.csv`, `out/readpath_sites.json` (a batch fetch counts as tolerant) and `gitlab_readpath_review.json`: the annotator agrees with 85 of the 97 template labels (88%, kappa 0.71), on whether order suffices for 94 of the 97 (kappa 0.90), and with 93% of the verdicts on the 181 sites (kappa 0.88).
+The annotator labelled 8 templates `serial`, citing values read from another database that a concurrent update may change; Section 5.3 handles these conflicts with a lock, and the paper keeps our labels.
+
+```bash
+cd annotator
+python -I agreement.py
+```

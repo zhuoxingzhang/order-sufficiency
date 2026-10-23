@@ -1,0 +1,16 @@
+item,app,kind,origin,label,derived
+V12,openedx,event,LtiConsumer#destroy,order,no
+V01,saleor,event,Collection#destroy,order,no
+V02,saleor,event,Category#destroy,order,no
+V06,saleor,method,saleor/graphql/payment/mutations/transaction/transaction_process.py:180,atomic,yes
+V10,openedx,transaction,common/djangoapps/student/helpers.py:709,order,no
+V07,saleor,transaction,saleor/warehouse/reservations.py:58,none,no
+V14,openedx,method,openedx/core/djangoapps/course_groups/views.py:610,order,no
+V08,saleor,method,saleor/order/calculations.py:984,atomic,yes
+V11,openedx,event,CohortMembership#destroy,atomic,no
+V09,saleor,method,saleor/graphql/order/dataloaders.py:398,atomic,yes
+V05,saleor,transaction,saleor/checkout/utils.py:158,atomic,no
+V13,openedx,method,openedx/core/djangoapps/course_groups/views.py:653,order,no
+V03,saleor,event,ProductType#destroy,atomic,no
+V04,saleor,event,User#destroy,atomic,no
+V15,openedx,transaction,lms/djangoapps/instructor/views/api.py:2103,atomic,yes

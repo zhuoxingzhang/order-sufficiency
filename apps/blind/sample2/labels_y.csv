@@ -1,0 +1,10 @@
+item,app,kind,origin,label,derived
+Y01,discourse,event,GroupUser#create,atomic,yes
+Y09,discourse,method,plugins/discourse-ai/app/jobs/scheduled/sidebar_sections_locale_detection_backfill.rb:11,none,no
+Y07,discourse,method,app/jobs/scheduled/clean_up_unmatched_ips.rb:9,none,no
+Y06,discourse,method,lib/discourse_mcp/tools/private_messages.rb:178,none,no
+Y05,discourse,method,app/controllers/topics_controller.rb:80,atomic,yes
+Y08,discourse,method,app/models/topic_tag.rb:31,atomic,yes
+Y02,discourse,event,DiscourseSolved::SolvedTopic#create,order,no
+Y03,discourse,method,app/controllers/users_controller.rb:882,none,no
+Y04,discourse,method,app/models/category.rb:947,atomic,yes
